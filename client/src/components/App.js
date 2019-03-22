@@ -3,7 +3,6 @@ import Header from './Header';
 import List from './List';
 import Map from './Map';
 import "../styles/app.css";
-import { KEYS } from "../KEYS";
 
 const App = () => {
     return (
@@ -13,10 +12,7 @@ const App = () => {
                 <List />
                 <Map
                     isMarkerShown
-                    googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${KEYS}&v=3.exp&libraries=geometry,drawing,places`}
-                    loadingElement={<div style={{ height: `100%` }} />}
-                    containerElement={<div style={{ height: `90vh`, flexGrow: `3` }} />}
-                    mapElement={<div style={{ height: `100%` }} />}
+                    onIdle
                 />
             </div>
             

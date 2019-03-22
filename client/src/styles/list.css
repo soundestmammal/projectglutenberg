@@ -1,0 +1,5 @@
+.list-container {
+    flex-grow: 1;
+    background-color: peru;
+    height: 90vh;
+}

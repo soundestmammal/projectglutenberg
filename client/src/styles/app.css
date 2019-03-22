@@ -1,0 +1,8 @@
+/* These are the styles that are going to be used for the main page.
+They will later be refactored into the proper places. */
+
+.map-list-wrapper {
+    display: flex;
+    flex-direction: row;
+}
+

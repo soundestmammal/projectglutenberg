@@ -1,0 +1,28 @@
+.header {
+    margin: 0;
+    padding: 0;
+    height: 10vh;
+    width: 100%;
+    background-color: slategray;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.left-header {
+    background-color: aquamarine;
+    flex-grow: 1;
+    max-width: 50%;
+}
+
+.right-header {
+    background-color: orchid;
+    flex-grow: 1;
+    display: flex;
+    flex-direction:row;
+}
+
+.auth-header {
+    flex-grow: 1;
+}

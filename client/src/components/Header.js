@@ -8,13 +8,8 @@ const Header = () => {
                 <h3>Project Glutenberg</h3>
             </div>
             <div className="right-header">
-                <div className="empty-filler">
-                    .
-                </div>
-                <div className="auth-header">
                     <h5>Log in</h5>
                     <h5>Sign up</h5>
-                </div>
             </div>
         </div>
     )

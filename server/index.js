@@ -22,6 +22,12 @@ app.get('/', (req, res) => {
     res.send('<h1>Project Glutenberg</h1>');
 });
 
+app.get('/auth/google',
+    passport.authenticate('google', {
+        scope: ['profile', 'email']
+    })
+);
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Application is running on Port ${PORT}`);

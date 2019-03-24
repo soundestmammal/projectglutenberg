@@ -24,6 +24,8 @@ app.get('/auth/google',
     })
 );
 
+app.get('/auth/google/callback', passport.authenticate('google'));
+
 app.get('/', (req, res) => {
     res.send('<h1>Project Glutenberg</h1>');
 });

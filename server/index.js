@@ -10,7 +10,7 @@ passport.use(
         {
             clientID: keys.googleClientID,
             clientSecret: keys.googleClientSecret,
-            callbackURL: 'auth/google/callback'
+            callbackURL: '/auth/google/callback'
         },
         (accessToken) => {
             console.log(accessToken);
@@ -18,15 +18,15 @@ passport.use(
     )
 );
 
-app.get('/', (req, res) => {
-    res.send('<h1>Project Glutenberg</h1>');
-});
-
 app.get('/auth/google',
     passport.authenticate('google', {
         scope: ['profile', 'email']
     })
 );
+
+app.get('/', (req, res) => {
+    res.send('<h1>Project Glutenberg</h1>');
+});
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

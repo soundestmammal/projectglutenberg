@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
 
-class Google extends Component{
+class Google extends Component {
     state = {isSignedIn: false}
-
-    isSignedIn = () => {
-        if (!isSignedIn) {
-            
-        }
-    }
+    
     render() {
-        
+        return(
+            <div>This is a div</div>
+        ) 
     }
 }
 

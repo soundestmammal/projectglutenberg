@@ -9,6 +9,10 @@ require('./services/passport');
 mongoose.connect(keys.mongoURI);
 
 const app = express();
+
+// Tell Express that we want to use Cookies!
+// We provide a configuration object
+// maxAge is in Milliseconds
 app.use(
     cookieSession({
         maxAge: 30 * 24 * 60 * 60 * 1000,
@@ -16,6 +20,7 @@ app.use(
     })
 )
 
+// What do these do again? ... 
 app.use(passport.initialize());
 app.use(passport.session());
 

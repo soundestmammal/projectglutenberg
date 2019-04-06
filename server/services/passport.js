@@ -9,9 +9,13 @@ passport.serializeUser((user, done) => {
     done(null, user.id);
 });
 
+// Take the id we had previous stuffed in the cookie and do something
+// turn an id into a mongoose model instance
+
 passport.deserializeUser((id, done) => {
-    User.findById(id).then(user=> {
-        done(null, user);
+    User.findById(id)
+        .then(user=> {
+            done(null, user);
     });
 });
 

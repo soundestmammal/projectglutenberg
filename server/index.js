@@ -4,6 +4,10 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const app = express();
 const router = require('./router');
+const mongoose = require('mongoose');
+
+// Connect to the database
+require('./config/db');
 
 // App Setup
 app.use(morgan('combined')); // Middleware to log out requests

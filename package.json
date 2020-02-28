@@ -1,0 +1,25 @@
+{
+  "name": "projectglutenberg",
+  "version": "1.0.0",
+  "description": "projectglutenberg",
+  "main": "index.js",
+  "scripts": {
+    "server": "cd server && nodemon ./server/index.js",
+    "client": "cd client && npm start",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/soundestmammal/projectglutenberg.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/soundestmammal/projectglutenberg/issues"
+  },
+  "homepage": "https://github.com/soundestmammal/projectglutenberg#readme",
+  "dependencies": {
+    "concurrently": "^5.1.0"
+  }
+}

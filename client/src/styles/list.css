@@ -1,5 +1,10 @@
 .list-container {
     flex-grow: 1;
-    background-color: peru;
-    height: 90vh;
+    height: 100vh;
+}
+
+.listStyling {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
 }

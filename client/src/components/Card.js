@@ -3,13 +3,13 @@ import React from 'react';
 const styles = {
     container: {
         backgroundColor: 'white',
-        border: '1 px solid black',
+        border: '3px solid red',
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-around',
         alignItems: 'center',
         width: '100%',
-        height: '200px'
+        height: '100px'
     }
 }
 

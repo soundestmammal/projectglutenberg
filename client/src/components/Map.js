@@ -20,7 +20,7 @@ const Map = compose(
             this.setState({
                 bounds: null,
                 center: { 
-                    lat: 40.695, lng: -73.5
+                    lat: 37.39, lng: -122.08
                 },
                 markers: [],
                 onMapMounted: ref => {

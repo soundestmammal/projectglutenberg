@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import Home from './Home';
 import About from './About';
 import Header from './Header';
 import List from './List';
+import Auth from './Auth';
 import Map from './Map';
 import "../styles/app.css";
 
@@ -12,19 +13,29 @@ import "../styles/app.css";
   I wrapped my entire application in a Router tag so the entire application is right here. If I need to nest any routes then I can do that right here.
 */
 
-const App = () => {
+class App extends Component {
+
+  // fetchUserLocation = async () => {
+  //   const latitude = await window.navigator.getlocation.getCurrentLocation();
+  //   console.log(latitude);
+  // }
+
+  render() {
     return (
       <Router>
         <nav>
-          <ul>
+          <ul className="navigation">
             <li>
-              <Link to="/">Home</Link>
+              <Link to="/">Project Glutenberg</Link>
             </li>
             <li>
               <Link to="/about">About</Link>
             </li>
             <li>
               <Link to="/product">Product</Link>
+            </li>
+            <li>
+              <Link to="/auth">Sign in / Sign up</Link>
             </li>
           </ul>
         </nav>
@@ -37,6 +48,9 @@ const App = () => {
                 <Map
                     isMarkerShown
                     onIdle
+                    lat={37.39}
+                    lng={-122.08}
+                    fetchUserLocation={this.fetchUserLocation}
                 />
             </div>
         </div>
@@ -44,13 +58,17 @@ const App = () => {
           <Route path="/about">
             <About />
           </Route>
+          <Route>
+            <Auth />
+          </Route>
           <Route path="/">
             <Home />
           </Route>
         </Switch>
-         
+          
       </Router>
     );
+  }
 }
 
 export default App;

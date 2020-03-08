@@ -15,12 +15,16 @@ const Map = compose(
     }),
     lifecycle({
         componentWillMount() {
+
+            // This is from when I was fetching the users location to set center of map
+            // this.props.fetchUserLocation();
+
             const refs = {}
 
             this.setState({
                 bounds: null,
                 center: { 
-                    lat: 37.39, lng: -122.08
+                    lat: this.props.lat, lng: this.props.lng
                 },
                 markers: [],
                 onMapMounted: ref => {

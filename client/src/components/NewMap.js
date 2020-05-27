@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
+import { key } from '../KEYS';
 import "../styles/map.css";
 
 /*
@@ -28,7 +29,7 @@ class NewMap extends Component {
     if(this.props.loading) return null;
     return (
     <GoogleMapReact
-          bootstrapURLKeys={{ key: "AIzaSyDYm4f01et_SVTqQaamdKZ7CZBToAzwNq4" }}
+          bootstrapURLKeys={{ key: key}}
           defaultCenter={this.props.center}
           defaultZoom={this.props.zoom}
         >

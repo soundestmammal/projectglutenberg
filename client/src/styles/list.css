@@ -1,5 +1,12 @@
 .list-container {
+    overflow-y: auto;
     flex-grow: 1;
-    background-color: peru;
-    height: 90vh;
+    height: 700px;
+    width: 100%
+}
+
+.listStyling {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
 }

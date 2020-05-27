@@ -1,61 +1,34 @@
 const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const mongoose = require('mongoose');
+const User = require('../models/user');
 const keys = require('../config/keys');
 
-const User = mongoose.model('users');
+// What do we need this Passport JWT Strategy and ExtractJwt...
+// What does all of this mean?
+const JwtStrategy = require('passport-jwt').Strategy;
+const ExtractJwt = require('passport-jwt').ExtractJwt;
 
-passport.serializeUser((user, done) => {
-    done(null, user.id);
-});
+// Setup options for JWT Strategy
+const jwtOptions = {
+    jwtFromRequest: ExtractJwt.fromHeader('authorization'),
+    secretOrKey: keys.secret
+};
 
-// Take the id we had previous stuffed in the cookie and do something
-// turn an id into a mongoose model instance
+// Create JWT Strategy
+const jwtLogin = new JwtStrategy(jwtOptions, (payload, done) => {
+    // See if the user ID in the payload exists in our DB
+    // If it does then call "done"
+    
+    // If call done without a user object
+    User.findById(payload.sub, (err, user) => {
+        if (err) { return done(err, false); }
 
-passport.deserializeUser((id, done) => {
-    User.findById(id)
-        .then(user=> {
+        if (user) {
             done(null, user);
-    });
+        } else {
+            done(null, false);
+        }
+    })
 });
 
-passport.use(
-    new GoogleStrategy(
-        {
-            clientID: keys.googleClientID,
-            clientSecret: keys.googleClientSecret,
-            callbackURL: '/auth/google/callback'
-        },
-        (accessToken, refreshToken, profile, done) => {
-            User.findOne( {googleId: profile.id }).then((existingUser) => {
-                if (existingUser) {
-                    // What is the deal with this done? Is it a passport js thing?
-                    done(null, existingUser);
-                    console.log("This is an existing user");
-                } else {
-                    new User({ googleId: profile.id })
-                    .save()
-                    .then(user => {
-                        done(null, user);
-                    })
-                }
-            });
-        }
-    )
-);
-
-/* ?? What is the next step ??
-
-So far... we either make a new record or retrieve a new record.
-
-We need to generate an identifying information in a cookie (Kinda Complicated)
-
-1a) Log me in please
-1b) You appear to be user_xyz let me give you a token
-        call serializeUser(user) to generate the token and put it in the cookie
-2a) Client makes a request (gives the cookie in request)
-2b) Takes the cookie to deserialize the user. Identify the user.
-        Ah. It appears to be userxyz, let's give them what they are looking for.
-
-
-*/ 
+// Tell passport to use this strategy
+passport.use(jwtLogin);

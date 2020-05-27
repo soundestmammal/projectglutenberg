@@ -1,32 +1,26 @@
 const express = require('express');
+const http = require('http');
+const bodyParser = require('body-parser');
+const morgan = require('morgan');
 const mongoose = require('mongoose');
-const cookieSession = require('cookie-session');
-const passport = require('passport');
-const keys = require('./config/keys');
-require('./models/User');
-require('./services/passport');
-
-mongoose.connect(keys.mongoURI);
+const cors = require('cors');
 
 const app = express();
+app.use(cors());
 
-// Tell Express that we want to use Cookies!
-// We provide a configuration object
-// maxAge is in Milliseconds
-app.use(
-    cookieSession({
-        maxAge: 30 * 24 * 60 * 60 * 1000,
-        keys: [keys.cookieKey]
-    })
-)
+const router = require('./router');
+// Connect to the database
+require('./config/db');
 
-// What do these do again? ... 
-app.use(passport.initialize());
-app.use(passport.session());
+// App Setup
+app.use(morgan('combined')); // Middleware to log out requests
+app.use(bodyParser.json({ type: '*/*' })); // Middleware to ???
+router(app);
 
-require('./routes/authRoutes')(app);
+// Server Setup
+const PORT = process.env.PORT || 3090;
+const server = http.createServer(app); // library for working with http requests.
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-    console.log(`Application is running on Port ${PORT}`);
+server.listen(PORT, () => {
+    console.log(`Server listening on PORT ${PORT}`);
 });

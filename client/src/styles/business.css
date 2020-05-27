@@ -1,0 +1,87 @@
+.business-container {
+    border: 2px solid purple;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.business-left {
+    max-width: 715px;
+    padding-right: 50px;
+}
+
+.business-content {
+    max-width: 1200px;
+    padding: 0px 40px;
+    margin: 0 auto;
+    border: 3px solid red;
+}
+
+.business-title {
+    font-size: 3em;
+    font-weight: bold;
+    font-family: sans-serif;
+}
+
+.covid-update {
+    background-color: rgba(10,179,201,.1);
+    max-width: 650px;
+    border-left: 8px solid #0ab3c9;
+    padding: 8px 16px 8px 32px;
+}
+
+.business-button {
+    color: #2b273c;
+    border: 1px solid#2b273c;
+    padding: 8px 16px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    border-radius: 4px;
+    font-size: larger;
+    text-decoration: none;
+}
+
+.business-interaction {
+    display: flex;
+    flex-direction: row;
+    margin: 24px 0px;
+}
+
+.business-review {
+    border: 1px solid red;
+}
+
+.business-review-card {
+    display: flex;
+    flex-direction: row;
+    width: 650px;
+    border: 2px solid greenyellow;
+    height: 60px;
+    margin-bottom: 12px;
+}
+
+.business-review-image {
+    height: 60px;
+    width: 60px;
+}
+
+.business-location {
+    border: 1px solid salmon;
+}
+
+.business-location-information {
+    display: flex;
+    flex-direction: row;
+}
+
+.business-minimap {
+    height: 200px;
+    width: 300px;
+    background: green;
+}
+
+.business-hours-container {
+    display: flex;
+    flex-direction: column;
+}

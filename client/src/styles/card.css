@@ -1,0 +1,31 @@
+.container {
+    padding: 24px 0;
+    background-color: powderblue;
+    border: 3px solid palevioletred;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 250px;
+    box-sizing: border-box;
+}
+
+.image {
+    border: 3px solid orange;
+    margin: 0 24px;
+}
+
+.info {
+    border: 3px solid purple;
+    flex-grow: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100%;
+}
+
+.restaurant-title {
+    font-weight: bold;
+    font-size: 1.5em;
+}

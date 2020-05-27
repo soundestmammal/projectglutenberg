@@ -17,7 +17,6 @@ const Map = compose(
         componentWillMount() {
 
             // This is from when I was fetching the users location to set center of map
-            // this.props.fetchUserLocation();
 
             const refs = {}
 
@@ -60,6 +59,7 @@ const Map = compose(
                         center: nextCenter,
                         markers: nextMarkers,
                     });
+                    // Future developer: Why is this highlighted? Can it be removed?
                     // refs.map.fitBounds(bounds);
                 },
             })
@@ -68,6 +68,7 @@ const Map = compose(
     withScriptjs,
     withGoogleMap
     )((props) => {
+        if(props.loading) return null;
         return (
             <GoogleMap
                 ref={props.onMapMounted}

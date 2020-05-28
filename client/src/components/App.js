@@ -90,15 +90,6 @@ class App extends Component {
   componentDidMount() {
     // I did this because I can only run the getYelp data once I get the lat and long
     this.getLocation().then(this.getYelpData);
-    // let self = this;
-    // window.navigator.geolocation.getCurrentPosition((position) => {
-    //   // const { latitude, longitude } = position.coords;
-    //   console.log("Line 30", position.coords.latitude);
-    //   console.log("Line 31", position.coords.longitude);
-    //   self.setState({ lat: position.coords.latitude, long: position.coords.longitude });
-    //   self.setState({ loading: false });
-    //   self.getYelpData();
-    // }, this.errorCallback, {timeout:10000, enableHighAccuracy: true});
   }
 
   render() {
@@ -123,6 +114,7 @@ class App extends Component {
                     center={this.returnCenter()}
                     loading={this.state.loading}
                     restaurants={this.state.restaurants}
+                    currentRestaurant={this.state.currentRestaurant}
                   />
               </div>
           </Route>
@@ -137,6 +129,16 @@ class App extends Component {
             <Business 
               rest={this.state.currentRestaurantData}
             />
+          </Route>
+          <Route path="/signup">
+            <div style={{margin: 0, padding: 0}}>
+              <NavBar 
+                value={this.state.searchbox}
+                submit={this.handleSubmit}
+                change={this.handleChange}
+              />
+              <div>This is the auth page!</div>
+            </div>
           </Route>
       </Switch>  
     </div>

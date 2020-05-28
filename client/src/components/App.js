@@ -17,6 +17,7 @@ class App extends Component {
       loading: true,
       restaurants: [],
       searchbox: '',
+      searchLocation: '',
       currentRestaurant: '',
       currentRestaurantData: null
     }
@@ -60,7 +61,12 @@ class App extends Component {
 
   // handleChange & handleSubmit are used in the searchbar feature of NavBar component
   handleChange = (e) => {
-    this.setState({ searchbox: e.target.value })
+    this.setState({ searchbox: e.target.value });
+  }
+
+  handleLocationChange = (e) => {
+    this.setState({ searchLocation: e.target.value });
+    console.log(this.state.searchLocation);
   }
 
   handleSubmit = (e) => {
@@ -102,6 +108,8 @@ class App extends Component {
               value={this.state.searchbox}
               submit={this.handleSubmit}
               change={this.handleChange}
+              location={this.state.searchLocation}
+              changeLocation={this.handleLocationChange}
             />
           </div>
             <div className="map-list-wrapper">

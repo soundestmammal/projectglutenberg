@@ -4,5 +4,4 @@ They will later be refactored into the proper places. */
 .map-list-wrapper {
     display: flex;
     flex-direction: row;
-    border: 5px solid pink;
 }

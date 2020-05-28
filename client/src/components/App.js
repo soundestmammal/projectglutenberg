@@ -114,6 +114,7 @@ class App extends Component {
                     center={this.returnCenter()}
                     loading={this.state.loading}
                     restaurants={this.state.restaurants}
+                    currentRestaurant={this.state.currentRestaurant}
                   />
               </div>
           </Route>

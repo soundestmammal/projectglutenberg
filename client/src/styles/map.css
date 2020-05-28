@@ -3,11 +3,31 @@
     height: 90vh;
 } */
 
+.map-container {
+  height: calc(100vh - 100px);
+  width: 75%;
+}
+
 .pin {
   width: 30px;
   height: 30px;
   border-radius: 50% 50% 50% 0;
-  background: palevioletred;
+  background: rgb(8, 5, 177);
+  position: absolute;
+  transform: rotate(-45deg);
+  left: 50%;
+  top: 50%;
+  margin: -20px 0 0 -20px;
+  animation-name: bounce;
+  animation-fill-mode: both;
+  animation-duration: 1s;
+}
+
+.pin-highlighted {
+  width: 30px;
+  height: 30px;
+  border-radius: 50% 50% 50% 0;
+  background: rgb(5, 177, 34);
   position: absolute;
   transform: rotate(-45deg);
   left: 50%;

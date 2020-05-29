@@ -32,21 +32,22 @@ const userSchema = new Schema(
             }
         }
         /* I am going to want to have tokens here. probably stored as an array */
-    });
+    }
+);
 
 // On save hook, encrypt password!!!
 // Before saving a model, run this function.
-userSchema.pre('save', async function(next) {
-    const user = this;
+// userSchema.pre('save', async function(next) {
+//     const user = this;
 
-    if(user.isModified('password')) {
-        user.password = await bcrypt.hash(user.password, 8);
-    }
-    next();
-});
+//     if(user.isModified('password')) {
+//         user.password = await bcrypt.hash(user.password, 8);
+//     }
+//     next();
+// });
 
 // Create the model class
-const User = new mongoose.model('user', userSchema);
+const User = mongoose.model('User', userSchema);
 
 // Export the model
 module.exports = User;

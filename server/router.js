@@ -1,17 +1,17 @@
-const Authentication = require('./controllers/authentication');
-const passportService = require('./services/passport');
-const passport = require('passport');
+// const Authentication = require('./controllers/authentication');
+// const passportService = require('./services/passport');
+// const passport = require('passport');
 const axios = require('axios');
 const { yelp } = require('./config/keys');
+const User = require('./models/User');
 
 // require auth, is the helper function to "hey are you authenticated"
-const requireAuth = passport.authenticate('jwt', { session: false });
+// const requireAuth = passport.authenticate('jwt', { session: false });
 
 module.exports = function (app) {
-    app.get('/', requireAuth, (req, res) => {
+    app.get('/', (req, res) => {
         res.send({ hey: "there" });
     });
-    app.post('/signup', Authentication.signup );
 
     app.get('/yelp', async(req, res) => {
         let lat = req.query.latitude;
@@ -45,4 +45,19 @@ module.exports = function (app) {
         const response = await axios.get(`https://api.yelp.com/v3/businesses/${req.params.id}`, options);
         res.send(response.data);
     })
+
+    /* Routes for user requests */
+    app.post('/users', async(req, res) => {
+        console.log("This is the /users post route");
+        const user = new User(req.body);
+
+        try {
+            await user.save();
+            res.status(201).send({ user });
+        } catch(e) {
+            res.status(400).send(e);
+        }
+    });
+
+
 }

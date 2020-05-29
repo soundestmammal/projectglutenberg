@@ -8,9 +8,11 @@ const cors = require('cors');
 const app = express();
 app.use(cors());
 
-const router = require('./router');
 // Connect to the database
 require('./config/db');
+
+const router = require('./router');
+
 
 // App Setup
 app.use(morgan('combined')); // Middleware to log out requests

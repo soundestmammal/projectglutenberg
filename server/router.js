@@ -47,6 +47,8 @@ module.exports = function (app) {
     })
 
     /* Routes for user requests */
+
+    // Create a new user - signup
     app.post('/users', async(req, res) => {
         console.log("This is the /users post route");
         const user = new User(req.body);
@@ -60,5 +62,16 @@ module.exports = function (app) {
         }
     });
 
+    // Authenticate an existing user - login
+    app.post('/users/login', async (req, res) => {
+        try {
+            // find the user
+            const user = await User.findByCredentials(req.body.email, req.body.password);
+            const token = await user.generateAuthToken();
 
+            res.send({ user, token });
+        } catch(e) {
+            res.status(400).send();
+        }
+    });
 }

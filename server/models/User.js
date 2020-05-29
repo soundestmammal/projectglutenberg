@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
-const bcrypt = require('bcrypt-nodejs');
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const Schema = mongoose.Schema;
 
@@ -37,14 +37,15 @@ const userSchema = new Schema(
 
 // On save hook, encrypt password!!!
 // Before saving a model, run this function.
-// userSchema.pre('save', async function(next) {
-//     const user = this;
+userSchema.pre('save', async function(next) {
+    const user = this;
 
-//     if(user.isModified('password')) {
-//         user.password = await bcrypt.hash(user.password, 8);
-//     }
-//     next();
-// });
+    if(user.isModified('password')) {
+        user.password = await bcrypt.hash(user.password, 8);
+    }
+
+    next();
+});
 
 // Create the model class
 const User = mongoose.model('User', userSchema);

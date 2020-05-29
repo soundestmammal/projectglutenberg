@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const { jwtSecret } = require('../config/keys');
 const Schema = mongoose.Schema;
 
 // Define the User Model
@@ -30,10 +31,35 @@ const userSchema = new Schema(
                     throw new Error("Password can not be included in PW");
                 }
             }
-        }
+        },
         /* I am going to want to have tokens here. probably stored as an array */
+        tokens: [
+            {
+                token: {
+                    type: String,
+                    required: true,
+                }
+            }
+        ],
     }
 );
+
+// I need to generate an auth token and save it in the user model!
+userSchema.methods.generateAuthToken = async function() {
+    const user = this;
+
+    // get a token
+    const token = jwt.sign({_id: user.id.toString() }, jwtSecret);
+
+    // add that token to the user model
+    user.tokens = user.tokens.concat({ token });
+
+    // save the user model
+    await user.save();
+
+    // return the token
+    return token;
+}
 
 // On save hook, encrypt password!!!
 // Before saving a model, run this function.

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
-import Button from './Button';
+// import Button from './Button';
 import "../styles/auth.css"
 
 class Auth extends Component {
@@ -36,7 +36,7 @@ class Auth extends Component {
                     <span className="auth-title">Sign in</span>
                     <input type="text" placeholder="Email Address" value={this.state.email} onChange={this.handleChangeEmail} />
                     <input type="password" placeholder="Password" value={this.state.password} onChange={this.handleChangePassword} />
-                    <Button className="auth-button" text="SIGN IN" submit={this.submitAuthRequest} />
+                    <button className="auth-button" text="SIGN IN" onClick={() => this.props.trythis(this.state.email, this.state.password)} />
                     <div className="auth-troubleshoot">
                         <Link style={{textDecoration: 'none'}}>Forgot Password</Link>
                         <Link style={{textDecoration: 'none'}}>Don't have an account? Sign Up</Link>

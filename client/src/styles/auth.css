@@ -43,6 +43,8 @@
     margin: 24px 0px 16px 0px;
     background-color: #17252A;
     color: midnightblue;
+    height: 50px;
+    color: white;
 }
 
 .auth-troubleshoot {

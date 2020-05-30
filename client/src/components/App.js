@@ -8,6 +8,7 @@ import NewMap from './NewMap';
 import NavBar from './NavBar';
 import Business from './Business';
 import Auth from './Auth';
+import Feature from './Feature';
 import "../styles/app.css";
 library.add(fas);
 
@@ -111,14 +112,21 @@ class App extends Component {
   */
 
   submitUserSignup = async (email, password) => {
-    console.log("This is the submitusersignup");
-    const response = await axios.post(`http://localhost:3090/users`, { "email": email, "password": password });
-    console.log(response);
+    try {
+        const response = await axios.post(`http://localhost:3090/users`, { "email": email, "password": password });
+        this.setState({ uuid: response.data.user._id, token: response.data.token });
+        localStorage.setItem('token', response.data.token);
+      // Once I set the state, I want to send the user to another page
+    } catch(e) {
+      console.log(e);
+    }
+    
   }
 
   componentDidMount() {
     // I did this because I can only run the getYelp data once I get the lat and long
     this.getLocation().then(this.getYelpData);
+    this.setState({ token: localStorage.getItem('token')})
   }
 
   render() {
@@ -172,6 +180,12 @@ class App extends Component {
                 trythis={this.submitUserSignup}
               />
             </div>
+          </Route>
+          <Route>
+            <Feature 
+              uuid={this.state.uuid}
+              token={this.state.token}
+            />
           </Route>
       </Switch>  
     </div>

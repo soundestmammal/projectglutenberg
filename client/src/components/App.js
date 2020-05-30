@@ -73,7 +73,6 @@ class App extends Component {
 
   handleLocationChange = (e) => {
     this.setState({ searchLocation: e.target.value });
-    console.log(this.state.searchLocation);
   }
 
   handleSubmit = (e) => {
@@ -100,27 +99,14 @@ class App extends Component {
     console.log(this.state.currentRestaurant);
   }
 
-  /* 
-    I have to do a sequence of things.
-
-    1. I need to pass a function to the auth component for when I want to submit
-    2. I need to call that funciton in the auth component
-    3. I need to hit the correct route
-    4. I need to pass the correct information to the api
-    5. I need to receive the response
-    6. I need to setState for uuid and token
-  */
-
   submitUserSignup = async (email, password) => {
     try {
         const response = await axios.post(`http://localhost:3090/users`, { "email": email, "password": password });
         this.setState({ uuid: response.data.user._id, token: response.data.token });
         localStorage.setItem('token', response.data.token);
-      // Once I set the state, I want to send the user to another page
     } catch(e) {
       console.log(e);
     }
-    
   }
 
   componentDidMount() {

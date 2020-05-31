@@ -17,7 +17,9 @@ class Auth extends Component {
     }
 
     onSubmit = () => {
-        this.props.signup(this.state.email, this.state.password);
+        this.props.signup(this.state.email, this.state.password, () => {
+            this.setState({ toDashboard: true });
+        });
     }
 
     handleChangeEmail = (e) => {
@@ -47,6 +49,7 @@ class Auth extends Component {
                     <input type="text" placeholder="Email Address" value={this.state.email} onChange={this.handleChangeEmail} />
                     <input type="password" placeholder="Password" value={this.state.password} onChange={this.handleChangePassword} />
                     {/* <button className="auth-button" text="SIGN IN" onClick={() => this.props.trythis(this.state.email, this.state.password).then( this.setState({toDashboard: true}))}>Submit!!!</button> */}
+                    <div>{this.props.errorMessage}</div>
                     <button className="auth-button" text="SIGN IN" onClick={() => this.onSubmit()} >Submit!!!</button>
                     <div className="auth-troubleshoot">
                         <Link style={{textDecoration: 'none'}}>Forgot Password</Link>
@@ -58,4 +61,8 @@ class Auth extends Component {
     }
 }
 
-export default connect(null, actions)(Auth);
+function mapStateToProps(state) {
+    return { errorMessage: state.auth.errorMessage };
+}
+
+export default connect(mapStateToProps, actions)(Auth);

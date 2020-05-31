@@ -9,6 +9,7 @@ import NavBar from './NavBar';
 import Business from './Business';
 import Auth from './Auth';
 import Profile from './Profile';
+import Signout from './Signout';
 import "../styles/app.css";
 library.add(fas);
 
@@ -166,12 +167,13 @@ class App extends Component {
               />
             </div>
           </Route>
-          <Route>
+          <Route path="/profile">
             <Profile 
               uuid={this.state.uuid}
               token={this.state.token}
             />
           </Route>
+          <Route path="/signout" component={Signout} />
       </Switch>  
     </div>
     );

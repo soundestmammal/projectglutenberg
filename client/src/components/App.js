@@ -8,7 +8,7 @@ import NewMap from './NewMap';
 import NavBar from './NavBar';
 import Business from './Business';
 import Auth from './Auth';
-import Feature from './Feature';
+import Profile from './Profile';
 import "../styles/app.css";
 library.add(fas);
 
@@ -103,7 +103,7 @@ class App extends Component {
     try {
         const response = await axios.post(`http://localhost:3090/users`, { "email": email, "password": password });
         this.setState({ uuid: response.data.user._id, token: response.data.token });
-        localStorage.setItem('token', response.data.token);
+        // localStorage.setItem('token', response.data.token);
     } catch(e) {
       console.log(e);
     }
@@ -112,7 +112,6 @@ class App extends Component {
   componentDidMount() {
     // I did this because I can only run the getYelp data once I get the lat and long
     this.getLocation().then(this.getYelpData);
-    this.setState({ token: localStorage.getItem('token')})
   }
 
   render() {
@@ -168,7 +167,7 @@ class App extends Component {
             </div>
           </Route>
           <Route>
-            <Feature 
+            <Profile 
               uuid={this.state.uuid}
               token={this.state.token}
             />

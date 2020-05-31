@@ -38,7 +38,7 @@ class Auth extends Component {
 
     render() {
         if(this.state.toDashboard === true) {
-            return <Redirect to="/feature" />
+            return <Redirect to="/profile" />
         }
 
         return(

@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import * as actions from '../actions/index';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Redirect, Link } from 'react-router-dom';
 // import Button from './Button';
@@ -12,6 +14,10 @@ class Auth extends Component {
             password: '',
             toDashboard: false
         }
+    }
+
+    onSubmit = () => {
+        this.props.signup(this.state.email, this.state.password);
     }
 
     handleChangeEmail = (e) => {
@@ -40,7 +46,8 @@ class Auth extends Component {
                     <span className="auth-title">Sign in</span>
                     <input type="text" placeholder="Email Address" value={this.state.email} onChange={this.handleChangeEmail} />
                     <input type="password" placeholder="Password" value={this.state.password} onChange={this.handleChangePassword} />
-                    <button className="auth-button" text="SIGN IN" onClick={() => this.props.trythis(this.state.email, this.state.password).then( this.setState({toDashboard: true}))}>Submit!!!</button>
+                    {/* <button className="auth-button" text="SIGN IN" onClick={() => this.props.trythis(this.state.email, this.state.password).then( this.setState({toDashboard: true}))}>Submit!!!</button> */}
+                    <button className="auth-button" text="SIGN IN" onClick={() => this.onSubmit()} >Submit!!!</button>
                     <div className="auth-troubleshoot">
                         <Link style={{textDecoration: 'none'}}>Forgot Password</Link>
                         <Link style={{textDecoration: 'none'}}>Don't have an account? Sign Up</Link>
@@ -51,4 +58,4 @@ class Auth extends Component {
     }
 }
 
-export default Auth;
+export default connect(null, actions)(Auth);

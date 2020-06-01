@@ -68,8 +68,7 @@ module.exports = function (app) {
             // find the user
             const user = await User.findByCredentials(req.body.email, req.body.password);
             const token = await user.generateAuthToken();
-
-            res.send({ user, token });
+            res.status(201).send({ user, token });
         } catch(e) {
             res.status(400).send();
         }

@@ -24,3 +24,18 @@ export const signout = () => {
         payload: ""
     }
 }
+
+export const signin = (email, password, callback) => async dispatch => {
+    try {
+        const response = await axios.post('http://localhost:3090/users/login', {
+            'email': email,
+            'password': password
+        });
+        dispatch({ type: AUTH_USER, payload: response.data.token });
+        localStorage.setItem('token', response.data.token);
+        console.log("Inside the signin action creator");
+        callback();
+    } catch(e) {
+        dispatch({ type: AUTH_ERROR, payload: "Invalid Credentials" });
+    }
+}

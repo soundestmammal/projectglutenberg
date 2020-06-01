@@ -4,9 +4,13 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const auth = require('./middleware/auth');
 
 const app = express();
-app.use(cors());
+
+app.use(cors({
+    origin: '*'
+}));
 
 // Connect to the database
 require('./config/db');

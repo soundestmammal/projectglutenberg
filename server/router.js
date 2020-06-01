@@ -1,17 +1,10 @@
-// const Authentication = require('./controllers/authentication');
-// const passportService = require('./services/passport');
-// const passport = require('passport');
 const axios = require('axios');
+const cors = require('cors');
 const { yelp } = require('./config/keys');
 const User = require('./models/User');
-
-// require auth, is the helper function to "hey are you authenticated"
-// const requireAuth = passport.authenticate('jwt', { session: false });
+const auth = require('./middleware/auth');
 
 module.exports = function (app) {
-    app.get('/', (req, res) => {
-        res.send({ hey: "there" });
-    });
 
     app.get('/yelp', async(req, res) => {
         let lat = req.query.latitude;
@@ -44,7 +37,19 @@ module.exports = function (app) {
         }
         const response = await axios.get(`https://api.yelp.com/v3/businesses/${req.params.id}`, options);
         res.send(response.data);
-    })
+    });
+
+    // Forward for forward geocoding. The process of providing a string and receiving the gps information of a location
+    // @ params from req.body
+    // app.get('/forward', async(req, res) => {
+    //     const { lat, lng, location } = req.body;
+    //     const response = await axios.get(`https://api.opencagedata.com/geocode/v1/json?q=${location}&proximity=${lat},${lng}&key=${openCage}`);
+    //     const returnMe = [];
+    //     for(let i = 0; i < response.data.results.length; i++) {
+    //         returnMe.push(response.data.results[i].formatted);
+    //     }
+    //     res.send(returnMe);
+    // })
 
     /* Routes for user requests */
 
@@ -73,4 +78,17 @@ module.exports = function (app) {
             res.status(400).send();
         }
     });
+
+    app.post('/users/logout', auth, async (req, res) => {
+        try {
+            req.user.tokens = req.user.tokens.filter((token) => {
+                return token.token !== req.token;
+            });
+            await req.user.save();
+            console.log("I successfully logged out a user");
+            res.status(201).send({text: "Success"});
+        } catch (e) {
+            res.status(500).send();
+        }
+    })
 }

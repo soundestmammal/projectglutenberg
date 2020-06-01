@@ -5,11 +5,10 @@ import * as actions from '../actions';
 class Signout extends Component {
 
     componentDidMount() {
-        this.props.signout();
+        this.props.signout(this.props.auth);
     }
 
     render() {
-        console.log(this.props.auth);
         return <div>Sorry to see you go!</div>;
     }
 }

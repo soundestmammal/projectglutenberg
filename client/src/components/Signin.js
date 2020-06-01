@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions/index';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Redirect } from 'react-router-dom';
-// import Button from './Button';
+import { Redirect, Link } from 'react-router-dom';
 import "../styles/auth.css"
 
-class Auth extends Component {
+class Signin extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -16,8 +15,9 @@ class Auth extends Component {
         }
     }
 
-    onSubmit = () => {
-        this.props.signup(this.state.email, this.state.password, () => {
+    attemptSignin = () => {
+        this.props.signin(this.state.email, this.state.password, () => {
+            console.log("Inside the callback1");
             this.setState({ toDashboard: true });
         });
     }
@@ -32,25 +32,25 @@ class Auth extends Component {
         console.log(this.state.password)
     }
 
-    submitAuthRequest = () => {
-        console.log("This is the auth request", this.state.email, this.state.password);
-    }
-
     render() {
         if(this.state.toDashboard === true) {
-            return <Redirect to="/profile" />
+            return <Redirect to="/" />
         }
 
         return(
             <div className="auth-wrapper">
                 <div className="auth-container">
                     <div className="auth-lock"><FontAwesomeIcon size="2x" icon={['fas', 'lock']}/></div>
-                    <span className="auth-title">Sign up</span>
+                    <span className="auth-title">Sign in</span>
                     <input type="text" placeholder="Email Address" value={this.state.email} onChange={this.handleChangeEmail} />
                     <input type="password" placeholder="Password" value={this.state.password} onChange={this.handleChangePassword} />
                     {/* <button className="auth-button" text="SIGN IN" onClick={() => this.props.trythis(this.state.email, this.state.password).then( this.setState({toDashboard: true}))}>Submit!!!</button> */}
                     <div>{this.props.errorMessage}</div>
-                    <button className="auth-button" text="SIGN IN" onClick={() => this.onSubmit()} >Sign Up</button>
+                    <button className="auth-button" text="SIGN IN" onClick={() => this.attemptSignin()} >Submit!!!</button>
+                    <div className="auth-troubleshoot">
+                        <Link style={{textDecoration: 'none'}}>Forgot Password</Link>
+                        <Link style={{textDecoration: 'none'}}>Don't have an account? Sign Up</Link>
+                    </div>
                 </div>
             </div>
         );
@@ -61,4 +61,4 @@ function mapStateToProps(state) {
     return { errorMessage: state.auth.errorMessage };
 }
 
-export default connect(mapStateToProps, actions)(Auth);
+export default connect(mapStateToProps, actions)(Signin);

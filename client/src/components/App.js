@@ -10,6 +10,7 @@ import Business from './Business';
 import Auth from './Auth';
 import Profile from './Profile';
 import Signout from './Signout';
+import Signin from './Signin';
 import "../styles/app.css";
 library.add(fas);
 
@@ -173,7 +174,23 @@ class App extends Component {
               token={this.state.token}
             />
           </Route>
-          <Route path="/signout" component={Signout} />
+          
+          <Route path="/signin">
+            <NavBar 
+                  value={this.state.searchbox}
+                  submit={this.handleSubmit}
+                  change={this.handleChange}
+                />
+            <Signin />
+          </Route>
+          <Route path="/signout">
+            <NavBar 
+              value={this.state.searchbox}
+              submit={this.handleSubmit}
+              change={this.handleChange}
+            />
+            <Signout />
+          </Route>
       </Switch>  
     </div>
     );

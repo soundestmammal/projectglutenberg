@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import axios from 'axios';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';
 import List from './List';
 import NewMap from './NewMap';
 import NavBar from './NavBar';
 import Business from './Business';
+import Auth from './Auth';
+import Profile from './Profile';
+import Signout from './Signout';
+import Signin from './Signin';
 import "../styles/app.css";
+library.add(fas);
 
 class App extends Component {
 
@@ -19,7 +26,9 @@ class App extends Component {
       searchbox: '',
       searchLocation: '',
       currentRestaurant: '',
-      currentRestaurantData: null
+      currentRestaurantData: null, 
+      uuid: null,
+      token: null,
     }
   }
 
@@ -34,15 +43,15 @@ class App extends Component {
   getYelpData = async () => {
     if(!this.state.loading) {
       const response = await axios.get(`http://localhost:3090/yelp/?latitude=${this.state.lat}&longitude=${this.state.long}&searchbox=${this.state.searchbox}`);
-      console.log("This is the response from the GET /yelp api call ",response);
+      console.log("This is the response from the GET /yelp api call ", response);
       this.setState({ restaurants: response.data });
     }
   }
 
   /* 
-      The Map component must be provided an object that contains the center coordinates for the map.
-      This function packages loosely held state into a clean predictable data structure.
-      { lat: Number, lng: Number }
+    The Map component must be provided an object that contains the center coordinates for the map.
+    This function packages loosely held state into a clean predictable data structure.
+    { lat: Number, lng: Number }
   */
   returnCenter = () => {
     const lat = this.state.lat;
@@ -53,7 +62,7 @@ class App extends Component {
     return center;
   }
 
-  // I am using ip-api because the window.geolocation was not reliable.
+  // Why: I use ip-api.com because the window.geolocation was not reliable
   getLocation = async () => {
     const response = await axios.get("http://ip-api.com/json");
     this.setState({ lat: response.data.lat, long: response.data.lon, loading: false })
@@ -66,7 +75,6 @@ class App extends Component {
 
   handleLocationChange = (e) => {
     this.setState({ searchLocation: e.target.value });
-    console.log(this.state.searchLocation);
   }
 
   handleSubmit = (e) => {
@@ -84,13 +92,23 @@ class App extends Component {
 
     // Request to my express server for the specific business information
     const response = await axios.get(`http://localhost:3090/yelp/business/${this.state.currentRestaurant}`);
-
     this.setState({ currentRestaurantData: response.data});
   }
 
   // This is the function that runs when I hover
   setCurrentRestaurant = (key) => {
     this.setState({ currentRestaurant: key });
+    console.log(this.state.currentRestaurant);
+  }
+
+  submitUserSignup = async (email, password) => {
+    try {
+        const response = await axios.post(`http://localhost:3090/users`, { "email": email, "password": password });
+        this.setState({ uuid: response.data.user._id, token: response.data.token });
+        // localStorage.setItem('token', response.data.token);
+    } catch(e) {
+      console.log(e);
+    }
   }
 
   componentDidMount() {
@@ -103,30 +121,30 @@ class App extends Component {
       <div>
         <Switch>
           <Route exact path="/">
-          <div style={{margin: 0, padding: 0}}>
-            <NavBar 
-              value={this.state.searchbox}
-              submit={this.handleSubmit}
-              change={this.handleChange}
-              location={this.state.searchLocation}
-              changeLocation={this.handleLocationChange}
-            />
-          </div>
+            <div style={{margin: 0, padding: 0}}>
+              <NavBar 
+                value={this.state.searchbox}
+                submit={this.handleSubmit}
+                change={this.handleChange}
+                location={this.state.searchLocation}
+                changeLocation={this.handleLocationChange}
+              />
+            </div>
             <div className="map-list-wrapper">
-                  <List 
-                    restaurants={this.state.restaurants}
-                    hover={this.setCurrentRestaurant}
-                    navigate={this.handleRestaurantSelection}
-                  />
-                  <NewMap
-                    center={this.returnCenter()}
-                    loading={this.state.loading}
-                    restaurants={this.state.restaurants}
-                    currentRestaurant={this.state.currentRestaurant}
-                  />
-              </div>
+              <List 
+                restaurants={this.state.restaurants}
+                hover={this.setCurrentRestaurant}
+                navigate={this.handleRestaurantSelection}
+              />
+              <NewMap
+                center={this.returnCenter()}
+                loading={this.state.loading}
+                restaurants={this.state.restaurants}
+                currentRestaurant={this.state.currentRestaurant}
+              />
+            </div>
           </Route>
-          <Route path={`/biz/${this.state.currentRestaurant}`}>
+        <Route path={`/biz/${this.state.currentRestaurant}`}>
           <div style={{margin: 0, padding: 0}}>
             <NavBar 
               value={this.state.searchbox}
@@ -138,15 +156,40 @@ class App extends Component {
               rest={this.state.currentRestaurantData}
             />
           </Route>
-          <Route path="/signup">
+          <Route path="/auth">
             <div style={{margin: 0, padding: 0}}>
               <NavBar 
                 value={this.state.searchbox}
                 submit={this.handleSubmit}
                 change={this.handleChange}
               />
-              <div>This is the auth page!</div>
+              <Auth 
+                trythis={this.submitUserSignup}
+              />
             </div>
+          </Route>
+          <Route path="/profile">
+            <Profile 
+              uuid={this.state.uuid}
+              token={this.state.token}
+            />
+          </Route>
+          
+          <Route path="/signin">
+            <NavBar 
+                  value={this.state.searchbox}
+                  submit={this.handleSubmit}
+                  change={this.handleChange}
+                />
+            <Signin />
+          </Route>
+          <Route path="/signout">
+            <NavBar 
+              value={this.state.searchbox}
+              submit={this.handleSubmit}
+              change={this.handleChange}
+            />
+            <Signout />
           </Route>
       </Switch>  
     </div>

@@ -4,8 +4,8 @@ import "../styles/button.css";
 
 const Button = (props) => {
     return(
-        <Link style={{textDecoration: 'none'}} className={props.className}>
-            <div className="button">
+        <Link style={{textDecoration: 'none'}} className={props.className} to={props.dest} >
+            <div className="button" onClick={() => props.submit}>
                 {props.text}
             </div>
         </Link>

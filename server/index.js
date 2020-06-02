@@ -4,13 +4,18 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const auth = require('./middleware/auth');
 
 const app = express();
-app.use(cors());
 
-const router = require('./router');
+app.use(cors({
+    origin: '*'
+}));
+
 // Connect to the database
 require('./config/db');
+
+const router = require('./router');
 
 // App Setup
 app.use(morgan('combined')); // Middleware to log out requests

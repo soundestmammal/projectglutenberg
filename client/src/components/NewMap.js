@@ -17,7 +17,7 @@ import "../styles/map.css";
     9. How can I make this component more dynamic so I can use it as a minimap.
 */
 
-const Marker = (props) => <div className={props.className} onClick={() => alert("You clicked me")}>{props.text}</div>;
+const Marker = (props) => <div className={props.className} onClick={() => alert("You clicked me")}><div className="marker-content">{props.text}</div></div>;
 
 class NewMap extends Component {
 
@@ -34,12 +34,12 @@ class NewMap extends Component {
         defaultZoom={this.props.zoom}
       >
         {
-          this.props.restaurants.map(rest => {
+          this.props.restaurants.map((rest, index) => {
             let currentStyle = "pin";
             if(this.props.currentRestaurant === rest.id) {
               currentStyle = "pin-highlighted"
             }
-            return <Marker lat={rest.coordinates.latitude} lng={rest.coordinates.longitude} text={rest.name}  className={currentStyle}/>
+            return <Marker lat={rest.coordinates.latitude} lng={rest.coordinates.longitude} text={index+1}  className={currentStyle}/>
           }
           )
         }
@@ -50,6 +50,7 @@ class NewMap extends Component {
     return (
       <div className="map-container">
         {this.renderMap()}
+        <div className="map-overlay"></div>
       </div>
     );
   }

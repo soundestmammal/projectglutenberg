@@ -47,6 +47,7 @@
 .search-label {
     display: flex;
     flex-direction: row;
+    width: 100%;
 }
 
 .nav-search-button {

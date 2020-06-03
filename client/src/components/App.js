@@ -84,7 +84,6 @@ class App extends Component {
     this.setState({ searchLocation: e.target.value });
   }
 
-
   forwardGeocode = async () => {
     const { clientLat, clientLong, searchLocation } = this.state;
     const response = await axios.get(`http://localhost:3090/forwardgeocode/?lat=${clientLat}&lng=${clientLong}&location=${searchLocation}`);
@@ -96,9 +95,6 @@ class App extends Component {
     e.preventDefault();
     // getYelpData has access to the application state, and does not need to be passed any information.
     this.forwardGeocode().then(this.getYelpData);
-
-
-
   }
 
   // When I click on the list card

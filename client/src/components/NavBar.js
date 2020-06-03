@@ -14,8 +14,8 @@ const NavBar = (props) => {
                     <Link to="/" style={{textDecoration: 'none'}}><Logo /></Link>
                     <form className="search-container" onSubmit={props.submit}>
                         <label className="search-label">
-                            <input className="nav-searchbar" type='text' value={props.value} onChange={props.change}></input>
-                            <input className="nav-searchbar" type='text' value={props.location} onChange={props.changeLocation}></input>
+                            <input className="nav-searchbar" type='text' value={props.value} onChange={props.change} placeholder="tacos, cheap dinner, Cafe Mogador"></input>
+                            <input className="nav-searchbar" type='text' value={props.location} onChange={props.changeLocation} placeholder="address, neighborhood, city, state, or zip"></input>
                         </label>
                             <input className="nav-search-button" type='submit' value="Go"></input>
                     </form>
@@ -31,8 +31,8 @@ const NavBar = (props) => {
                 <Link to="/" style={{textDecoration: 'none'}}><Logo /></Link>
                 <form className="search-container" onSubmit={props.submit}>
                     <label className="search-label">
-                        <input className="nav-searchbar" type='text' value={props.value} onChange={props.change}></input>
-                        <input className="nav-searchbar" type='text' value={props.location} onChange={props.changeLocation}></input>
+                        <input className="nav-searchbar" type='text' value={props.value} onChange={props.change} placeholder="tacos, cheap dinner, Cafe Mogador"></input>
+                        <input className="nav-searchbar" type='text' value={props.location} onChange={props.changeLocation} placeholder="address, neighborhood, city, state, or zip"></input>
                     </label>
                         <input className="nav-search-button" type='submit' value="Go"></input>
                 </form>

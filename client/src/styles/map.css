@@ -69,3 +69,22 @@
     position: absolute;
     border-radius: 50%;
 } */
+
+.map-checkbox-container {
+  background: white;
+  position: fixed;
+  width: 200px;
+  height: 40px;
+  top: 110px;
+  right: 100px;
+  display: flex;
+  align-items: center;
+  border: 1px solid gray;
+  border-radius: 4px;
+}
+
+.map-checkbox-container input{
+  position: relative;
+  width: 25%;
+  transform: scale(2);
+}

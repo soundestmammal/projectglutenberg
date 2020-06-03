@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
+import MapCheckbox from './MapCheckbox';
 import { key } from '../KEYS';
 import "../styles/map.css";
 
@@ -50,6 +51,7 @@ class NewMap extends Component {
     return (
       <div className="map-container">
         {this.renderMap()}
+        <MapCheckbox />
         <div className="map-overlay"></div>
       </div>
     );

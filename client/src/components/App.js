@@ -19,8 +19,10 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      lat: 0,
-      long: 0,
+      clientLat: 0,
+      clientLong: 0,
+      mapLat: 0,
+      mapLong: 0,
       loading: true,
       restaurants: [],
       searchbox: '',
@@ -42,7 +44,7 @@ class App extends Component {
   */
   getYelpData = async () => {
     if(!this.state.loading) {
-      const response = await axios.get(`http://localhost:3090/yelp/?latitude=${this.state.lat}&longitude=${this.state.long}&searchbox=${this.state.searchbox}`);
+      const response = await axios.get(`http://localhost:3090/yelp/?latitude=${this.state.mapLat}&longitude=${this.state.mapLong}&searchbox=${this.state.searchbox}`);
       console.log("This is the response from the GET /yelp api call ", response);
       this.setState({ restaurants: response.data });
     }
@@ -54,8 +56,8 @@ class App extends Component {
     { lat: Number, lng: Number }
   */
   returnCenter = () => {
-    const lat = this.state.lat;
-    const long = this.state.long;
+    const lat = this.state.mapLat;
+    const long = this.state.mapLong;
     const center = {};
     center["lat"] = lat;
     center["lng"] = long;
@@ -65,7 +67,12 @@ class App extends Component {
   // Why: I use ip-api.com because the window.geolocation was not reliable
   getLocation = async () => {
     const response = await axios.get("http://ip-api.com/json");
-    this.setState({ lat: response.data.lat, long: response.data.lon, loading: false })
+    this.setState({ clientLat: response.data.lat, 
+                    clientLong: response.data.lon, 
+                    mapLat: response.data.lat,
+                    mapLong: response.data.lon,
+                    loading: false 
+                  });
   }
 
   // handleChange & handleSubmit are used in the searchbar feature of NavBar component
@@ -79,10 +86,10 @@ class App extends Component {
 
 
   forwardGeocode = async () => {
-    const { lat, long, searchLocation } = this.state;
-    const response = await axios.get(`http://localhost:3090/forwardgeocode/?lat=${lat}&lng=${long}&location=${searchLocation}`);
+    const { clientLat, clientLong, searchLocation } = this.state;
+    const response = await axios.get(`http://localhost:3090/forwardgeocode/?lat=${clientLat}&lng=${clientLong}&location=${searchLocation}`);
     console.log(response.data);
-    this.setState({ lat: response.data.lat, long: response.data.lng });
+    this.setState({ mapLat: response.data.lat, mapLong: response.data.lng });
   }
 
   handleSubmit = (e) => {

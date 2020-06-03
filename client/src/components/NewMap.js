@@ -22,15 +22,16 @@ const Marker = (props) => <div className={props.className} onClick={() => alert(
 class NewMap extends Component {
 
   static defaultProps = {
-    zoom: 12
+    zoom: 14
   };
 
   renderMap = () => {
+    console.log(this.props.center)
     if(this.props.loading) return null;
     return (
     <GoogleMapReact
           bootstrapURLKeys={{ key: key}}
-          defaultCenter={this.props.center}
+          center={this.props.center}
           defaultZoom={this.props.zoom}
         >
           {

@@ -36,8 +36,9 @@
 }
 
 .nav-searchbar {
+    box-sizing: border-box;
     border: none;
-    padding: 0;
+    padding: 5px 0px 5px 15px;
     border-left: 1px solid gray;
     height: 100%;
     width: 80%;

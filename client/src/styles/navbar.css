@@ -65,10 +65,16 @@
 .nav-auth-button {
     font-family: sans-serif;
     color: white;
+    margin-right: 25px;
 }
 
 .nav-auth-button-acc {
     background-color: #3AAFA9;
     color: white;
     font-family: sans-serif;
+}
+
+.nav-auth-button-container {
+    display: flex;
+    flex-direction: row;
 }

@@ -37,8 +37,10 @@ const NavBar = (props) => {
                         <input className="nav-search-button" type='submit' value="Go"></input>
                 </form>
                 {/* <Link to="/auth" className="signin" style={{textDecoration: 'none'}} >Sign in / Sign up</Link> */}
-                <Button className="nav-auth-button" text="Sign In" dest="/signin" />
-                <Button className="nav-auth-button-acc" text="Sign Up" dest="/auth" />
+                <div className="nav-auth-button-container">
+                    <Button className="nav-auth-button" text="Sign In" dest="/signin" />
+                    <Button className="nav-auth-button-acc" text="Sign Up" dest="/auth" />
+                </div>
             </div>
         </nav>
     );

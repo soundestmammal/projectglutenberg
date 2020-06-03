@@ -19,7 +19,10 @@ const Card = (props) => {
                     <img style={{height: '200px', width: '200px'}} src={props.image} alt="food from restuarant" />
                 </div>
                 <div className="info">
-                    <span className="restaurant-title">{props.name}</span>
+                    <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                        <span className="restaurant-title">{props.name}</span>
+                        <span className="restaurant-title">{props.index}</span>
+                    </div>
                     <span>{props.price}</span>
 
                     {/* <span>{props.categories[0].title}</span> */}

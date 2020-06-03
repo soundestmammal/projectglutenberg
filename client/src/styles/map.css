@@ -1,8 +1,4 @@
-/* .map-container {
-    flex-grow: 3;
-    height: 90vh;
-} */
-
+/* Important! Always set the container height explicitly */
 .map-container {
   height: calc(100vh - 100px);
   width: 75%;

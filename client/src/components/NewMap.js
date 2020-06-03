@@ -22,39 +22,32 @@ const Marker = (props) => <div className={props.className} onClick={() => alert(
 class NewMap extends Component {
 
   static defaultProps = {
-    zoom: 14
+    zoom: 13
   };
 
   renderMap = () => {
-    console.log(this.props.center)
     if(this.props.loading) return null;
     return (
-    <GoogleMapReact
-          bootstrapURLKeys={{ key: key}}
-          center={this.props.center}
-          defaultZoom={this.props.zoom}
-        >
-          {
-            this.props.restaurants.map(rest => {
-              let currentStyle = "pin";
-              if(this.props.currentRestaurant === rest.id) {
-                console.log("This runs here!");
-                currentStyle = "pin-highlighted"
-              }
-              return <Marker lat={rest.coordinates.latitude} lng={rest.coordinates.longitude} text={rest.name}  className={currentStyle}/>
+      <GoogleMapReact
+        bootstrapURLKeys={{ key: key}}
+        center={this.props.center}
+        defaultZoom={this.props.zoom}
+      >
+        {
+          this.props.restaurants.map(rest => {
+            let currentStyle = "pin";
+            if(this.props.currentRestaurant === rest.id) {
+              currentStyle = "pin-highlighted"
             }
-            )
-          }<Marker
-            lat={this.props.center.lat}
-            lng={this.props.center.lng}
-            text="Robert Checco"
-          />
-    </GoogleMapReact> );
+            return <Marker lat={rest.coordinates.latitude} lng={rest.coordinates.longitude} text={rest.name}  className={currentStyle}/>
+          }
+          )
+        }
+      </GoogleMapReact> );
   }
 
   render() {
     return (
-      // Important! Always set the container height explicitly
       <div className="map-container">
         {this.renderMap()}
       </div>

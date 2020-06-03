@@ -1,10 +1,21 @@
 const axios = require('axios');
 const cors = require('cors');
-const { yelp } = require('./config/keys');
+const { yelp, openCage } = require('./config/keys');
 const User = require('./models/User');
 const auth = require('./middleware/auth');
 
 module.exports = function (app) {
+
+    app.get('/forwardgeocode', async (req, res) => {
+        console.log("This runs here line 10!");
+        const { location, lat, lng } = req.query;
+        try {
+            const response = await axios.get(`https://api.opencagedata.com/geocode/v1/json?q=${location}&proximity=${lat},${lng}&key=${openCage}`);
+            res.send(response.data.results[0].geometry);
+        } catch(e) {
+            res.status(500).send();
+        }
+    });
 
     app.get('/yelp', async(req, res) => {
         let lat = req.query.latitude;
@@ -38,18 +49,6 @@ module.exports = function (app) {
         const response = await axios.get(`https://api.yelp.com/v3/businesses/${req.params.id}`, options);
         res.send(response.data);
     });
-
-    // Forward for forward geocoding. The process of providing a string and receiving the gps information of a location
-    // @ params from req.body
-    // app.get('/forward', async(req, res) => {
-    //     const { lat, lng, location } = req.body;
-    //     const response = await axios.get(`https://api.opencagedata.com/geocode/v1/json?q=${location}&proximity=${lat},${lng}&key=${openCage}`);
-    //     const returnMe = [];
-    //     for(let i = 0; i < response.data.results.length; i++) {
-    //         returnMe.push(response.data.results[i].formatted);
-    //     }
-    //     res.send(returnMe);
-    // })
 
     /* Routes for user requests */
 
@@ -90,5 +89,5 @@ module.exports = function (app) {
         } catch (e) {
             res.status(500).send();
         }
-    })
+    });
 }

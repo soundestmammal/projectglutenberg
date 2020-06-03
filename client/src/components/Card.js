@@ -8,6 +8,7 @@ import "../styles/card.css";
         1. These classNames are not acceptable.
         2. Refine the desktop style
         3. Make this work on mobile devices
+        4. There may be times where there is no categories!!! Comment out for now, refactor during client side error handing.
 */
 
 const Card = (props) => {
@@ -20,7 +21,8 @@ const Card = (props) => {
                 <div className="info">
                     <span className="restaurant-title">{props.name}</span>
                     <span>{props.price}</span>
-                    <span>{props.categories[0].title}</span>
+
+                    {/* <span>{props.categories[0].title}</span> */}
                     <span>{props.address[0] + " " + props.address[1]}</span>
                     <span>{props.rating}</span>
                     <span>{props.phone}</span>

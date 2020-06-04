@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 import MapCheckbox from './MapCheckbox';
+import Marker from './Marker';
 import { key } from '../KEYS';
 import "../styles/map.css";
 
@@ -17,8 +18,6 @@ import "../styles/map.css";
     8. What happens when you click on a marker?
     9. How can I make this component more dynamic so I can use it as a minimap.
 */
-
-const Marker = (props) => <div className={props.className} onClick={() => alert("You clicked me")}><div className="marker-content">{props.text}</div></div>;
 
 class NewMap extends Component {
 
@@ -51,7 +50,7 @@ class NewMap extends Component {
             if(this.props.currentRestaurant === rest.id) {
               currentStyle = "pin-highlighted"
             }
-            return <Marker lat={rest.coordinates.latitude} lng={rest.coordinates.longitude} text={index+1}  className={currentStyle} key={rest.id}/>
+            return <Marker lat={rest.coordinates.latitude} lng={rest.coordinates.longitude} text={index+1}  className={currentStyle} key={rest.id} data={rest} />
           }
           )
         }

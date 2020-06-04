@@ -1,5 +1,5 @@
 import React from 'react';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Logo from './Logo';
@@ -20,7 +20,7 @@ const NavBar = (props) => {
                             <input className="nav-search-button" type='submit' value="Go"></input>
                     </form>
                     {/* <Link to="/auth" className="signin" style={{textDecoration: 'none'}} >Sign in / Sign up</Link> */}
-                    <Button className="nav-auth-button" text="Sign out" dest="/signout" />
+                    <Link to="/profile" className="profile-avatar"><FontAwesomeIcon size="2x" icon={['fas', 'user']}/></Link>
                 </div>
             </nav>
         );

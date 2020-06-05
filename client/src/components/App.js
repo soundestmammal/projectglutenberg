@@ -100,6 +100,7 @@ class App extends Component {
 
   // When I click on the list card
   handleRestaurantSelection = async() => {
+    console.log("Handle restaurant selection runs!");
     // setState to null bc otherwise the "previous" currentRestaurantData will render to the page while the async function is running.
     // Its a poor user experience to show wrong and then quickly cut out
     // Instead since the state will be null, I can condidtionally render a loading component :)
@@ -113,6 +114,7 @@ class App extends Component {
   // This is the function that runs when I hover
   setCurrentRestaurant = (key) => {
     this.setState({ currentRestaurant: key });
+    console.log("setCurrentREst runs!");
   }
 
   submitUserSignup = async (email, password) => {
@@ -175,6 +177,8 @@ class App extends Component {
                 getNewData={this.getYelpData}
                 toggle={this.toggleSearchOnMapMove}
                 checked={this.state.searchCheckbox}
+                hover={this.setCurrentRestaurant}
+                navigate={this.handleRestaurantSelection}
               />
             </div>
           </Route>

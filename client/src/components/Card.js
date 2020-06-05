@@ -13,7 +13,7 @@ import "../styles/card.css";
 
 const Card = (props) => {
     return(
-        <Link className="container" to={`/biz/${props.id}`} onMouseEnter={() => props.hover(props.id)} onClick={() => props.navigate()}>
+        <Link className="container" to={`/biz/${props.id}`} onMouseEnter={() => props.hover(props.id)} onMouseLeave={() => props.hover("") } onClick={() => props.navigate()}>
             <div className="card-wrapper">
                 <div className="image">
                     <img style={{height: '200px', width: '200px'}} src={props.image} alt="food from restuarant" />

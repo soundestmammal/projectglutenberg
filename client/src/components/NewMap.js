@@ -50,7 +50,7 @@ class NewMap extends Component {
             if(this.props.currentRestaurant === rest.id) {
               currentStyle = "pin-highlighted"
             }
-            return <Marker lat={rest.coordinates.latitude} lng={rest.coordinates.longitude} text={index+1}  className={currentStyle} key={rest.id} data={rest} />
+            return <Marker lat={rest.coordinates.latitude} lng={rest.coordinates.longitude} text={index+1}  className={currentStyle} key={rest.id} data={rest} hover={this.props.hover} navigate={this.props.navigate} />
           }
           )
         }

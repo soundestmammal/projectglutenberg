@@ -31,6 +31,7 @@ class App extends Component {
       currentRestaurantData: null, 
       uuid: null,
       token: null,
+      searchCheckbox: false
     }
   }
 
@@ -99,6 +100,7 @@ class App extends Component {
 
   // When I click on the list card
   handleRestaurantSelection = async() => {
+    console.log("Handle restaurant selection runs!");
     // setState to null bc otherwise the "previous" currentRestaurantData will render to the page while the async function is running.
     // Its a poor user experience to show wrong and then quickly cut out
     // Instead since the state will be null, I can condidtionally render a loading component :)
@@ -112,7 +114,7 @@ class App extends Component {
   // This is the function that runs when I hover
   setCurrentRestaurant = (key) => {
     this.setState({ currentRestaurant: key });
-    console.log(this.state.currentRestaurant);
+    console.log("setCurrentREst runs!");
   }
 
   submitUserSignup = async (email, password) => {
@@ -122,6 +124,22 @@ class App extends Component {
         // localStorage.setItem('token', response.data.token);
     } catch(e) {
       console.log(e);
+    }
+  }
+
+  setMapCoords = (coordinates) => {
+    if(this.state.searchCheckbox) {
+      const {lat, lng} = coordinates;
+      this.setState({ mapLat: lat, mapLong: lng });
+    }
+  }
+
+  // Toggle the search feature
+  toggleSearchOnMapMove = () => {
+    if(this.state.searchCheckbox === true) {
+      this.setState({searchCheckbox: false});
+    } else {
+      this.setState({ searchCheckbox: true})
     }
   }
 
@@ -155,6 +173,12 @@ class App extends Component {
                 loading={this.state.loading}
                 restaurants={this.state.restaurants}
                 currentRestaurant={this.state.currentRestaurant}
+                onDragMap={this.setMapCoords}
+                getNewData={this.getYelpData}
+                toggle={this.toggleSearchOnMapMove}
+                checked={this.state.searchCheckbox}
+                hover={this.setCurrentRestaurant}
+                navigate={this.handleRestaurantSelection}
               />
             </div>
           </Route>

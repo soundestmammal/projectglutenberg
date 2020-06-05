@@ -13,13 +13,16 @@ import "../styles/card.css";
 
 const Card = (props) => {
     return(
-        <Link className="container" to={`/biz/${props.id}`} onMouseEnter={() => props.hover(props.id)} onClick={() => props.navigate()}>
+        <Link className="container" to={`/biz/${props.id}`} onMouseEnter={() => props.hover(props.id)} onMouseLeave={() => props.hover("") } onClick={() => props.navigate()}>
             <div className="card-wrapper">
                 <div className="image">
                     <img style={{height: '200px', width: '200px'}} src={props.image} alt="food from restuarant" />
                 </div>
                 <div className="info">
-                    <span className="restaurant-title">{props.name}</span>
+                    <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                        <span className="restaurant-title">{props.name}</span>
+                        <span className="restaurant-title">{props.index}</span>
+                    </div>
                     <span>{props.price}</span>
 
                     {/* <span>{props.categories[0].title}</span> */}

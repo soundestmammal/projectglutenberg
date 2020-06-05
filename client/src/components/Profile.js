@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ImageUploader from 'react-images-upload';
+import Button from './Button';
 import * as actions from '../actions';
 import requireAuth from './requireAuth';
 import "../styles/profile.css";
+import "../styles/navbar.css";
 
 class Profile extends Component {
     constructor(props) {
@@ -44,6 +46,7 @@ class Profile extends Component {
                     <div className="profile-buttons">
                         <button>Save</button>
                         <button>Cancel</button>
+                        <Button className="profile-signout" text="Sign out" dest="/signout" />
                     </div>
                 </div>
             </div>

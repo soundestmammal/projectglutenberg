@@ -1,5 +1,7 @@
 const axios = require('axios');
 const cors = require('cors');
+const multer = require('multer');
+const sharp = require('sharp');
 const { yelp, openCage } = require('./config/keys');
 const User = require('./models/User');
 const auth = require('./middleware/auth');
@@ -90,4 +92,11 @@ module.exports = function (app) {
             res.status(500).send();
         }
     });
+
+    const upload = multer({
+        dest: 'images'
+    });
+    app.post('/upload', upload.single('upload'), (req, res) => {
+        res.send();
+    })
 }

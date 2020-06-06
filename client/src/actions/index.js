@@ -49,3 +49,24 @@ export const signin = (email, password, callback) => async dispatch => {
         dispatch({ type: AUTH_ERROR, payload: "Invalid Credentials" });
     }
 }
+
+export const fetchUser = (token) => async dispatch => {
+    try {
+        // I need to make a call to the server here to fetch the user information
+        // const response = null;
+
+        // @params String token
+
+        // I will get a response, with all of the user data. I would like to have the following:
+            /*
+                uuid
+                avatar
+                name
+                bio
+            */
+        //    dispatch({ type: FETCH_USER, payload: response.data.user })
+    }
+    catch(e) {
+        console.log("There was an error here");
+    } 
+}

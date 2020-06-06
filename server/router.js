@@ -93,10 +93,10 @@ module.exports = function (app) {
         }
     });
 
-    app.get('/fetchUser', auth, (req, res) => {
+    app.post('/fetchUser', auth, (req, res) => {
         const returnMe = {};
-        returnMe['avatar'] = req.user.avatar;
         returnMe['uuid'] = req.user._id;
+        returnMe['avatar'] = req.user.avatar;
         res.send(returnMe);
     })
 

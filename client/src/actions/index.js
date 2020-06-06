@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AUTH_USER, AUTH_ERROR, AUTH_UUID } from './types';
+import { AUTH_USER, AUTH_ERROR, AUTH_UUID, FETCH_USER } from './types';
 
 export const signup = (email, password, callback) => async dispatch => {
     try {
@@ -53,10 +53,12 @@ export const signin = (email, password, callback) => async dispatch => {
 export const fetchUser = (token) => async dispatch => {
     try {
         // I need to make a call to the server here to fetch the user information
-        // const response = null;
-
+        const response = await axios.post('http://localhost:3090/fetchUser', {}, {
+            headers: { 
+                "Authorization": `Bearer ${token}`
+            }
+        });
         // @params String token
-
         // I will get a response, with all of the user data. I would like to have the following:
             /*
                 uuid
@@ -64,7 +66,8 @@ export const fetchUser = (token) => async dispatch => {
                 name
                 bio
             */
-        //    dispatch({ type: FETCH_USER, payload: response.data.user })
+        console.log("this was the response from fetchUser", response.data);
+        dispatch({ type: FETCH_USER, payload: response.data })
     }
     catch(e) {
         console.log("There was an error here");

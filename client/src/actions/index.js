@@ -66,7 +66,6 @@ export const fetchUser = (token) => async dispatch => {
                 name
                 bio
             */
-        console.log("this was the response from fetchUser", response.data);
         dispatch({ type: FETCH_USER, payload: response.data })
     }
     catch(e) {

@@ -88,7 +88,6 @@ class App extends Component {
   forwardGeocode = async () => {
     const { clientLat, clientLong, searchLocation } = this.state;
     const response = await axios.get(`http://localhost:3090/forwardgeocode/?lat=${clientLat}&lng=${clientLong}&location=${searchLocation}`);
-    console.log(response.data);
     this.setState({ mapLat: response.data.lat, mapLong: response.data.lng });
   }
 
@@ -100,7 +99,6 @@ class App extends Component {
 
   // When I click on the list card
   handleRestaurantSelection = async() => {
-    console.log("Handle restaurant selection runs!");
     // setState to null bc otherwise the "previous" currentRestaurantData will render to the page while the async function is running.
     // Its a poor user experience to show wrong and then quickly cut out
     // Instead since the state will be null, I can condidtionally render a loading component :)
@@ -114,7 +112,6 @@ class App extends Component {
   // This is the function that runs when I hover
   setCurrentRestaurant = (key) => {
     this.setState({ currentRestaurant: key });
-    console.log("setCurrentREst runs!");
   }
 
   submitUserSignup = async (email, password) => {
@@ -143,6 +140,12 @@ class App extends Component {
     }
   }
 
+  // Handling avatar stuff
+  getAvatar = async (uuid) => {
+    const response = await axios.get(`http://localhost:3090/users/${uuid}/avatar`);
+    console.log("This is the response from server for the avatar: ", response);
+  }
+
   componentDidMount() {
     // I did this because I can only run the getYelp data once I get the lat and long
     this.getLocation().then(this.getYelpData);
@@ -160,6 +163,8 @@ class App extends Component {
                 change={this.handleChange}
                 location={this.state.searchLocation}
                 changeLocation={this.handleLocationChange}
+                getAvatar={this.getAvatar}
+                avatar={this.state.avatar}
               />
             </div>
             <div className="map-list-wrapper">
@@ -207,6 +212,11 @@ class App extends Component {
             </div>
           </Route>
           <Route path="/profile">
+            <NavBar 
+              value={this.state.searchbox}
+              submit={this.handleSubmit}
+              change={this.handleChange}
+            />
             <Profile 
               uuid={this.state.uuid}
               token={this.state.token}

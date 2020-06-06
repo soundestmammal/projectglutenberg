@@ -36,8 +36,23 @@ class Profile extends Component {
         console.log(response);
     }
 
+    arrayBufferToBase64 = (buffer) => {
+        let binary = "";
+        let bytes = [].slice.call(new Uint8Array(buffer));
+
+        bytes.forEach((b) => binary += String.fromCharCode(b));
+
+        return window.btoa(binary);
+    };
+
+    generateImageSrc = () => {
+        const base64Flag = "data:image/png;base64,";
+        const imageString = this.arrayBufferToBase64(this.props.avatar);
+        return base64Flag+imageString;
+    }
+
+
     render() {
-        console.log(this.state);
         return(
             <div className="profile-wrapper">
                 <div className="profile-content-container">
@@ -61,6 +76,7 @@ class Profile extends Component {
                         <button>Cancel</button>
                         <Button className="profile-signout" text="Sign out" dest="/signout" />
                     </div>
+                    <img src={this.generateImageSrc()} alt="random" />
                 </div>
             </div>
         );
@@ -68,7 +84,7 @@ class Profile extends Component {
 }
 
 function mapStateToProps(state) {
-    return { auth: state.auth.authenticated, avatar: state.auth.user.avatar }
+    return { auth: state.auth.authenticated, avatar: state.auth.user.avatar.data }
 }
 
 export default connect(mapStateToProps, actions)(requireAuth(Profile));

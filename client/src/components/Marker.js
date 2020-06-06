@@ -22,7 +22,6 @@ class Marker extends Component {
 
     render() {
         if(this.state.active){
-            console.log("I currently see the first one");
             return(
                 <Link to={`/biz/${this.props.data.id}`}>
                 <div className="marker-wrapper">

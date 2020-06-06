@@ -14,10 +14,6 @@ class NavBar extends React.Component {
             const token = this.props.auth + "";
             this.props.fetchUser(token);
         }
-        // if(this.props.uuid) {
-        //     this.props.getAvatar(this.props.uuid);
-        //     console.log("Ths runs here yooooooooooooo");
-        // }
     }
     render() {
         if (this.props.auth) {

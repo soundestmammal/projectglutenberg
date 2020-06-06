@@ -112,5 +112,11 @@ module.exports = function (app) {
         res.send();
     }, (error) => {
         res.status(400).send({ error: error.message });
+    });
+
+    app.delete('/users/me/avatar', auth, async (req, res) => {
+        req.user.avatar = undefined;
+        await req.user.save();
+        res.send({ status: "successful delete!"});
     })
 }

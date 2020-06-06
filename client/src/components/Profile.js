@@ -6,6 +6,7 @@ import * as actions from '../actions';
 import requireAuth from './requireAuth';
 import "../styles/profile.css";
 import "../styles/navbar.css";
+import Axios from 'axios';
 
 class Profile extends Component {
     constructor(props) {
@@ -21,6 +22,18 @@ class Profile extends Component {
         this.setState({
             pictures: this.state.pictures.concat(picture),
         });
+    }
+
+    submitAvatar = async () => {
+        const bodyFormData = new FormData();
+        bodyFormData.append('avatar', this.state.pictures[0]);
+        const response = await Axios.post("http://localhost:3090/users/me/avatar", bodyFormData, {
+            headers: {
+                "Content-Type": "form-data",
+                "Authorization": `Bearer ${this.props.auth}`
+            }
+        });
+        console.log(response);
     }
 
     render() {
@@ -44,7 +57,7 @@ class Profile extends Component {
                         </div>
                     </div>
                     <div className="profile-buttons">
-                        <button>Save</button>
+                        <button onClick={() => this.submitAvatar()}>Save</button>
                         <button>Cancel</button>
                         <Button className="profile-signout" text="Sign out" dest="/signout" />
                     </div>
@@ -54,4 +67,8 @@ class Profile extends Component {
     }
 }
 
-export default connect(null, actions)(requireAuth(Profile));
+function mapStateToProps(state) {
+    return { auth: state.auth.authenticated, avatar: state.auth.user.avatar }
+}
+
+export default connect(mapStateToProps, actions)(requireAuth(Profile));

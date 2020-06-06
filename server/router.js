@@ -116,7 +116,7 @@ module.exports = function (app) {
         const buffer = await sharp(req.file.buffer).resize({ width: 250, height: 250 }).png().toBuffer();
         req.user.avatar = buffer;
         await req.user.save()
-        res.send();
+        res.send({ status: "It was a huge success" });
     }, (error) => {
         res.status(400).send({ error: error.message });
     });

@@ -94,7 +94,6 @@ module.exports = function (app) {
     });
 
     const upload = multer({
-        dest: "images",
         limits: {
             fileSize: 1000000
         },
@@ -106,7 +105,8 @@ module.exports = function (app) {
         }
     });
 
-    app.post('/upload', upload.single('upload'), (req, res) => {
+    app.post('/upload', upload.single('upload'), async (req, res) => {
+        const buffer = await sharp(req.user.buffer).resize({ width: 250, height: 250 }).png().toBuffer();
         res.send();
     })
 }

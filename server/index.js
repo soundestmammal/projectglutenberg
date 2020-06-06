@@ -19,7 +19,7 @@ const router = require('./router');
 
 // App Setup
 app.use(morgan('combined')); // Middleware to log out requests
-// app.use(bodyParser.json({ type: '*/*' })); // Middleware to ???
+app.use(bodyParser.json()); // Middleware to ???
 router(app);
 
 // Server Setup

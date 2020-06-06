@@ -94,8 +94,18 @@ module.exports = function (app) {
     });
 
     const upload = multer({
-        dest: 'images'
+        dest: "images",
+        limits: {
+            fileSize: 1000000
+        },
+        fileFilter(req, file, cb) {
+            if(!file.originalname.match(/\.(jpg|png|jpeg)/)) {
+                return cb(new Error("Upload a valid file type"));
+            }
+            cb(undefined, true);
+        }
     });
+
     app.post('/upload', upload.single('upload'), (req, res) => {
         res.send();
     })

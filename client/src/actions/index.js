@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AUTH_USER, AUTH_ERROR } from './types';
+import { AUTH_USER, AUTH_ERROR, AUTH_UUID } from './types';
 
 export const signup = (email, password, callback) => async dispatch => {
     try {
@@ -9,6 +9,8 @@ export const signup = (email, password, callback) => async dispatch => {
             'password': password
         });
         dispatch({ type: AUTH_USER, payload: response.data.token });
+        dispatch({ type: AUTH_UUID, payload: response.data.user._id });
+        // dispatch({ type: AUTH_UUID, payload: response.data.use})
         localStorage.setItem('token', response.data.token);
         callback();
     } catch(e) {   
@@ -24,6 +26,7 @@ export const signout = (token) => async dispatch => {
             }
         });
         dispatch({ type: AUTH_USER, payload: "" });
+        dispatch({ type: AUTH_UUID, payload: "" });
         localStorage.removeItem('token');
         console.log(response.data.text);
     } catch(e) {
@@ -38,6 +41,7 @@ export const signin = (email, password, callback) => async dispatch => {
             'password': password
         });
         dispatch({ type: AUTH_USER, payload: response.data.token });
+        dispatch({ type: AUTH_UUID, payload: response.data.user._id });
         localStorage.setItem('token', response.data.token);
         console.log("Inside the signin action creator");
         callback();

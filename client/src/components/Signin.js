@@ -17,7 +17,6 @@ class Signin extends Component {
 
     attemptSignin = () => {
         this.props.signin(this.state.email, this.state.password, () => {
-            console.log("Inside the callback1");
             this.setState({ toDashboard: true });
         });
     }

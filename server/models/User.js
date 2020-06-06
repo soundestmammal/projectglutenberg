@@ -41,7 +41,12 @@ const userSchema = new Schema(
                 }
             }
         ],
-    },
+        avatar: {
+            type: Buffer
+        },
+    }, {
+        timestamps: true
+    }
 );
 
 // I need to generate an auth token and save it in the user model!

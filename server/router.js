@@ -93,6 +93,13 @@ module.exports = function (app) {
         }
     });
 
+    app.get('/fetchUser', auth, (req, res) => {
+        const returnMe = {};
+        returnMe['avatar'] = req.user.avatar;
+        returnMe['uuid'] = req.user._id;
+        res.send(returnMe);
+    })
+
     const upload = multer({
         limits: {
             fileSize: 1000000
@@ -131,5 +138,5 @@ module.exports = function (app) {
         } catch(e) {
             res.status(404).send();
         }
-    })
+    });
 }

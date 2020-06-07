@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
 import axios from 'axios';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
+import * as actions from '../actions';
 import List from './List';
 import NewMap from './NewMap';
 import NavBar from './NavBar';
@@ -29,8 +31,6 @@ class App extends Component {
       searchLocation: '',
       currentRestaurant: '',
       currentRestaurantData: null, 
-      uuid: null,
-      token: null,
       searchCheckbox: false
     }
   }
@@ -114,16 +114,6 @@ class App extends Component {
     this.setState({ currentRestaurant: key });
   }
 
-  submitUserSignup = async (email, password) => {
-    try {
-        const response = await axios.post(`http://localhost:3090/users`, { "email": email, "password": password });
-        this.setState({ uuid: response.data.user._id, token: response.data.token });
-        // localStorage.setItem('token', response.data.token);
-    } catch(e) {
-      console.log(e);
-    }
-  }
-
   setMapCoords = (coordinates) => {
     if(this.state.searchCheckbox) {
       const {lat, lng} = coordinates;
@@ -140,15 +130,13 @@ class App extends Component {
     }
   }
 
-  // Handling avatar stuff
-  getAvatar = async (uuid) => {
-    const response = await axios.get(`http://localhost:3090/users/${uuid}/avatar`);
-    console.log("This is the response from server for the avatar: ", response);
-  }
-
   componentDidMount() {
+    // Check the authentication status. If the user is authenticated I want to fetchUser information
     // I did this because I can only run the getYelp data once I get the lat and long
     this.getLocation().then(this.getYelpData);
+    if(this.props.auth.authenticated) {
+      this.props.fetchUser(this.props.auth.authenticated);
+    }
   }
 
   render() {
@@ -163,8 +151,6 @@ class App extends Component {
                 change={this.handleChange}
                 location={this.state.searchLocation}
                 changeLocation={this.handleLocationChange}
-                getAvatar={this.getAvatar}
-                avatar={this.state.avatar}
               />
             </div>
             <div className="map-list-wrapper">
@@ -206,9 +192,7 @@ class App extends Component {
                 submit={this.handleSubmit}
                 change={this.handleChange}
               />
-              <Auth 
-                trythis={this.submitUserSignup}
-              />
+              <Auth />
             </div>
           </Route>
           <Route path="/profile">
@@ -225,10 +209,10 @@ class App extends Component {
           
           <Route path="/signin">
             <NavBar 
-                  value={this.state.searchbox}
-                  submit={this.handleSubmit}
-                  change={this.handleChange}
-                />
+              value={this.state.searchbox}
+              submit={this.handleSubmit}
+              change={this.handleChange}
+            />
             <Signin />
           </Route>
           <Route path="/signout">
@@ -245,4 +229,8 @@ class App extends Component {
   }
 }
 
-export default App;
+function mapStateToProps(state) {
+  return { auth: state.auth }
+}
+
+export default connect(mapStateToProps, actions)(App);

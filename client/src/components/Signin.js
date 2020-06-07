@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../actions/index';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Redirect, Link } from 'react-router-dom';
+import * as actions from '../actions/index';
 import "../styles/auth.css"
 
 class Signin extends Component {
@@ -17,7 +17,6 @@ class Signin extends Component {
 
     attemptSignin = () => {
         this.props.signin(this.state.email, this.state.password, () => {
-            console.log("Inside the callback1");
             this.setState({ toDashboard: true });
         });
     }

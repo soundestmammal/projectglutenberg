@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
 import axios from 'axios';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
+import * as actions from '../actions';
 import List from './List';
 import NewMap from './NewMap';
 import NavBar from './NavBar';
@@ -29,8 +31,6 @@ class App extends Component {
       searchLocation: '',
       currentRestaurant: '',
       currentRestaurantData: null, 
-      uuid: null,
-      token: null,
       searchCheckbox: false
     }
   }
@@ -88,7 +88,6 @@ class App extends Component {
   forwardGeocode = async () => {
     const { clientLat, clientLong, searchLocation } = this.state;
     const response = await axios.get(`http://localhost:3090/forwardgeocode/?lat=${clientLat}&lng=${clientLong}&location=${searchLocation}`);
-    console.log(response.data);
     this.setState({ mapLat: response.data.lat, mapLong: response.data.lng });
   }
 
@@ -100,7 +99,6 @@ class App extends Component {
 
   // When I click on the list card
   handleRestaurantSelection = async() => {
-    console.log("Handle restaurant selection runs!");
     // setState to null bc otherwise the "previous" currentRestaurantData will render to the page while the async function is running.
     // Its a poor user experience to show wrong and then quickly cut out
     // Instead since the state will be null, I can condidtionally render a loading component :)
@@ -114,17 +112,6 @@ class App extends Component {
   // This is the function that runs when I hover
   setCurrentRestaurant = (key) => {
     this.setState({ currentRestaurant: key });
-    console.log("setCurrentREst runs!");
-  }
-
-  submitUserSignup = async (email, password) => {
-    try {
-        const response = await axios.post(`http://localhost:3090/users`, { "email": email, "password": password });
-        this.setState({ uuid: response.data.user._id, token: response.data.token });
-        // localStorage.setItem('token', response.data.token);
-    } catch(e) {
-      console.log(e);
-    }
   }
 
   setMapCoords = (coordinates) => {
@@ -144,8 +131,12 @@ class App extends Component {
   }
 
   componentDidMount() {
+    // Check the authentication status. If the user is authenticated I want to fetchUser information
     // I did this because I can only run the getYelp data once I get the lat and long
     this.getLocation().then(this.getYelpData);
+    if(this.props.auth.authenticated) {
+      this.props.fetchUser(this.props.auth.authenticated);
+    }
   }
 
   render() {
@@ -201,12 +192,15 @@ class App extends Component {
                 submit={this.handleSubmit}
                 change={this.handleChange}
               />
-              <Auth 
-                trythis={this.submitUserSignup}
-              />
+              <Auth />
             </div>
           </Route>
           <Route path="/profile">
+            <NavBar 
+              value={this.state.searchbox}
+              submit={this.handleSubmit}
+              change={this.handleChange}
+            />
             <Profile 
               uuid={this.state.uuid}
               token={this.state.token}
@@ -215,10 +209,10 @@ class App extends Component {
           
           <Route path="/signin">
             <NavBar 
-                  value={this.state.searchbox}
-                  submit={this.handleSubmit}
-                  change={this.handleChange}
-                />
+              value={this.state.searchbox}
+              submit={this.handleSubmit}
+              change={this.handleChange}
+            />
             <Signin />
           </Route>
           <Route path="/signout">
@@ -235,4 +229,8 @@ class App extends Component {
   }
 }
 
-export default App;
+function mapStateToProps(state) {
+  return { auth: state.auth }
+}
+
+export default connect(mapStateToProps, actions)(App);

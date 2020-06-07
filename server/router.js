@@ -29,17 +29,17 @@ module.exports = function (app) {
         const response = await axios.get(`https://api.yelp.com/v3/businesses/search?term=${searchbox}&latitude=${lat}&longitude=${lng}`, options);
         const data = response.data.businesses;
         for(let i = 0; i < data.length; i++) {
-                let newObject = {
-                    name: data[i].name,
-                    coordinates: data[i].coordinates,
-                    location: data[i].location.display_address,
-                    image: data[i].image_url,
-                    price: data[i].price,
-                    phone: data[i].phone,
-                    categories: data[i].categories,
-                    id: data[i].id
-                };
-                data[i] = {...newObject};
+            let newObject = {
+                name: data[i].name,
+                coordinates: data[i].coordinates,
+                location: data[i].location.display_address,
+                image: data[i].image_url,
+                price: data[i].price,
+                phone: data[i].phone,
+                categories: data[i].categories,
+                id: data[i].id
+            };
+            data[i] = {...newObject};
         }
         res.send(data);
     });
@@ -80,29 +80,30 @@ module.exports = function (app) {
         }
     });
 
+    // Log a single user out on one device
     app.post('/users/logout', auth, async (req, res) => {
         try {
             req.user.tokens = req.user.tokens.filter((token) => {
                 return token.token !== req.token;
             });
             await req.user.save();
-            console.log("I successfully logged out a user");
             res.status(201).send({text: "Success"});
         } catch (e) {
             res.status(500).send();
         }
     });
 
+    // Fetch uuid and avatar for auth user
     app.post('/fetchUser', auth, (req, res) => {
         const returnMe = {};
         returnMe['uuid'] = req.user._id;
         returnMe['avatar'] = req.user.avatar;
         res.send(returnMe);
-    })
+    });
 
     const upload = multer({
         limits: {
-            fileSize: 1000000
+            fileSize: 5000000
         },
         fileFilter(req, file, cb) {
             if(!file.originalname.match(/\.(jpg|png|jpeg)/)) {

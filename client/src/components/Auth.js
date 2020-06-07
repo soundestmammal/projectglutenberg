@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import * as actions from '../actions/index';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Redirect } from 'react-router-dom';
-// import Button from './Button';
 import "../styles/auth.css"
 
 class Auth extends Component {
@@ -32,10 +31,6 @@ class Auth extends Component {
         console.log(this.state.password)
     }
 
-    submitAuthRequest = () => {
-        console.log("This is the auth request", this.state.email, this.state.password);
-    }
-
     render() {
         if(this.state.toDashboard === true) {
             return <Redirect to="/profile" />
@@ -48,7 +43,6 @@ class Auth extends Component {
                     <span className="auth-title">Sign up</span>
                     <input type="text" placeholder="Email Address" value={this.state.email} onChange={this.handleChangeEmail} />
                     <input type="password" placeholder="Password" value={this.state.password} onChange={this.handleChangePassword} />
-                    {/* <button className="auth-button" text="SIGN IN" onClick={() => this.props.trythis(this.state.email, this.state.password).then( this.setState({toDashboard: true}))}>Submit!!!</button> */}
                     <div>{this.props.errorMessage}</div>
                     <button className="auth-button" text="SIGN IN" onClick={() => this.onSubmit()} >Sign Up</button>
                 </div>

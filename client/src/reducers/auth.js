@@ -1,4 +1,4 @@
-import { AUTH_USER, AUTH_ERROR, AUTH_UUID, FETCH_USER } from '../actions/types';
+import { AUTH_USER, AUTH_ERROR, AUTH_UUID, FETCH_USER, SIGN_OUT } from '../actions/types';
 
 const INITIAL_STATE = {
     authenticated: '',
@@ -7,7 +7,7 @@ const INITIAL_STATE = {
     user: {}
 }
 
-export default function(state = INITIAL_STATE, action) {
+export default function (state = INITIAL_STATE, action) {
     switch(action.type) {
         case AUTH_USER:
             return { ...state, authenticated: action.payload };
@@ -17,6 +17,8 @@ export default function(state = INITIAL_STATE, action) {
             return { ...state, uuid: action.payload };
         case FETCH_USER:
             return { ...state, user: action.payload };
+        case SIGN_OUT:
+             return {};
         default:
             return state;
     }

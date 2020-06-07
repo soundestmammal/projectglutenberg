@@ -1,13 +1,32 @@
-/* .map-container {
-    flex-grow: 3;
-    height: 90vh;
+/* Important! Always set the container height explicitly */
+.map-container {
+  height: calc(100vh - 100px);
+  width: 75%;
+}
+
+/* .map-overlay {
+  width  : 41%;
+  height: calc(100vh - 100px);
+  background: black;
+  position: absolute;
+  opacity: 0.25;
+  top: 100px; 
+  right: 0px;
 } */
 
+.marker-content {
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  transform: rotate(45deg);
+}
+
 .pin {
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
   border-radius: 50% 50% 50% 0;
-  background: palevioletred;
+  border: 3px solid white;
+  background: red;
   position: absolute;
   transform: rotate(-45deg);
   left: 50%;
@@ -16,6 +35,29 @@
   animation-name: bounce;
   animation-fill-mode: both;
   animation-duration: 1s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pin-highlighted {
+  z-index: 10;
+  width: 25px;
+  height: 25px;
+  border-radius: 50% 50% 50% 0;
+  border: 3px solid white;
+  background: rgb(5, 177, 34);
+  position: absolute;
+  transform: rotate(-45deg);
+  left: 50%;
+  top: 50%;
+  margin: -20px 0 0 -20px;
+  animation-name: bounce;
+  animation-fill-mode: both;
+  animation-duration: 1s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* .pin::after {
@@ -27,3 +69,22 @@
     position: absolute;
     border-radius: 50%;
 } */
+
+.map-checkbox-container {
+  background: white;
+  position: fixed;
+  width: 200px;
+  height: 40px;
+  top: 110px;
+  right: 100px;
+  display: flex;
+  align-items: center;
+  border: 1px solid gray;
+  border-radius: 4px;
+}
+
+.map-checkbox-container input{
+  position: relative;
+  width: 25%;
+  transform: scale(2);
+}

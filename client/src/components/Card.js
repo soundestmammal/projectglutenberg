@@ -8,21 +8,28 @@ import "../styles/card.css";
         1. These classNames are not acceptable.
         2. Refine the desktop style
         3. Make this work on mobile devices
+        4. There may be times where there is no categories!!! Comment out for now, refactor during client side error handing.
 */
 
 const Card = (props) => {
     return(
-        <Link className="container" to={`/biz/${props.id}`} onMouseEnter={() => props.hover(props.id)} onClick={() => props.navigate()}> 
-            <div className="image">
-                <img style={{height: '200px', width: '200px'}} src={props.image} alt="food from restuarant" />
-            </div>
-            <div className="info">
-                <span className="restaurant-title">{props.name}</span>
-                <span>{props.price}</span>
-                <span>{props.categories[0].title}</span>
-                <span>{props.address[0] + " " + props.address[1]}</span>
-                <span>{props.rating}</span>
-                <span>{props.phone}</span>
+        <Link className="container" to={`/biz/${props.id}`} onMouseEnter={() => props.hover(props.id)} onMouseLeave={() => props.hover("") } onClick={() => props.navigate()}>
+            <div className="card-wrapper">
+                <div className="image">
+                    <img style={{height: '200px', width: '200px'}} src={props.image} alt="food from restuarant" />
+                </div>
+                <div className="info">
+                    <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                        <span className="restaurant-title">{props.name}</span>
+                        <span className="restaurant-title">{props.index}</span>
+                    </div>
+                    <span>{props.price}</span>
+
+                    {/* <span>{props.categories[0].title}</span> */}
+                    <span>{props.address[0] + " " + props.address[1]}</span>
+                    <span>{props.rating}</span>
+                    <span>{props.phone}</span>
+                </div>
             </div>
         </Link>
     );

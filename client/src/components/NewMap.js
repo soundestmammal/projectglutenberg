@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
+import MapCheckbox from './MapCheckbox';
+import Marker from './Marker';
 import { key } from '../KEYS';
 import "../styles/map.css";
 
@@ -17,39 +19,53 @@ import "../styles/map.css";
     9. How can I make this component more dynamic so I can use it as a minimap.
 */
 
-const Marker = ({ text }) => <div className="pin" onClick={() => alert("You clicked me")}>{text}</div>;
-
 class NewMap extends Component {
 
   static defaultProps = {
-    zoom: 12
+    zoom: 13
   };
+
+  componentDidUpdate(prevProps) {
+    if(this.props.center.lat !== prevProps.center.lat || this.props.center.lng !== prevProps.center.lng) {
+      this.props.getNewData();
+    }
+  }
+
+  onChange = ({ center }) => {
+    this.props.onDragMap(center);
+  }
 
   renderMap = () => {
     if(this.props.loading) return null;
     return (
-    <GoogleMapReact
-          bootstrapURLKeys={{ key: key}}
-          defaultCenter={this.props.center}
-          defaultZoom={this.props.zoom}
-        >
-          {
-            this.props.restaurants.map(rest => 
-              <Marker lat={rest.coordinates.latitude} lng={rest.coordinates.longitude} text={rest.name} />
-            )
-          }<Marker
-            lat={this.props.center.lat}
-            lng={this.props.center.lng}
-            text="Robert Checco"
-          />
-    </GoogleMapReact> );
+      <GoogleMapReact
+        bootstrapURLKeys={{ key: key}}
+        center={this.props.center}
+        zoom={this.props.zoom}
+        onChange={this.onChange}
+      >
+        {
+          this.props.restaurants.map((rest, index) => {
+            let currentStyle = "pin";
+            if(this.props.currentRestaurant === rest.id) {
+              currentStyle = "pin-highlighted"
+            }
+            return <Marker lat={rest.coordinates.latitude} lng={rest.coordinates.longitude} text={index+1}  className={currentStyle} key={rest.id} data={rest} hover={this.props.hover} navigate={this.props.navigate} />
+          }
+          )
+        }
+      </GoogleMapReact> );
   }
 
   render() {
     return (
-      // Important! Always set the container height explicitly
-      <div style={{ height: '80vh', width: '75%' }}>
+      <div className="map-container">
         {this.renderMap()}
+        <MapCheckbox 
+        toggle={this.props.toggle}
+        checked={this.props.checked}
+        />
+        <div className="map-overlay"></div>
       </div>
     );
   }

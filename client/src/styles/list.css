@@ -1,8 +1,10 @@
 .list-container {
     overflow-y: auto;
     flex-grow: 1;
-    height: 700px;
-    width: 100%
+    height: calc(100vh - 100px);
+    width: 100%;
+    padding: 0px 40px;
+    background: #DEF2F1;
 }
 
 .listStyling {

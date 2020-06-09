@@ -15,6 +15,13 @@ it('handles actions of type AUTH_USER', () => {
     expect(newState.authenticated).toEqual(token);
 });
 
+it('handles actions of type AUTH_ERROR', () => {
+    const errorMessage = "There was an error";
+    const action = { type: AUTH_ERROR, payload: errorMessage };
+    const newState = authReducer(INITIAL_STATE, action);
+    expect(newState.errorMessage).toEqual(errorMessage);
+})
+
 it('handles actions of type FETCH_USER', () => {
 
     const user = { uuid: 'fidwqn09ej0', avatar: []};

@@ -19,12 +19,14 @@ module.exports = function (app) {
         }
     });
 
+    const YELP_API_KEY = "Bearer " + process.env.YELP_API_KEY;
+
     app.get('/yelp', async(req, res) => {
         let lat = req.query.latitude;
         let lng = req.query.longitude;
         let searchbox = req.query.searchbox;
         const options = {
-            headers: {'Authorization': yelp}
+            headers: {'Authorization': YELP_API_KEY}
         }
         const response = await axios.get(`https://api.yelp.com/v3/businesses/search?term=${searchbox}&latitude=${lat}&longitude=${lng}`, options);
         const data = response.data.businesses;
@@ -46,7 +48,7 @@ module.exports = function (app) {
 
     app.get('/yelp/business/:id', async(req, res) => {
         const options = {
-            headers: {'Authorization': yelp}
+            headers: {'Authorization': YELP_API_KEY}
         }
         const response = await axios.get(`https://api.yelp.com/v3/businesses/${req.params.id}`, options);
         res.send(response.data);

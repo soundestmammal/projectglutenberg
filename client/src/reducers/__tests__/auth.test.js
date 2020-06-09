@@ -22,8 +22,14 @@ it('handles actions of type AUTH_ERROR', () => {
     expect(newState.errorMessage).toEqual(errorMessage);
 })
 
-it('handles actions of type FETCH_USER', () => {
+it('handles actions of type AUTH_UUID', () => {
+    const uuid = 'fdoiwhfoiiwoijfeonwofe';
+    const action = { type: AUTH_UUID, payload: uuid };
+    const newState = authReducer(INITIAL_STATE, action);
+    expect(newState.uuid).toEqual(uuid);
+})
 
+it('handles actions of type FETCH_USER', () => {
     const user = { uuid: 'fidwqn09ej0', avatar: []};
     const action = { type: FETCH_USER, payload: user }
     const newState = authReducer(INITIAL_STATE, action);

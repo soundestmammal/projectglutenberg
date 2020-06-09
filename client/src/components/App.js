@@ -173,6 +173,7 @@ class App extends Component {
               />
             </div>
           </Route>
+          
         <Route path={`/biz/${this.state.currentRestaurant}`}>
           <div style={{margin: 0, padding: 0}}>
             <NavBar 
@@ -185,6 +186,7 @@ class App extends Component {
               rest={this.state.currentRestaurantData}
             />
           </Route>
+
           <Route path="/auth">
             <div style={{margin: 0, padding: 0}}>
               <NavBar 
@@ -195,6 +197,7 @@ class App extends Component {
               <Auth />
             </div>
           </Route>
+
           <Route path="/profile">
             <NavBar 
               value={this.state.searchbox}
@@ -215,6 +218,7 @@ class App extends Component {
             />
             <Signin />
           </Route>
+
           <Route path="/signout">
             <NavBar 
               value={this.state.searchbox}
@@ -223,6 +227,7 @@ class App extends Component {
             />
             <Signout />
           </Route>
+
       </Switch>  
     </div>
     );

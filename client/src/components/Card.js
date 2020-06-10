@@ -12,23 +12,27 @@ import "../styles/card.css";
 */
 
 const Card = (props) => {
+    const {
+        image,
+        name,
+        price,
+        phone,
+    } = props.rest;
+    
     return(
         <Link className="container" to={`/biz/${props.id}`} onMouseEnter={() => props.hover(props.id)} onMouseLeave={() => props.hover("") } onClick={() => props.navigate()}>
             <div className="card-wrapper">
                 <div className="image">
-                    <img style={{height: '200px', width: '200px'}} src={props.image} alt="food from restuarant" />
+                    <img style={{height: '200px', width: '200px'}} src={image} alt="food from restuarant" />
                 </div>
                 <div className="info">
                     <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                        <span className="restaurant-title">{props.name}</span>
+                        <span className="restaurant-title">{name}</span>
                         <span className="restaurant-title">{props.index}</span>
                     </div>
-                    <span>{props.price}</span>
-
-                    {/* <span>{props.categories[0].title}</span> */}
+                    <span>{price}</span>
                     <span>{props.address[0] + " " + props.address[1]}</span>
-                    <span>{props.rating}</span>
-                    <span>{props.phone}</span>
+                    <span>{phone}</span>
                 </div>
             </div>
         </Link>

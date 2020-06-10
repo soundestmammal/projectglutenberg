@@ -30,9 +30,9 @@ const Card = (props) => {
                         <span className="restaurant-title">{name}</span>
                         <span className="restaurant-title">{props.index}</span>
                     </div>
-                    <span>{price}</span>
-                    <span>{props.address[0] + " " + props.address[1]}</span>
-                    <span>{phone}</span>
+                    <span className="card-price">{price}</span>
+                    <span className="card-address">{props.address[0] + " " + props.address[1]}</span>
+                    <span className="card-phone">{phone}</span>
                 </div>
             </div>
         </Link>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import { BrowserRouter as Router } from 'react-router-dom';
 import Card from '../Card';
 
@@ -31,14 +31,43 @@ let rest = {
 
 describe('Testing the UI of the Card component', () => {
     it('renders the card component', () => {
-        const wrapper = shallow(
-            <Router>
-                <Card 
-                    rest={rest}
-                    address={rest.location}
-                />
-            </Router>
-        );
+        const wrapper = mount(<Router><Card rest={rest} address={rest.location} /></Router>);
         expect(wrapper.exists(Card)).toBe(true);
+    });
+
+    it('renders only a single image', () => {
+        const wrapper = mount(<Router><Card rest={rest} address={rest.location} /></Router>);
+        expect(wrapper.find("img").length).toEqual(1);
+    });
+
+    it('renders the image that is provided by props', () => {
+        const wrapper = mount(<Router><Card rest={rest} address={rest.location} /></Router>);
+        expect(wrapper.find("img").prop("src")).toEqual(rest.image);
+    });
+
+    it('renders the correct restaurant name', () => {
+        const wrapper = mount(<Router><Card rest={rest} address={rest.location} /></Router>);
+        expect(wrapper.find(".restaurant-title").at(0).render().text()).toEqual(rest.name);
+    });
+
+    it('renders the correct restaurant number', () => {
+        const wrapper = mount(<Router><Card rest={rest} address={rest.location} index={1} /></Router>);
+        expect(wrapper.find(".restaurant-title").at(1).render().text()).toEqual("1");
+    })
+
+    it('renders the correct price', () => {
+        const wrapper = mount(<Router><Card rest={rest} address={rest.location} /></Router>);
+        expect(wrapper.find(".card-price").render().text()).toEqual(rest.price);
+    });
+
+    it('renders the correct address', () => {
+        const matchMe = rest.location[0] + " " + rest.location[1];
+        const wrapper = mount(<Router><Card rest={rest} address={rest.location} /></Router>);
+        expect(wrapper.find(".card-address").render().text()).toEqual(matchMe);
+    })
+
+    it('renders the correct phone number', () => {
+        const wrapper = mount(<Router><Card rest={rest} address={rest.location} /></Router>);
+        expect(wrapper.find(".card-phone").render().text()).toEqual(rest.phone);
     });
 });

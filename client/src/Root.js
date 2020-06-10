@@ -12,10 +12,14 @@ const store = createStore(
     applyMiddleware(reduxThunk)
   );
 
-export default (props) => {
+export default ({ children, initialState = { auth: { authenticated: localStorage.getItem('token') }} }) => {
     return(
-        <Provider store={store}>
-            {props.children}
+        <Provider store={createStore(
+            reducers,
+            initialState,
+            applyMiddleware(reduxThunk)
+          )}>
+            {children}
         </Provider>
     );
 };

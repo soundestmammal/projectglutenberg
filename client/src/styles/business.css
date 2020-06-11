@@ -5,6 +5,15 @@
     align-items: center;
 }
 
+.business-photos {
+    max-height: 300px;
+    display: flex;
+}
+
+.individual-photo {
+    width: 25%;
+}
+
 .business-left {
     max-width: 715px;
     padding-right: 50px;
@@ -13,7 +22,7 @@
 .business-content {
     max-width: 1200px;
     padding: 0px 40px;
-    margin: 0 auto;
+    margin: 24px auto 48px;
     border: 3px solid red;
 }
 
@@ -21,6 +30,20 @@
     font-size: 3em;
     font-weight: bold;
     font-family: sans-serif;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+}
+
+.business-price {
+    font-size: 1.25em;
+}
+
+.middle{ 
+    margin: 0px 10px 0px;
+}
+
+.business-categories {
+    font-size: 1.25em;
 }
 
 .covid-update {

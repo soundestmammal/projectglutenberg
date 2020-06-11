@@ -1,7 +1,5 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import Root from '../../Root';
-import App from '../App';
 import { BrowserRouter as Router } from 'react-router-dom';
 import Business from '../Business';
 
@@ -44,8 +42,13 @@ describe('Business Component', () => {
         expect(wrapper.find(".business-title").render().text()).toEqual(props.name);
     });
 
+    it('should render the correct price', () => {
+        const wrapper = mount(<Router><Business rest={props} /></Router>);
+        expect(wrapper.find(".business-price").render().text()).toEqual(props.price);
+    })
+
     it('should show the properly formatted category string', () => {
         const wrapper = mount(<Router><Business rest={props} /></Router>);
         expect(wrapper.find(".business-categories").render().text()).toEqual(props.categories[0].title + ", " + props.categories[1].title + ", " + props.categories[2].title);
-    })
+    });
 });

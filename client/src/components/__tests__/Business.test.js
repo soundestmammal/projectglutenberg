@@ -2,6 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { BrowserRouter as Router } from 'react-router-dom';
 import Business from '../Business';
+import Loading from '../Loading';
 
 describe('Business Component', () => {
     const props = {
@@ -51,4 +52,9 @@ describe('Business Component', () => {
         const wrapper = mount(<Router><Business rest={props} /></Router>);
         expect(wrapper.find(".business-categories").render().text()).toEqual(props.categories[0].title + ", " + props.categories[1].title + ", " + props.categories[2].title);
     });
+
+    it("should render the Loading component when rest property is null", () => {
+        const wrapper = mount(<Router><Business rest={null} /></Router>);
+        expect(wrapper.find(Loading).length).toEqual(1);
+    })
 });

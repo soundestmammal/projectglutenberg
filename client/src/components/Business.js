@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Loading from './Loading';
-import { Link } from 'react-router-dom';
 import "../styles/business.css";
 
 const ReturnComponent = (props) => {
@@ -17,7 +16,6 @@ const ReturnComponent = (props) => {
         return returnMe;
     }
 
-    // console.log(props);
     return(
         <div>
         <div className="business-photos">
@@ -84,21 +82,23 @@ const ReturnComponent = (props) => {
     );
 }
 
-const Business = (props) => {
-    let myComponent;
-    // console.log(props.rest);
-    // console.log(props.rest !== null);
-    if(props.rest != null) {
-        myComponent = <ReturnComponent rest={props.rest}/>
-    } else {
-        myComponent = <Loading />
+class Business extends Component {
+
+    conditionalRender = () => {
+        if(this.props.rest !== null) {
+            return <ReturnComponent rest={this.props.rest} />
+        } else {
+            return <Loading />
+        }
     }
 
-    return(
-        <div className="business-container">
-            {myComponent}
-        </div>
-    );
-}
+    render() {
+        return(
+            <div className="business-container">
+                {this.conditionalRender()}
+            </div>
+        );
+    }
+};
 
 export default Business;

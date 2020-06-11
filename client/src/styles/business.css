@@ -1,5 +1,4 @@
 .business-container {
-    border: 2px solid purple;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -11,7 +10,13 @@
 }
 
 .individual-photo {
+    box-sizing: border-box;
     width: 25%;
+    border-right: 2px solid white;
+}
+
+.individual-photo:last-child {
+    border: 0;
 }
 
 .business-left {

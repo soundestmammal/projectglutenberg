@@ -3,8 +3,8 @@ import thunk from 'redux-thunk';
 
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
-import { fetchUser, signup } from '../index';
-import { FETCH_USER, AUTH_USER, AUTH_UUID } from '../types';
+import { fetchUser, signup, signin, signout } from '../index';
+import { FETCH_USER, AUTH_USER, AUTH_UUID, SIGN_OUT } from '../types';
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
@@ -53,4 +53,38 @@ describe('async action creators', () => {
             expect(actions).toEqual(expectedActions);
         });
     });
+
+    it('should create an action to signin', () => {
+        const userData = {
+            token: 'it would return a token',
+            user: {_id: 'it would return a uuid'}
+        };
+
+        mock.onPost("http://localhost:3090/users/login").reply(200, userData);
+
+        const expectedActions = [
+            { type: AUTH_USER, payload: 'it would return a token'},
+            { type: AUTH_UUID, payload: 'it would return a uuid'}
+        ];
+        
+        const doNothing = () => {};
+        return store.dispatch(signin('email', 'password', doNothing)).then(() => {
+            const actions = store.getActions();
+            expect(actions).toEqual(expectedActions);
+        });
+    });
+
+    it('should create an action to signout', () => {
+        mock.onPost("http://localhost:3090/users/logout").reply(200);
+
+        const expectedAction = {
+            type: SIGN_OUT
+        };
+
+        const fakeToken = "this is a fake token";
+        return store.dispatch(signout(fakeToken)).then(() => {
+            const actions = store.getActions();
+            expect(actions[0]).toEqual(expectedAction);
+        })
+    })
 });

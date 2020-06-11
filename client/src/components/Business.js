@@ -16,6 +16,33 @@ const ReturnComponent = (props) => {
         return returnMe;
     }
 
+    function renderHours() {
+
+        const dateDictionary = {
+            0: "Mon",
+            1: "Tue",
+            2: "Wed",
+            3: "Thu",
+            4: "Fri",
+            5: "Sat",
+            6: "Sun"
+        }
+        return(
+        // Loop through array
+        props.rest.hours[0].open.map((day) => {
+            // Populate each span with properly formatted time
+            let dayOfWeek = dateDictionary[day.day];
+            // If it is open now, then add the open now text to span
+            // Generate 7 spans
+            return(
+                <div>
+                    <span>{dayOfWeek}</span>
+                </div>
+            );
+        })
+        );
+    }
+    console.log(props.rest);
     return(
         <div>
         <div className="business-photos">
@@ -64,14 +91,9 @@ const ReturnComponent = (props) => {
                     <h2>Location & Hours</h2>
                     <div className="business-location-information">
                         <div className="business-minimap">Put a minimap here</div>
+                        {/* Wrap them in a div */}
                         <div className="business-hours-container">
-                            <span><strong>Mon</strong> 7:00 am - 7:00 pm</span>
-                            <span><strong>Mon</strong> 7:00 am - 7:00 pm</span>
-                            <span><strong>Mon</strong> 7:00 am - 7:00 pm</span>
-                            <span><strong>Mon</strong> 7:00 am - 7:00 pm</span>
-                            <span><strong>Mon</strong> 7:00 am - 7:00 pm</span>
-                            <span><strong>Mon</strong> 7:00 am - 7:00 pm</span>
-                            <span><strong>Mon</strong> 7:00 am - 7:00 pm</span>
+                            {renderHours()}
                         </div>
                     </div>
                 </div>

@@ -17,7 +17,16 @@ describe('Business Component', () => {
             {title: "Patties"},
             {title: "Sewage"},
             {title: "Bucket-based fare"}
-        ]
+        ],
+        hours: [{open: [
+            {day: 0},
+            {day: 1},
+            {day: 2},
+            {day: 3},
+            {day: 4},
+            {day: 5},
+            {day: 6},
+        ]}]
     };
 
     it('should render a business component', () => {

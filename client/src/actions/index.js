@@ -47,8 +47,6 @@ export const signin = (email, password, callback) => async dispatch => {
 }
 
 export const fetchUser = (token) => async dispatch => {
-
-    console.log("Token", token);
     try {
         // I need to make a call to the server here to fetch the user information
         const response = await axios.post('http://localhost:3090/fetchUser', {}, {

@@ -38,4 +38,9 @@ describe('Business Component', () => {
         expect(wrapper.find(".individual-photo").at(2).prop("src")).toEqual(props.photos[2]);
         expect(wrapper.find(".individual-photo").at(3).prop("src")).toEqual(props.photos[0]);
     });
+
+    it('should show the correct title', () => {
+        const wrapper = mount(<Router><Business rest={props}/></Router>);
+        expect(wrapper.find(".business-title").render().text()).toEqual(props.name);
+    })
 });

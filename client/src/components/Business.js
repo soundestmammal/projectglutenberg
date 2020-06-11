@@ -17,11 +17,11 @@ const ReturnComponent = (props) => {
         return returnMe;
     }
 
-    console.log(props);
+    // console.log(props);
     return(
         <div>
         <div className="business-photos">
-            {props.rest.photos.map(pic => <img src={pic} alt="restaurant" className="individual-photo" ></img>)}
+            {props.rest.photos.map(pic => <img src={pic} alt="restaurant" className="individual-photo" key={pic}></img>)}
             <img src={props.rest.photos[0]} alt="restaurant" className="individual-photo" ></img>
         </div>
         <div className="business-content">
@@ -33,10 +33,10 @@ const ReturnComponent = (props) => {
                     <span className="business-categories">{renderCategories()}</span>
                 </div>
                 <div className="business-interaction">
-                    <Link><div className="business-button" style={{background: 'red', color: 'white'}}>Write a Review</div></Link>
-                    <Link><div className="business-button">Add Photo</div></Link>
-                    <Link><div className="business-button">Share</div></Link>
-                    <Link><div className="business-button">Save</div></Link>
+                    <div className="business-button" style={{background: 'red', color: 'white'}}>Write a Review</div>
+                    <div className="business-button">Add Photo</div>
+                    <div className="business-button">Share</div>
+                    <div className="business-button">Save</div>
                 </div>
                 <div className="covid-update">
                     <h2>COVID-19 Update: Business operations may be affected</h2>
@@ -86,8 +86,8 @@ const ReturnComponent = (props) => {
 
 const Business = (props) => {
     let myComponent;
-    console.log(props.rest);
-    console.log(props.rest !== null);
+    // console.log(props.rest);
+    // console.log(props.rest !== null);
     if(props.rest != null) {
         myComponent = <ReturnComponent rest={props.rest}/>
     } else {

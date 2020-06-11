@@ -5,7 +5,6 @@ import App from '../App';
 import { BrowserRouter as Router } from 'react-router-dom';
 import Business from '../Business';
 
-
 describe('Business Component', () => {
     const props = {
         photos: [
@@ -30,5 +29,13 @@ describe('Business Component', () => {
     it('should render correct number of photos', () => {
         const wrapper = mount(<Router><Business rest={props} /></Router>);
         expect(wrapper.find(".individual-photo").length).toEqual(props.photos.length + 1);
-    })
-})
+    });
+
+    it('should render each restaurant photo in correct order 0,1,2,0', () => {
+        const wrapper = mount(<Router><Business rest={props} /></Router>);
+        expect(wrapper.find(".individual-photo").at(0).prop("src")).toEqual(props.photos[0]);
+        expect(wrapper.find(".individual-photo").at(1).prop("src")).toEqual(props.photos[1]);
+        expect(wrapper.find(".individual-photo").at(2).prop("src")).toEqual(props.photos[2]);
+        expect(wrapper.find(".individual-photo").at(3).prop("src")).toEqual(props.photos[0]);
+    });
+});

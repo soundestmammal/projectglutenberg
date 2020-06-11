@@ -42,5 +42,10 @@ describe('Business Component', () => {
     it('should show the correct title', () => {
         const wrapper = mount(<Router><Business rest={props}/></Router>);
         expect(wrapper.find(".business-title").render().text()).toEqual(props.name);
+    });
+
+    it('should show the properly formatted category string', () => {
+        const wrapper = mount(<Router><Business rest={props} /></Router>);
+        expect(wrapper.find(".business-categories").render().text()).toEqual(props.categories[0].title + ", " + props.categories[1].title + ", " + props.categories[2].title);
     })
 });

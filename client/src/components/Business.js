@@ -4,16 +4,33 @@ import { Link } from 'react-router-dom';
 import "../styles/business.css";
 
 const ReturnComponent = (props) => {
+
+    function renderCategories() {
+        let returnMe = "";
+        for(let i = 0; i < props.rest.categories.length; i++) {
+            if(i+1 === props.rest.categories.length) {
+                returnMe = returnMe + props.rest.categories[i].title;
+            } else {
+                returnMe = returnMe + props.rest.categories[i].title + ", ";
+            }
+        }
+        return returnMe;
+    }
+
     console.log(props);
     return(
+        <div>
+        <div className="business-photos">
+            {props.rest.photos.map(pic => <img src={pic} alt="restaurant" className="individual-photo" ></img>)}
+            <img src={props.rest.photos[0]} alt="restaurant" className="individual-photo" ></img>
+        </div>
         <div className="business-content">
-            <div>
-                {props.rest.photos.map(pic => <img src={pic} alt="restaurant" style={{height: "400px", width: "400px"}}></img>)}
-            </div>
             <div className="business-left">
-                <span className="business-title">{props.rest.name}</span>
+                <div className="business-title">{props.rest.name}</div>
                 <div>
-                    <span>Category - Price</span>
+                    <span className="business-price">{props.rest.price}</span>
+                    <span className="middle">-</span>
+                    <span className="business-categories">{renderCategories()}</span>
                 </div>
                 <div className="business-interaction">
                     <Link><div className="business-button" style={{background: 'red', color: 'white'}}>Write a Review</div></Link>
@@ -21,7 +38,6 @@ const ReturnComponent = (props) => {
                     <Link><div className="business-button">Share</div></Link>
                     <Link><div className="business-button">Save</div></Link>
                 </div>
-                {/* This is a commment here*/}
                 <div className="covid-update">
                     <h2>COVID-19 Update: Business operations may be affected</h2>
                     <p>Due to ongoing precautionary measures, please contact the business directly for updated hours and availability</p>
@@ -63,6 +79,7 @@ const ReturnComponent = (props) => {
                 </div>
             </div>
 
+        </div>
         </div>
     );
 }

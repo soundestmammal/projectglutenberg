@@ -18,14 +18,13 @@ export const signup = (email, password, callback) => async dispatch => {
 
 export const signout = (token) => async dispatch => {
     try {
-        const response = await axios.post('http://localhost:3090/users/logout', {}, {
+        await axios.post('http://localhost:3090/users/logout', {}, {
             headers: {
                 "Authorization": `Bearer ${token}`
             }
         });
         dispatch({ type: SIGN_OUT })
         localStorage.removeItem('token');
-        console.log("This is the signout action creator and it was a : ", response.data.text);
     } catch(e) {
         console.log("There was an error here");
     }
@@ -47,8 +46,6 @@ export const signin = (email, password, callback) => async dispatch => {
 }
 
 export const fetchUser = (token) => async dispatch => {
-
-    console.log("Token", token);
     try {
         // I need to make a call to the server here to fetch the user information
         const response = await axios.post('http://localhost:3090/fetchUser', {}, {

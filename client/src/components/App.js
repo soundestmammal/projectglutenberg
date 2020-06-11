@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
+import { BrowserRouter as Router } from 'react-router-dom';
 import * as actions from '../actions';
 import List from './List';
 import NewMap from './NewMap';
@@ -46,7 +47,7 @@ class App extends Component {
   getYelpData = async () => {
     if(!this.state.loading) {
       const response = await axios.get(`http://localhost:3090/yelp/?latitude=${this.state.mapLat}&longitude=${this.state.mapLong}&searchbox=${this.state.searchbox}`);
-      console.log("This is the response from the GET /yelp api call ", response);
+      // console.log("This is the response from the GET /yelp api call ", response);
       this.setState({ restaurants: response.data });
     }
   }
@@ -142,6 +143,7 @@ class App extends Component {
   render() {
     return (
       <div>
+        <Router>
         <Switch>
           <Route exact path="/">
             <div style={{margin: 0, padding: 0}}>
@@ -173,6 +175,7 @@ class App extends Component {
               />
             </div>
           </Route>
+          
         <Route path={`/biz/${this.state.currentRestaurant}`}>
           <div style={{margin: 0, padding: 0}}>
             <NavBar 
@@ -185,6 +188,7 @@ class App extends Component {
               rest={this.state.currentRestaurantData}
             />
           </Route>
+
           <Route path="/auth">
             <div style={{margin: 0, padding: 0}}>
               <NavBar 
@@ -195,6 +199,7 @@ class App extends Component {
               <Auth />
             </div>
           </Route>
+
           <Route path="/profile">
             <NavBar 
               value={this.state.searchbox}
@@ -215,6 +220,7 @@ class App extends Component {
             />
             <Signin />
           </Route>
+
           <Route path="/signout">
             <NavBar 
               value={this.state.searchbox}
@@ -223,7 +229,9 @@ class App extends Component {
             />
             <Signout />
           </Route>
-      </Switch>  
+
+      </Switch>
+    </Router>
     </div>
     );
   }

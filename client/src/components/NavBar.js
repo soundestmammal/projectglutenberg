@@ -14,7 +14,7 @@ class NavBar extends Component {
      * Base64 Encoding
      * @param Buffer object
      * @return base64 string
-    */
+     */
     arrayBufferToBase64 = (buffer) => {
         let binary = "";
         let bytes = [].slice.call(new Uint8Array(buffer));

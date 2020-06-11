@@ -33,4 +33,24 @@ describe('async action creators', () => {
             expect(actions[0]).toEqual(expectedAction);
         })
     });
+
+    it('should create an action to signup', () => {
+        const userData = {
+            token: 'it would return a token',
+            user: {_id: 'it would return a uuid'}
+        };
+
+        mock.onPost("http://localhost:3090/users").reply(200, userData);
+
+        const expectedActions = [
+            { type: AUTH_USER, payload: 'it would return a token'},
+            { type: AUTH_UUID, payload: 'it would return a uuid'}
+        ];
+        
+        const doNothing = () => {};
+        return store.dispatch(signup('email', 'password', doNothing)).then(() => {
+            const actions = store.getActions();
+            expect(actions).toEqual(expectedActions);
+        });
+    });
 });

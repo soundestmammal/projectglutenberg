@@ -30,19 +30,40 @@ const ReturnComponent = (props) => {
         return(
         // Loop through array
         props.rest.hours[0].open.map((day) => {
-            // Populate each span with properly formatted time
+            // Populate each span with properly formatted day of week
             let dayOfWeek = dateDictionary[day.day];
+            let newStart = day.start.split("");
+            newStart.splice(2, 0, ":");
+            newStart = newStart.join("");
+
+            const open = new Date(`March 14, 2020 ${newStart}`);
+            const options = {
+                hour: 'numeric',
+                minute: 'numeric',
+                hour12: true
+            };
+            const openTimeString = open.toLocaleString('en-us', options);
+            // transform the time to HH:MM
+
+            let newClose = day.end.split("");
+            newClose.splice(2, 0, ":");
+            newClose = newClose.join("");
+            const close = new Date(`March 14, 2020 ${newClose}`);
+            const closeTimeString = close.toLocaleString('en-us', options);
+
             // If it is open now, then add the open now text to span
             // Generate 7 spans
             return(
-                <div>
-                    <span>{dayOfWeek}</span>
+                <div key={dayOfWeek}>
+                    <span className="hours-day">{dayOfWeek}</span>
+                    <span className="hours-time">{openTimeString}</span>
+                    <span> - </span>
+                    <span className="hours-time">{closeTimeString}</span>
                 </div>
             );
         })
         );
     }
-    console.log(props.rest);
     return(
         <div>
         <div className="business-photos">

@@ -19,13 +19,13 @@ describe('Business Component', () => {
             {title: "Bucket-based fare"}
         ],
         hours: [{open: [
-            {day: 0},
-            {day: 1},
-            {day: 2},
-            {day: 3},
-            {day: 4},
-            {day: 5},
-            {day: 6},
+            { day: 0, start: "0900", end: "1700" },
+            { day: 1, start: "0900", end: "1700" },
+            { day: 2, start: "0900", end: "1700" },
+            { day: 3, start: "0900", end: "1700" },
+            { day: 4, start: "0900", end: "1700" },
+            { day: 5, start: "0900", end: "1700" },
+            { day: 6, start: "0900", end: "1700" },
         ]}]
     };
 
@@ -65,5 +65,26 @@ describe('Business Component', () => {
     it("should render the Loading component when rest property is null", () => {
         const wrapper = mount(<Router><Business rest={null} /></Router>);
         expect(wrapper.find(Loading).length).toEqual(1);
-    })
+    });
+
+    it("should render the correct day of week", () => {
+        const wrapper = mount(<Router><Business rest={props} /></Router>);
+        expect(wrapper.find(".hours-day").at(0).render().text()).toEqual("Mon");
+        expect(wrapper.find(".hours-day").at(1).render().text()).toEqual("Tue");
+        expect(wrapper.find(".hours-day").at(2).render().text()).toEqual("Wed");
+        expect(wrapper.find(".hours-day").at(3).render().text()).toEqual("Thu");
+        expect(wrapper.find(".hours-day").at(4).render().text()).toEqual("Fri");
+        expect(wrapper.find(".hours-day").at(5).render().text()).toEqual("Sat");
+        expect(wrapper.find(".hours-day").at(6).render().text()).toEqual("Sun");
+    });
+
+    it("should render the correct open time", () => {
+        const wrapper = mount(<Router><Business rest={props} /></Router>);
+        expect(wrapper.find(".hours-time").at(0).render().text()).toEqual("9:00 AM");
+    });
+
+    it("should render the correct close time", () => {
+        const wrapper = mount(<Router><Business rest={props} /></Router>);
+        expect(wrapper.find(".hours-time").at(1).render().text()).toEqual("5:00 PM");
+    });
 });

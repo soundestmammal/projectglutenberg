@@ -112,4 +112,15 @@
 .business-hours-container {
     display: flex;
     flex-direction: column;
+    margin-left: 2em;
+}
+
+.hours-day {
+    font-family: sans-serif;
+    font-weight: 700;
+    margin-right: 10px;
+}
+
+.hours-time {
+    font-family: sans-serif;
 }

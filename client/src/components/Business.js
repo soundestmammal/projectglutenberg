@@ -1,8 +1,16 @@
 import React, { Component } from 'react';
 import Loading from './Loading';
+import MiniMap from './MiniMap';
 import "../styles/business.css";
 
 const ReturnComponent = (props) => {
+
+    function returnCenter() {
+        let center = {};
+        center['lat'] = props.rest.coordinates.latitude;
+        center['lng'] = props.rest.coordinates.longitude;
+        return center;
+    }
 
     function renderCategories() {
         let returnMe = "";
@@ -64,6 +72,7 @@ const ReturnComponent = (props) => {
         })
         );
     }
+    console.log(props.rest);
     return(
         <div>
         <div className="business-photos">
@@ -111,7 +120,14 @@ const ReturnComponent = (props) => {
                 <div className="business-location">
                     <h2>Location & Hours</h2>
                     <div className="business-location-information">
-                        <div className="business-minimap">Put a minimap here</div>
+                        <div className="business-minimap">
+                            <MiniMap 
+                                text={1}
+                                center={returnCenter()}
+                                className={"pin"}
+
+                            />
+                        </div>
                         {/* Wrap them in a div */}
                         <div className="business-hours-container">
                             {renderHours()}

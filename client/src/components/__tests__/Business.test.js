@@ -3,6 +3,7 @@ import { mount } from 'enzyme';
 import { BrowserRouter as Router } from 'react-router-dom';
 import Business from '../Business';
 import Loading from '../Loading';
+import MiniMap from '../MiniMap';
 
 describe('Business Component', () => {
     const props = {
@@ -26,7 +27,11 @@ describe('Business Component', () => {
             { day: 4, start: "0900", end: "1700" },
             { day: 5, start: "0900", end: "1700" },
             { day: 6, start: "0900", end: "1700" },
-        ]}]
+        ]}],
+        coordinates: {
+            latitude: 40.6747704759645,
+            longitude: -73.5099110118665 
+        }
     };
 
     it('should render a business component', () => {
@@ -86,5 +91,10 @@ describe('Business Component', () => {
     it("should render the correct close time", () => {
         const wrapper = mount(<Router><Business rest={props} /></Router>);
         expect(wrapper.find(".hours-time").at(1).render().text()).toEqual("5:00 PM");
+    });
+
+    it("should render a <MiniMap />", () => {
+        const wrapper = mount(<Router><Business rest={props} /></Router>);
+        expect(wrapper.find(MiniMap).length).toEqual(1);
     });
 });

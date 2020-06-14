@@ -5,8 +5,8 @@
   "proxy": "http://localhost:8080",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "env-cmd ./config/dev.env nodemon index.js",
+    "test": "jest --watch"
   },
   "author": "",
   "license": "ISC",
@@ -28,5 +28,10 @@
     "passport-jwt": "^4.0.0",
     "sharp": "^0.25.3",
     "validator": "^13.0.0"
+  },
+  "devDependencies": {
+    "axios-mock-adapter": "^1.18.1",
+    "env-cmd": "^8.0.2",
+    "jest": "^26.0.1"
   }
 }

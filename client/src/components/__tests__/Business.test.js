@@ -34,6 +34,12 @@ describe('Business Component', () => {
         coordinates: {
             latitude: 40.6747704759645,
             longitude: -73.5099110118665 
+        },
+        location: {
+            display_address: [
+                "1847 Wantagh Ave",
+                "Wantagh, NY 11793"
+            ]
         }
     };
 
@@ -106,4 +112,9 @@ describe('Business Component', () => {
         const wrapper = mount(<Router><Business rest={props} /></Router>);
         expect(wrapper.find(MiniMap).length).toEqual(1);
     });
+
+    it("should render the address", () => {
+        const wrapper = mount(<Router><Business rest={props} /></Router>);
+        expect(wrapper.find(".business-address").render().find('span').length).toEqual(2);
+    })
 });

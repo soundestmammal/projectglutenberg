@@ -7,6 +7,15 @@ import "../styles/map.css";
 
 const ReturnComponent = (props) => {
 
+    function renderAddress() {
+        return (
+            <div className="business-address">
+                <span>{props.rest.location.display_address[0]}</span>
+                <span>{props.rest.location.display_address[1]}</span>
+            </div>
+        )
+    }
+
     function renderOpenNow(dayFromMap) {
         const d = new Date();
         let day = d.getDay();
@@ -88,7 +97,6 @@ const ReturnComponent = (props) => {
         })
         );
     }
-    // console.log(props.rest);
     return(
         <div>
         <div className="business-photos">
@@ -138,6 +146,7 @@ const ReturnComponent = (props) => {
                     <div className="business-location-information">
                         <div className="business-minimap">
                             <MiniMap center={returnCenter()} />
+                            {renderAddress()}
                         </div>
                         <div className="business-hours-container">
                             {renderHours()}

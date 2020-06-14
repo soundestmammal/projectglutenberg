@@ -142,4 +142,13 @@ module.exports = function (app) {
             res.status(404).send();
         }
     });
+
+    app.delete('/users/me', auth, async (req, res) => {
+        try {
+            await req.user.remove();
+            res.send({ message: "Success deleted user" });
+        } catch(e) {
+            res.status(400).send();
+        }
+    });
 }

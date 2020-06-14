@@ -40,7 +40,8 @@ describe('Business Component', () => {
                 "1847 Wantagh Ave",
                 "Wantagh, NY 11793"
             ]
-        }
+        },
+        phone: "0123456789"
     };
 
     it('should render a business component', () => {
@@ -116,5 +117,11 @@ describe('Business Component', () => {
     it("should render the address", () => {
         const wrapper = mount(<Router><Business rest={props} /></Router>);
         expect(wrapper.find(".business-address").render().find('span').length).toEqual(2);
+    });
+
+    it("should render the phone and get directions content", () => {
+        const wrapper = mount(<Router><Business rest={props} /></Router>);
+        expect(wrapper.find(".rightSideContainer").render().find("span").length).toEqual(2);
+        expect(wrapper.find(".rightSideData").at(0).text()).toEqual(props.phone);
     })
 });

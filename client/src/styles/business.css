@@ -25,6 +25,8 @@
 }
 
 .business-content {
+    display: flex;
+    flex-direction: row;
     max-width: 1200px;
     padding: 0px 40px;
     margin: 24px auto 48px;
@@ -140,4 +142,25 @@
     align-items: center;
     justify-content: center;
     font-size: 1.5em;
+}
+
+.business-right {
+    width: 100%;
+}
+
+.rightSideContainer {
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    padding: 20px;
+}
+
+.rightSideContainer span {
+    border: 1px solid red;
+    display: block;
+    padding: 20px;
+    margin: 10px;
 }

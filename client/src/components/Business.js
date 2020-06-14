@@ -7,13 +7,26 @@ import "../styles/map.css";
 
 const ReturnComponent = (props) => {
 
+    function renderRightSide() {
+        return(
+            <div className="rightSideContainer">
+                <div>
+                    <span className="rightSideData">{props.rest.phone}</span>
+                </div>
+                <div>
+                    <span className="rightSideData">Get Directions</span>
+                </div>
+            </div>
+        );
+    }
+
     function renderAddress() {
         return (
             <div className="business-address">
                 <span>{props.rest.location.display_address[0]}</span>
                 <span>{props.rest.location.display_address[1]}</span>
             </div>
-        )
+        );
     }
 
     function renderOpenNow(dayFromMap) {
@@ -97,6 +110,7 @@ const ReturnComponent = (props) => {
         })
         );
     }
+    // console.log(props.rest);
     return(
         <div>
         <div className="business-photos">
@@ -153,6 +167,9 @@ const ReturnComponent = (props) => {
                         </div>
                     </div>
                 </div>
+            </div>
+            <div className="business-right">
+                {renderRightSide()}
             </div>
 
         </div>

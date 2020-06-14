@@ -7,7 +7,16 @@ class List extends Component {
     // of cards that show information about the nearby restaurants.
     renderList = () => {
         const listItems = this.props.restaurants.map((rest, index) => {
-            return <Card image={rest.image} name={rest.name} address={rest.location} price={rest.price} phone={rest.phone} categories={rest.categories} key={rest.id} id={rest.id} hover={this.props.hover} navigate={this.props.navigate} index={index+1} />
+            return(
+            <Card 
+                rest={rest}
+                address={rest.location}
+                key={rest.id}
+                id={rest.id}
+                hover={this.props.hover}
+                navigate={this.props.navigate}
+                index={index+1} />
+            );
         })
 
         return <ul className="listStyling">{listItems}</ul>

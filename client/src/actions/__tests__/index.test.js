@@ -3,8 +3,8 @@ import thunk from 'redux-thunk';
 
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
-import { fetchUser, signup, signin, signout } from '../index';
-import { FETCH_USER, AUTH_USER, AUTH_UUID, SIGN_OUT } from '../types';
+import { fetchUser, signup, signin, signout, deleteUser } from '../index';
+import { FETCH_USER, AUTH_USER, AUTH_UUID, SIGN_OUT, DELETE_USER } from '../types';
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
@@ -86,5 +86,19 @@ describe('async action creators', () => {
             const actions = store.getActions();
             expect(actions[0]).toEqual(expectedAction);
         })
-    })
+    });
+
+    it('should create an action to delete user', () => {
+        mock.onDelete("http://localhost:3090/users/me").reply(200);
+
+        const expectedAction =  {
+            type: DELETE_USER
+        };
+
+        const fakeToken = "this is a fake token";
+        return store.dispatch(deleteUser(fakeToken)).then(() => {
+            const actions = store.getActions();
+            expect(actions[0]).toEqual(expectedAction);
+        });
+    });
 });

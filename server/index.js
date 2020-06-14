@@ -23,7 +23,7 @@ app.use(bodyParser.json()); // Middleware to ???
 router(app);
 
 // Server Setup
-const PORT = process.env.PORT || 3090;
+const PORT = process.env.PORT;
 const server = http.createServer(app); // library for working with http requests.
 
 server.listen(PORT, () => {

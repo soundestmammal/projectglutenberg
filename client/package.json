@@ -7,8 +7,12 @@
     "@fortawesome/free-solid-svg-icons": "^5.13.0",
     "@fortawesome/react-fontawesome": "^0.1.9",
     "axios": "^0.19.2",
+    "axios-mock-adapter": "^1.18.1",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
     "google-map-react": "^1.1.7",
     "lodash": "^4.17.15",
+    "moxios": "^0.4.0",
     "react": "^16.8.5",
     "react-dom": "^16.8.5",
     "react-google-maps": "^9.4.5",
@@ -18,7 +22,8 @@
     "react-scripts": "2.1.8",
     "recompose": "^0.30.0",
     "redux": "^4.0.5",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "sinon": "^9.0.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -35,5 +40,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "redux-mock-store": "^1.5.4"
+  }
 }

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AUTH_USER, AUTH_ERROR, AUTH_UUID, FETCH_USER, SIGN_OUT } from './types';
+import { AUTH_USER, AUTH_ERROR, AUTH_UUID, FETCH_USER, SIGN_OUT, DELETE_USER } from './types';
 
 export const signup = (email, password, callback) => async dispatch => {
     try {
@@ -18,14 +18,13 @@ export const signup = (email, password, callback) => async dispatch => {
 
 export const signout = (token) => async dispatch => {
     try {
-        const response = await axios.post('http://localhost:3090/users/logout', {}, {
+        await axios.post('http://localhost:3090/users/logout', {}, {
             headers: {
                 "Authorization": `Bearer ${token}`
             }
         });
         dispatch({ type: SIGN_OUT })
         localStorage.removeItem('token');
-        console.log("This is the signout action creator and it was a : ", response.data.text);
     } catch(e) {
         console.log("There was an error here");
     }
@@ -47,8 +46,6 @@ export const signin = (email, password, callback) => async dispatch => {
 }
 
 export const fetchUser = (token) => async dispatch => {
-
-    console.log("Token", token);
     try {
         // I need to make a call to the server here to fetch the user information
         const response = await axios.post('http://localhost:3090/fetchUser', {}, {
@@ -69,4 +66,19 @@ export const fetchUser = (token) => async dispatch => {
     catch(e) {
         console.log("There was an error here");
     } 
+}
+
+export const deleteUser = (token) => async dispatch => {
+    try {
+        await axios.delete('http://localhost:3090/users/me', {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        });
+        dispatch({ type: DELETE_USER });
+        localStorage.removeItem('token');
+    }
+    catch(e) {
+        console.log("There was an error in delete user!");
+    }
 }

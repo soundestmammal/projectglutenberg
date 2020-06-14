@@ -1,4 +1,4 @@
-import { AUTH_USER, AUTH_ERROR, AUTH_UUID, FETCH_USER, SIGN_OUT } from '../actions/types';
+import { AUTH_USER, AUTH_ERROR, AUTH_UUID, FETCH_USER, SIGN_OUT, DELETE_USER } from '../actions/types';
 
 const INITIAL_STATE = {
     authenticated: '',
@@ -18,7 +18,9 @@ export default function (state = INITIAL_STATE, action) {
         case FETCH_USER:
             return { ...state, user: action.payload };
         case SIGN_OUT:
-             return {};
+            return {};
+        case DELETE_USER:
+            return {};
         default:
             return state;
     }

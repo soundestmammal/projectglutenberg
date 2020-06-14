@@ -1,27 +1,136 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Loading from './Loading';
-import { Link } from 'react-router-dom';
+import MiniMap from './MiniMap';
+// import MiniMarker from './MiniMarker';
 import "../styles/business.css";
+import "../styles/map.css";
 
 const ReturnComponent = (props) => {
-    console.log(props);
-    return(
-        <div className="business-content">
-            <div>
-                {props.rest.photos.map(pic => <img src={pic} alt="restaurant" style={{height: "400px", width: "400px"}}></img>)}
-            </div>
-            <div className="business-left">
-                <span className="business-title">{props.rest.name}</span>
+
+    function renderRightSide() {
+        return(
+            <div className="rightSideContainer">
                 <div>
-                    <span>Category - Price</span>
+                    <span className="rightSideData">{props.rest.phone}</span>
+                </div>
+                <div>
+                    <span className="rightSideData">Get Directions</span>
+                </div>
+            </div>
+        );
+    }
+
+    function renderAddress() {
+        return (
+            <div className="business-address">
+                <span>{props.rest.location.display_address[0]}</span>
+                <span>{props.rest.location.display_address[1]}</span>
+            </div>
+        );
+    }
+
+    function renderOpenNow(dayFromMap) {
+        const d = new Date();
+        let day = d.getDay();
+        if(day === 0) {
+            day = 6;
+        } else {
+            day--;
+        }
+        if(props.rest.hours[0].is_open_now && day === dayFromMap) {
+            return <span className="open-now">Open now!!!</span>
+        } 
+    }
+
+    function returnCenter() {
+        let center = {};
+        center['lat'] = props.rest.coordinates.latitude;
+        center['lng'] = props.rest.coordinates.longitude;
+        return center;
+    }
+
+    function renderCategories() {
+        let returnMe = "";
+        for(let i = 0; i < props.rest.categories.length; i++) {
+            if(i+1 === props.rest.categories.length) {
+                returnMe = returnMe + props.rest.categories[i].title;
+            } else {
+                returnMe = returnMe + props.rest.categories[i].title + ", ";
+            }
+        }
+        return returnMe;
+    }
+
+    function renderHours() {
+
+        const dateDictionary = {
+            0: "Mon",
+            1: "Tue",
+            2: "Wed",
+            3: "Thu",
+            4: "Fri",
+            5: "Sat",
+            6: "Sun"
+        }
+        return(
+        // Loop through array
+        props.rest.hours[0].open.map((day) => {
+            // Populate each span with properly formatted day of week
+            let dayOfWeek = dateDictionary[day.day];
+            let newStart = day.start.split("");
+            newStart.splice(2, 0, ":");
+            newStart = newStart.join("");
+
+            const open = new Date(`March 14, 2020 ${newStart}`);
+            const options = {
+                hour: 'numeric',
+                minute: 'numeric',
+                hour12: true
+            };
+            const openTimeString = open.toLocaleString('en-us', options);
+            // transform the time to HH:MM
+
+            let newClose = day.end.split("");
+            newClose.splice(2, 0, ":");
+            newClose = newClose.join("");
+            const close = new Date(`March 14, 2020 ${newClose}`);
+            const closeTimeString = close.toLocaleString('en-us', options);
+
+            // If it is open now, then add the open now text to span
+            // Generate 7 spans
+            return(
+                <div key={dayOfWeek}>
+                    <span className="hours-day">{dayOfWeek}</span>
+                    <span className="hours-time">{openTimeString}</span>
+                    <span> - </span>
+                    <span className="hours-time">{closeTimeString}</span>
+                    {renderOpenNow(day.day)}
+                </div>
+            );
+        })
+        );
+    }
+    // console.log(props.rest);
+    return(
+        <div>
+        <div className="business-photos">
+            {props.rest.photos.map(pic => <img src={pic} alt="restaurant" className="individual-photo" key={pic}></img>)}
+            <img src={props.rest.photos[0]} alt="restaurant" className="individual-photo" ></img>
+        </div>
+        <div className="business-content">
+            <div className="business-left">
+                <div className="business-title">{props.rest.name}</div>
+                <div>
+                    <span className="business-price">{props.rest.price}</span>
+                    <span className="middle">-</span>
+                    <span className="business-categories">{renderCategories()}</span>
                 </div>
                 <div className="business-interaction">
-                    <Link><div className="business-button" style={{background: 'red', color: 'white'}}>Write a Review</div></Link>
-                    <Link><div className="business-button">Add Photo</div></Link>
-                    <Link><div className="business-button">Share</div></Link>
-                    <Link><div className="business-button">Save</div></Link>
+                    <div className="business-button" style={{background: 'red', color: 'white'}}>Write a Review</div>
+                    <div className="business-button">Add Photo</div>
+                    <div className="business-button">Share</div>
+                    <div className="business-button">Save</div>
                 </div>
-                {/* This is a commment here*/}
                 <div className="covid-update">
                     <h2>COVID-19 Update: Business operations may be affected</h2>
                     <p>Due to ongoing precautionary measures, please contact the business directly for updated hours and availability</p>
@@ -49,39 +158,42 @@ const ReturnComponent = (props) => {
                 <div className="business-location">
                     <h2>Location & Hours</h2>
                     <div className="business-location-information">
-                        <div className="business-minimap">Put a minimap here</div>
+                        <div className="business-minimap">
+                            <MiniMap center={returnCenter()} />
+                            {renderAddress()}
+                        </div>
                         <div className="business-hours-container">
-                            <span><strong>Mon</strong> 7:00 am - 7:00 pm</span>
-                            <span><strong>Mon</strong> 7:00 am - 7:00 pm</span>
-                            <span><strong>Mon</strong> 7:00 am - 7:00 pm</span>
-                            <span><strong>Mon</strong> 7:00 am - 7:00 pm</span>
-                            <span><strong>Mon</strong> 7:00 am - 7:00 pm</span>
-                            <span><strong>Mon</strong> 7:00 am - 7:00 pm</span>
-                            <span><strong>Mon</strong> 7:00 am - 7:00 pm</span>
+                            {renderHours()}
                         </div>
                     </div>
                 </div>
             </div>
+            <div className="business-right">
+                {renderRightSide()}
+            </div>
 
+        </div>
         </div>
     );
 }
 
-const Business = (props) => {
-    let myComponent;
-    console.log(props.rest);
-    console.log(props.rest !== null);
-    if(props.rest != null) {
-        myComponent = <ReturnComponent rest={props.rest}/>
-    } else {
-        myComponent = <Loading />
+class Business extends Component {
+
+    conditionalRender = () => {
+        if(this.props.rest !== null) {
+            return <ReturnComponent rest={this.props.rest} />
+        } else {
+            return <Loading />
+        }
     }
 
-    return(
-        <div className="business-container">
-            {myComponent}
-        </div>
-    );
-}
+    render() {
+        return(
+            <div className="business-container">
+                {this.conditionalRender()}
+            </div>
+        );
+    }
+};
 
 export default Business;

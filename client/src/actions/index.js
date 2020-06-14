@@ -70,12 +70,13 @@ export const fetchUser = (token) => async dispatch => {
 
 export const deleteUser = (token) => async dispatch => {
     try {
-        await axios.delete('http://localhost:3090/users/me', {}, {
+        await axios.delete('http://localhost:3090/users/me', {
             headers: {
                 "Authorization": `Bearer ${token}`
             }
         });
         dispatch({ type: DELETE_USER });
+        localStorage.removeItem('token');
     }
     catch(e) {
         console.log("There was an error in delete user!");

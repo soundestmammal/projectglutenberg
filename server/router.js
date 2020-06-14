@@ -8,6 +8,16 @@ const auth = require('./middleware/auth');
 
 module.exports = function (app) {
 
+    app.delete('/users/me', auth, async (req, res) => {
+        console.log("Do I even get here inside of the route?");
+        try {
+            await req.user.remove();
+            res.send(req.user);
+        } catch(e) {
+            res.status(500).send();
+        }
+    });
+
     app.get('/forwardgeocode', async (req, res) => {
         console.log("This runs here line 10!");
         const { location, lat, lng } = req.query;
@@ -140,15 +150,6 @@ module.exports = function (app) {
             res.send(user.avatar);
         } catch(e) {
             res.status(404).send();
-        }
-    });
-
-    app.delete('/users/me', auth, async (req, res) => {
-        try {
-            await req.user.remove();
-            res.send({ message: "Success deleted user" });
-        } catch(e) {
-            res.status(400).send();
         }
     });
 }

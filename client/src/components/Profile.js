@@ -24,6 +24,10 @@ class Profile extends Component {
         });
     }
 
+    deleteAccount = () => {
+        this.props.deleteUser(this.props.auth.authenticated);
+    }
+
     submitAvatar = async () => {
         const bodyFormData = new FormData();
         bodyFormData.append('avatar', this.state.pictures[0]);
@@ -60,7 +64,7 @@ class Profile extends Component {
     }
 
     render() {
-        console.log(this.state);
+        console.log(this.props);
         return(
             <div className="profile-wrapper">
                 <div className="profile-content-container">
@@ -82,6 +86,7 @@ class Profile extends Component {
                     <div className="profile-buttons">
                         <button onClick={() => this.submitAvatar()}>Save</button>
                         <button>Cancel</button>
+                        <button onClick={() => this.deleteAccount()}>Delete Account</button>
                         <Button className="profile-signout" text="Sign out" dest="/signout" />
                     </div>
                     {this.renderAvatar()}

@@ -30,6 +30,7 @@
     "validator": "^13.0.0"
   },
   "devDependencies": {
+    "axios-mock-adapter": "^1.18.1",
     "env-cmd": "^8.0.2",
     "jest": "^26.0.1"
   }

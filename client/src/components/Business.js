@@ -1,9 +1,24 @@
 import React, { Component } from 'react';
 import Loading from './Loading';
 import MiniMap from './MiniMap';
+// import MiniMarker from './MiniMarker';
 import "../styles/business.css";
+import "../styles/map.css";
 
 const ReturnComponent = (props) => {
+
+    function renderOpenNow(dayFromMap) {
+        const d = new Date();
+        let day = d.getDay();
+        if(day === 0) {
+            day = 6;
+        } else {
+            day--;
+        }
+        if(props.rest.hours[0].is_open_now && day === dayFromMap) {
+            return <span className="open-now">Open now!!!</span>
+        } 
+    }
 
     function returnCenter() {
         let center = {};
@@ -67,12 +82,13 @@ const ReturnComponent = (props) => {
                     <span className="hours-time">{openTimeString}</span>
                     <span> - </span>
                     <span className="hours-time">{closeTimeString}</span>
+                    {renderOpenNow(day.day)}
                 </div>
             );
         })
         );
     }
-    console.log(props.rest);
+    // console.log(props.rest);
     return(
         <div>
         <div className="business-photos">
@@ -121,14 +137,8 @@ const ReturnComponent = (props) => {
                     <h2>Location & Hours</h2>
                     <div className="business-location-information">
                         <div className="business-minimap">
-                            <MiniMap 
-                                text={1}
-                                center={returnCenter()}
-                                className={"pin"}
-
-                            />
+                            <MiniMap center={returnCenter()} />
                         </div>
-                        {/* Wrap them in a div */}
                         <div className="business-hours-container">
                             {renderHours()}
                         </div>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
+import MiniMarker from './MiniMarker';
 import { key } from '../KEYS';
 import "../styles/map.css";
 import "../styles/minimap.css";
@@ -10,15 +11,6 @@ class MiniMap extends Component {
     zoom: 15
   };
 
-    renderMarker = () => {
-        return(
-            <div className="pin" lat={this.props.center.lat} lng={this.props.center.lng} >
-                <div className="marker-content">
-                </div>
-            </div>
-        );
-    }
-
   renderMap = () => {
     return (
       <GoogleMapReact
@@ -26,8 +18,9 @@ class MiniMap extends Component {
         center={this.props.center}
         zoom={this.props.zoom}
       >
-        {this.renderMarker()}
-      </GoogleMapReact> );
+        <MiniMarker lat={this.props.center.lat} lng={this.props.center.lng} />
+      </GoogleMapReact>
+    );
   }
 
   render() {

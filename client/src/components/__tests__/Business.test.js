@@ -19,15 +19,18 @@ describe('Business Component', () => {
             {title: "Sewage"},
             {title: "Bucket-based fare"}
         ],
-        hours: [{open: [
-            { day: 0, start: "0900", end: "1700" },
-            { day: 1, start: "0900", end: "1700" },
-            { day: 2, start: "0900", end: "1700" },
-            { day: 3, start: "0900", end: "1700" },
-            { day: 4, start: "0900", end: "1700" },
-            { day: 5, start: "0900", end: "1700" },
-            { day: 6, start: "0900", end: "1700" },
-        ]}],
+        hours: [{
+            open: [
+                { day: 0, start: "0900", end: "1700" },
+                { day: 1, start: "0900", end: "1700" },
+                { day: 2, start: "0900", end: "1700" },
+                { day: 3, start: "0900", end: "1700" },
+                { day: 4, start: "0900", end: "1700" },
+                { day: 5, start: "0900", end: "1700" },
+                { day: 6, start: "0900", end: "1700" },
+                ],
+            is_open_now: true,
+            }],
         coordinates: {
             latitude: 40.6747704759645,
             longitude: -73.5099110118665 
@@ -91,6 +94,12 @@ describe('Business Component', () => {
     it("should render the correct close time", () => {
         const wrapper = mount(<Router><Business rest={props} /></Router>);
         expect(wrapper.find(".hours-time").at(1).render().text()).toEqual("5:00 PM");
+    });
+
+    it("should render the text 'open now' if it is open now", () => {
+        const wrapper = mount(<Router><Business rest={props} /></Router>);
+        expect(wrapper.find(".open-now").length).toEqual(1);
+        expect(wrapper.find(".open-now").at(0).render().text()).toEqual("Open now!!!");
     });
 
     it("should render a <MiniMap />", () => {

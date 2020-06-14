@@ -28,7 +28,7 @@
     max-width: 1200px;
     padding: 0px 40px;
     margin: 24px auto 48px;
-    border: 3px solid red;
+    /* border: 3px solid red; */
 }
 
 .business-title {
@@ -77,14 +77,14 @@
 }
 
 .business-review {
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 
 .business-review-card {
     display: flex;
     flex-direction: row;
     width: 650px;
-    border: 2px solid greenyellow;
+    /* border: 2px solid greenyellow; */
     height: 60px;
     margin-bottom: 12px;
 }
@@ -95,7 +95,7 @@
 }
 
 .business-location {
-    border: 1px solid salmon;
+    /* border: 1px solid salmon; */
 }
 
 .business-location-information {
@@ -106,7 +106,7 @@
 .business-minimap {
     height: 300px;
     width: 300px;
-    background: green;
+    border: 1px solid blue;
 }
 
 .business-hours-container {
@@ -122,5 +122,12 @@
 }
 
 .hours-time {
+    font-family: sans-serif;
+}
+
+.open-now {
+    margin-left: 20px;
+    color: green;
+    font-weight: 900;
     font-family: sans-serif;
 }

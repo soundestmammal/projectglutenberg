@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AUTH_USER, AUTH_ERROR, AUTH_UUID, FETCH_USER, SIGN_OUT } from './types';
+import { AUTH_USER, AUTH_ERROR, AUTH_UUID, FETCH_USER, SIGN_OUT, DELETE_USER } from './types';
 
 export const signup = (email, password, callback) => async dispatch => {
     try {
@@ -66,4 +66,19 @@ export const fetchUser = (token) => async dispatch => {
     catch(e) {
         console.log("There was an error here");
     } 
+}
+
+export const deleteUser = (token) => async dispatch => {
+    try {
+        await axios.delete('http://localhost:3090/users/me', {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        });
+        dispatch({ type: DELETE_USER });
+        localStorage.removeItem('token');
+    }
+    catch(e) {
+        console.log("There was an error in delete user!");
+    }
 }

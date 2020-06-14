@@ -1,5 +1,5 @@
 import authReducer from '../auth';
-import { AUTH_USER, AUTH_ERROR, AUTH_UUID, FETCH_USER, SIGN_OUT } from '../../actions/types';
+import { AUTH_USER, AUTH_ERROR, AUTH_UUID, FETCH_USER, SIGN_OUT, DELETE_USER } from '../../actions/types';
 
 const INITIAL_STATE = {
     authenticated: '',
@@ -41,9 +41,16 @@ it('handles actions of type SIGN_OUT', () => {
     const action = { type: SIGN_OUT };
     const newState = authReducer(INITIAL_STATE, action);
     expect(newState).toEqual(emptyStateObject);
-})
+});
 
 it('handles actions of unknown type', () => {
     const newState = authReducer(INITIAL_STATE, { type: 'dfhsoiahfhwhewnfwionfw8' });
     expect(newState).toEqual(INITIAL_STATE);
+});
+
+it('handles the actions of type DELETE_USER', () => {
+    const emptyStateObject = {};
+    const action = { type: DELETE_USER };
+    const newState = authReducer(INITIAL_STATE, action);
+    expect(newState).toEqual(emptyStateObject);
 });

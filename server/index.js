@@ -15,12 +15,15 @@ app.use(cors({
 // Connect to the database
 require('./config/db');
 
-const router = require('./router');
+
+const userRouter = require('./router');
+const adminRouter = require('./admin/admin');
 
 // App Setup
 app.use(morgan('combined')); // Middleware to log out requests
 app.use(bodyParser.json()); // Middleware to ???
-router(app);
+app.use(userRouter);
+app.use(adminRouter);
 
 // Server Setup
 const PORT = process.env.PORT;

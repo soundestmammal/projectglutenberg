@@ -1,14 +1,14 @@
+const express = require('express');
 const axios = require('axios');
-const cors = require('cors');
 const multer = require('multer');
 const sharp = require('sharp');
-const { yelp, openCage } = require('./config/keys');
+const { openCage } = require('./config/keys');
 const User = require('./models/User');
 const auth = require('./middleware/auth');
 
-module.exports = function (app) {
+    const router = new express.Router();
 
-    app.delete('/users/me', auth, async (req, res) => {
+    router.delete('/users/me', auth, async (req, res) => {
         console.log("Do I even get here inside of the route?");
         try {
             await req.user.remove();
@@ -18,7 +18,7 @@ module.exports = function (app) {
         }
     });
 
-    app.get('/forwardgeocode', async (req, res) => {
+    router.get('/forwardgeocode', async (req, res) => {
         console.log("This runs here line 10!");
         const { location, lat, lng } = req.query;
         try {
@@ -31,7 +31,7 @@ module.exports = function (app) {
 
     const YELP_API_KEY = "Bearer " + process.env.YELP_API_KEY;
 
-    app.get('/yelp', async(req, res) => {
+    router.get('/yelp', async(req, res) => {
         let lat = req.query.latitude;
         let lng = req.query.longitude;
         let searchbox = req.query.searchbox;
@@ -41,6 +41,7 @@ module.exports = function (app) {
         const response = await axios.get(`https://api.yelp.com/v3/businesses/search?term=${searchbox}&latitude=${lat}&longitude=${lng}`, options);
         const data = response.data.businesses;
         for(let i = 0; i < data.length; i++) {
+
             let newObject = {
                 name: data[i].name,
                 coordinates: data[i].coordinates,
@@ -52,11 +53,12 @@ module.exports = function (app) {
                 id: data[i].id
             };
             data[i] = {...newObject};
+
         }
         res.send(data);
     });
 
-    app.get('/yelp/business/:id', async(req, res) => {
+    router.get('/yelp/business/:id', async(req, res) => {
         const options = {
             headers: {'Authorization': YELP_API_KEY}
         }
@@ -67,7 +69,7 @@ module.exports = function (app) {
     /* Routes for user requests */
 
     // Create a new user - signup
-    app.post('/users', async(req, res) => {
+    router.post('/users', async(req, res) => {
         console.log("This is the /users post route");
         const user = new User(req.body);
 
@@ -81,19 +83,24 @@ module.exports = function (app) {
     });
 
     // Authenticate an existing user - login
-    app.post('/users/login', async (req, res) => {
+    router.post('/users/login', async (req, res) => {
         try {
             // find the user
             const user = await User.findByCredentials(req.body.email, req.body.password);
+            // check if they are admin
+            console.log(user);
+            if(user.admin) {
+                throw new Error("The user is an admin!!!");
+            }
             const token = await user.generateAuthToken();
             res.status(201).send({ user, token });
         } catch(e) {
-            res.status(400).send();
+            res.status(400).send(e);
         }
     });
 
     // Log a single user out on one device
-    app.post('/users/logout', auth, async (req, res) => {
+    router.post('/users/logout', auth, async (req, res) => {
         try {
             req.user.tokens = req.user.tokens.filter((token) => {
                 return token.token !== req.token;
@@ -106,7 +113,7 @@ module.exports = function (app) {
     });
 
     // Fetch uuid and avatar for auth user
-    app.post('/fetchUser', auth, (req, res) => {
+    router.post('/fetchUser', auth, (req, res) => {
         const returnMe = {};
         returnMe['uuid'] = req.user._id;
         returnMe['avatar'] = req.user.avatar;
@@ -125,7 +132,7 @@ module.exports = function (app) {
         }
     });
 
-    app.post('/users/me/avatar', auth, upload.single('avatar'), async (req, res) => {
+    router.post('/users/me/avatar', auth, upload.single('avatar'), async (req, res) => {
         const buffer = await sharp(req.file.buffer).resize({ width: 250, height: 250 }).png().toBuffer();
         req.user.avatar = buffer;
         await req.user.save()
@@ -134,13 +141,13 @@ module.exports = function (app) {
         res.status(400).send({ error: error.message });
     });
 
-    app.delete('/users/me/avatar', auth, async (req, res) => {
+    router.delete('/users/me/avatar', auth, async (req, res) => {
         req.user.avatar = undefined;
         await req.user.save();
         res.send({ status: "successful delete!"});
     });
 
-    app.get('/users/:id/avatar', async (req, res) => {
+    router.get('/users/:id/avatar', async (req, res) => {
         try {
             const user = await User.findById(req.params.id);
             if(!user || !user.avatar) {
@@ -152,4 +159,5 @@ module.exports = function (app) {
             res.status(404).send();
         }
     });
-}
+
+    module.exports = router;

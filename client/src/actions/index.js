@@ -5,7 +5,8 @@ export const signup = (email, password, callback) => async dispatch => {
     try {
         const response = await axios.post('http://localhost:3090/users', {
             'email': email,
-            'password': password
+            'password': password,
+            admin: false
         });
         dispatch({ type: AUTH_USER, payload: response.data.token });
         dispatch({ type: AUTH_UUID, payload: response.data.user._id });

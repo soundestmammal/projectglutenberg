@@ -5,6 +5,7 @@ const sharp = require('sharp');
 const { openCage } = require('./config/keys');
 const User = require('./models/User');
 const auth = require('./middleware/auth');
+const algorithm = require('./admin/algorithm');
 
     const router = new express.Router();
 
@@ -39,7 +40,7 @@ const auth = require('./middleware/auth');
             headers: {'Authorization': YELP_API_KEY}
         }
         const response = await axios.get(`https://api.yelp.com/v3/businesses/search?term=${searchbox}&latitude=${lat}&longitude=${lng}`, options);
-        const data = response.data.businesses;
+        let data = response.data.businesses;
         for(let i = 0; i < data.length; i++) {
 
             let newObject = {
@@ -55,6 +56,7 @@ const auth = require('./middleware/auth');
             data[i] = {...newObject};
 
         }
+        data = await algorithm(data);
         res.send(data);
     });
 

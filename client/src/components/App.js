@@ -14,6 +14,9 @@ import Auth from './Auth';
 import Profile from './Profile';
 import Signout from './Signout';
 import Signin from './Signin';
+
+import AdminAuth from '../admin/components/AdminAuth';
+import AdminDashboard from '../admin/components/AdminDashboard';
 import "../styles/app.css";
 library.add(fas);
 
@@ -228,6 +231,23 @@ class App extends Component {
               change={this.handleChange}
             />
             <Signout />
+          </Route>
+          <Route path="/admin">
+            <NavBar 
+              value={this.state.searchbox}
+              submit={this.handleSubmit}
+              change={this.handleChange}
+            />
+            <AdminAuth />
+          </Route>
+
+          <Route path="/admin/dashboard">
+            <NavBar 
+              value={this.state.searchbox}
+              submit={this.handleSubmit}
+              change={this.handleChange}
+            />
+            <AdminDashboard />
           </Route>
 
       </Switch>

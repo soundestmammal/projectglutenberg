@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Score from './Score';
 import "../styles/card.css";
 
 /* 
@@ -18,10 +19,21 @@ const Card = (props) => {
         price,
         phone,
     } = props.rest;
+
+    function renderSafetyStyling() {
+        if(props.rest.score === 0) {
+            return "card-wrapper-danger"
+        } else if (props.rest.score === 1) {
+            return "card-wrapper-caution";
+        } else {
+            return "card-wrapper-safe"
+        }
+    }
+
     
     return(
         <Link className="container" to={`/biz/${props.id}`} onMouseEnter={() => props.hover(props.id)} onMouseLeave={() => props.hover("") } onClick={() => props.navigate()}>
-            <div className="card-wrapper">
+            <div className={renderSafetyStyling()}>
                 <div className="image">
                     <img style={{height: '200px', width: '200px'}} src={image} alt="food from restuarant" />
                 </div>
@@ -31,8 +43,14 @@ const Card = (props) => {
                         <span className="restaurant-title">{props.index}</span>
                     </div>
                     <span className="card-price">{price}</span>
-                    <span className="card-address">{props.address[0] + " " + props.address[1]}</span>
+                    <span className="card-address">{props.address[0]}</span>
+                    <span className="card-address">{props.address[1]}</span>
                     <span className="card-phone">{phone}</span>
+                </div>
+                <div className="score-wrapper">
+                    <Score 
+                        score={props.rest.score}
+                    />
                 </div>
             </div>
         </Link>

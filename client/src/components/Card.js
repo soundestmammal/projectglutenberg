@@ -29,7 +29,6 @@ const Card = (props) => {
             return "card-wrapper-safe"
         }
     }
-
     
     return(
         <Link className="container" to={`/biz/${props.id}`} onMouseEnter={() => props.hover(props.id)} onMouseLeave={() => props.hover("") } onClick={() => props.navigate()}>
@@ -51,6 +50,8 @@ const Card = (props) => {
                     <Score 
                         score={props.rest.score}
                     />
+                    <span className="score-grade">95</span>
+                    <span>Dedicated GF Menu</span>
                 </div>
             </div>
         </Link>

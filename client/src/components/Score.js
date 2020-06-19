@@ -4,7 +4,7 @@ import { Doughnut } from 'react-chartjs-2';
 const Score = (props) => {
 
     function allocateSpace() {
-        if(props.score === 10){
+        if(props.score > 2){
             return [0, 5, 95]
         } else if(props.score === 2) {
             return [10, 20, 70]
@@ -36,17 +36,19 @@ const Score = (props) => {
     };
 
     return(
-        <Doughnut
-            data={data}
-            width={150}
-            height={150}
-            options={{
-                circumference: Math.PI,
-                rotation: -Math.PI,
-                maintainAspectRatio: false,
-                legend: {display: false}
-            }}
-        />
+        <div>
+            <Doughnut
+                data={data}
+                width={100}
+                height={100}
+                options={{
+                    circumference: Math.PI,
+                    rotation: -Math.PI,
+                    maintainAspectRatio: false,
+                    legend: {display: false}
+                }}
+            />
+        </div>
     );
 }
 

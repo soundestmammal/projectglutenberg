@@ -22,7 +22,7 @@ import "../styles/map.css";
 class NewMap extends Component {
 
   static defaultProps = {
-    zoom: 13
+    zoom: 11
   };
 
   componentDidUpdate(prevProps) {

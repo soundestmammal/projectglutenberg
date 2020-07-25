@@ -4,7 +4,7 @@ import "../styles/logo.css";
 const Logo = () => {
     return(
         <div className="logo">
-            <span>Project Glutenberg</span>
+            <span>OASIS</span>
         </div>
     )
 }

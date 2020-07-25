@@ -6,11 +6,11 @@ const { openCage } = require('./config/keys');
 const User = require('./models/User');
 const auth = require('./middleware/auth');
 const algorithm = require('./admin/algorithm');
+const getGFBiz = require('./admin/getGFBiz');
 
     const router = new express.Router();
 
     router.delete('/users/me', auth, async (req, res) => {
-        console.log("Do I even get here inside of the route?");
         try {
             await req.user.remove();
             res.send(req.user);
@@ -56,7 +56,11 @@ const algorithm = require('./admin/algorithm');
             data[i] = {...newObject};
 
         }
-        data = await algorithm(data);
+        let coords = {
+            latitude: lat,
+            longitude: lng
+        }
+        data = await algorithm(data, coords);
         res.send(data);
     });
 
@@ -64,8 +68,13 @@ const algorithm = require('./admin/algorithm');
         const options = {
             headers: {'Authorization': YELP_API_KEY}
         }
-        const response = await axios.get(`https://api.yelp.com/v3/businesses/${req.params.id}`, options);
-        res.send(response.data);
+        const inGFDB = await getGFBiz(req.params.id);
+        if(inGFDB.length) {
+            res.send(inGFDB[0]);
+        } else {
+            const response = await axios.get(`https://api.yelp.com/v3/businesses/${req.params.id}`, options);
+            res.send(response.data);
+        }
     });
 
     /* Routes for user requests */

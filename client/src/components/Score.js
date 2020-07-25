@@ -39,8 +39,8 @@ const Score = (props) => {
         <div>
             <Doughnut
                 data={data}
-                width={100}
-                height={100}
+                width={150}
+                height={150}
                 options={{
                     circumference: Math.PI,
                     rotation: -Math.PI,

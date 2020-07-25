@@ -60,7 +60,7 @@
 }
 
 .info {
-    flex-grow: 3;
+    width: 350px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -73,6 +73,7 @@
 .restaurant-title {
     font-weight: bold;
     font-size: 1.5em;
+    align-self: flex-start;
 }
 
 .score-wrapper {
@@ -85,7 +86,7 @@
 .score-grade {
     display: block;
     position: relative;
-    transform: translateY(-40px);
+    transform: translateY(-55px);
     color: black;
     font-weight: 900;
     font-size: 1.25em;

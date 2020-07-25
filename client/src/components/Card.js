@@ -37,10 +37,7 @@ const Card = (props) => {
                     <img style={{height: '200px', width: '200px'}} src={image} alt="food from restuarant" />
                 </div>
                 <div className="info">
-                    <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                        <span className="restaurant-title">{name}</span>
-                        <span className="restaurant-title">{props.index}</span>
-                    </div>
+                    <span className="restaurant-title">{name}</span>
                     <span className="card-price">{price}</span>
                     <span className="card-address">{props.address[0]}</span>
                     <span className="card-address">{props.address[1]}</span>
@@ -53,6 +50,7 @@ const Card = (props) => {
                     <span className="score-grade">95</span>
                     <span>Dedicated GF Menu</span>
                 </div>
+                <span className="restaurant-title">{props.index}</span>
             </div>
         </Link>
     );

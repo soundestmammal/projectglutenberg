@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Loading from './Loading';
 import MiniMap from './MiniMap';
-// import MiniMarker from './MiniMarker';
 import "../styles/business.css";
 import "../styles/map.css";
 
@@ -63,6 +62,8 @@ const ReturnComponent = (props) => {
 
     function renderHours() {
 
+        if(props.rest.hours === undefined || props.rest.hours.length === 0) return null;
+
         const dateDictionary = {
             0: "Mon",
             1: "Tue",
@@ -72,6 +73,7 @@ const ReturnComponent = (props) => {
             5: "Sat",
             6: "Sun"
         }
+        console.log(props.rest);
         return(
         // Loop through array
         props.rest.hours[0].open.map((day) => {

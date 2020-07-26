@@ -15,8 +15,9 @@ import Profile from './Profile';
 import Signout from './Signout';
 import Signin from './Signin';
 
-import AdminAuth from '../admin/components/AdminAuth';
-import AdminDashboard from '../admin/components/AdminDashboard';
+// Removed for 3.0 production
+// import AdminAuth from '../admin/components/AdminAuth';
+// import AdminDashboard from '../admin/components/AdminDashboard';
 import "../styles/app.css";
 library.add(fas);
 
@@ -50,7 +51,7 @@ class App extends Component {
   getYelpData = async () => {
     if(!this.state.loading) {
       const response = await axios.get(`http://localhost:3090/yelp/?latitude=${this.state.mapLat}&longitude=${this.state.mapLong}&searchbox=${this.state.searchbox}`);
-      // console.log("This is the response from the GET /yelp api call ", response);
+      console.log("This is the response from the GET /yelp api call ", response);
       this.setState({ restaurants: response.data });
     }
   }
@@ -232,7 +233,7 @@ class App extends Component {
             />
             <Signout />
           </Route>
-          <Route path="/admin">
+          {/* <Route path="/admin">
             <NavBar 
               value={this.state.searchbox}
               submit={this.handleSubmit}
@@ -248,7 +249,7 @@ class App extends Component {
               change={this.handleChange}
             />
             <AdminDashboard />
-          </Route>
+          </Route> */}
 
       </Switch>
     </Router>

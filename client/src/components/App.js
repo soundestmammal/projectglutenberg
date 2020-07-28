@@ -15,6 +15,8 @@ import Profile from './Profile';
 import Signout from './Signout';
 import Signin from './Signin';
 
+import { API_ROOT } from '../api-config';
+
 // Removed for 3.0 production
 // import AdminAuth from '../admin/components/AdminAuth';
 // import AdminDashboard from '../admin/components/AdminDashboard';
@@ -50,7 +52,7 @@ class App extends Component {
   */
   getYelpData = async () => {
     if(!this.state.loading) {
-      const response = await axios.get(`http://localhost:3090/yelp/?latitude=${this.state.mapLat}&longitude=${this.state.mapLong}&searchbox=${this.state.searchbox}`);
+      const response = await axios.get(`${API_ROOT}/yelp/?latitude=${this.state.mapLat}&longitude=${this.state.mapLong}&searchbox=${this.state.searchbox}`);
       console.log("This is the response from the GET /yelp api call ", response);
       this.setState({ restaurants: response.data });
     }
@@ -92,7 +94,7 @@ class App extends Component {
 
   forwardGeocode = async () => {
     const { clientLat, clientLong, searchLocation } = this.state;
-    const response = await axios.get(`http://localhost:3090/forwardgeocode/?lat=${clientLat}&lng=${clientLong}&location=${searchLocation}`);
+    const response = await axios.get(`${API_ROOT}/forwardgeocode/?lat=${clientLat}&lng=${clientLong}&location=${searchLocation}`);
     this.setState({ mapLat: response.data.lat, mapLong: response.data.lng });
   }
 
@@ -110,7 +112,7 @@ class App extends Component {
     this.setState({ currentRestaurantData: null});
 
     // Request to my express server for the specific business information
-    const response = await axios.get(`http://localhost:3090/yelp/business/${this.state.currentRestaurant}`);
+    const response = await axios.get(`${API_ROOT}/yelp/business/${this.state.currentRestaurant}`);
     this.setState({ currentRestaurantData: response.data});
   }
 

@@ -26,7 +26,7 @@ app.use(userRouter);
 app.use(adminRouter);
 
 // Server Setup
-const PORT = process.env.PORT;
+const PORT = 5001;
 const server = http.createServer(app); // library for working with http requests.
 
 server.listen(PORT, () => {

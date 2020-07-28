@@ -2,7 +2,7 @@ const express = require('express');
 const axios = require('axios');
 const multer = require('multer');
 const sharp = require('sharp');
-const { openCage, yelp } = require('./config/keys');
+const { openCage, yelp, ipgeolocation } = require('./config/keys');
 const User = require('./models/User');
 const auth = require('./middleware/auth');
 const algorithm = require('./admin/algorithm');
@@ -11,8 +11,19 @@ const getGFBiz = require('./admin/getGFBiz');
     const router = new express.Router();
 
     router.get('/', (req, res) => {
-        res.send("This is the response!");
+        res.send("This is the root response!");
     });
+
+    router.get('/getClientLocation', async (req, res) => {
+        const ipaddress = req.ip;
+        console.log("IP", ipaddress);
+        try {
+            const response = await axios.get(`https://api.ipgeolocation.io/ipgeo?apiKey=${ipgeolocation}&ip=${ipaddress}`);
+            res.send({ lat: response.latitude, lon: response.longitude });
+        } catch(e) {
+            res.status(500).send();
+        }
+    })
 
     router.delete('/users/me', auth, async (req, res) => {
         try {

@@ -73,8 +73,8 @@ class App extends Component {
   }
 
   // Why: I use ip-api.com because the window.geolocation was not reliable
-  getLocationV3 = async () => {
-    const response = await axios.get("https://ipapi.co/json");
+  getLocationV4 = async () => {
+    const response = await axios.get(`${API_ROOT}/getClientLocation`);
     console.log(response);
     this.setState({ clientLat: response.data.latitude, 
                     clientLong: response.data.longitude, 
@@ -153,7 +153,7 @@ class App extends Component {
   componentDidMount() {
     // Check the authentication status. If the user is authenticated I want to fetchUser information
     // I did this because I can only run the getYelp data once I get the lat and long
-    this.getLocationV3().then(this.getYelpData);
+    this.getLocationV4().then(this.getYelpData);
     if(this.props.auth.authenticated) {
       this.props.fetchUser(this.props.auth.authenticated);
     }

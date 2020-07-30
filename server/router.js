@@ -16,9 +16,12 @@ const getGFBiz = require('./admin/getGFBiz');
 
     router.get('/getClientLocation', async (req, res) => {
         const ipaddress = req.ip;
-        console.log("IP", req.ip);
-        console.log("IPS", req.ips);
-        res.send(ipaddress);
+        try {
+            const response = await axios.get(`https://api.ipgeolocation.io/ipgeo?apiKey=${ipgeolocation}&ip=${ipaddress}`);
+            res.send({ latitude: response.latitude, longitude: response.longitude });
+        } catch(e) {
+            res.status(500).send(e);
+        }
     })
 
     router.delete('/users/me', auth, async (req, res) => {

@@ -1,5 +1,5 @@
 const express = require('express');
-const http = require('http');
+// const http = require('http');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
@@ -28,8 +28,8 @@ app.use(adminRouter);
 
 // Server Setup
 const PORT = 5001;
-const server = http.createServer(app); // library for working with http requests.
+// const server = http.createServer(app); // library for working with http requests.
 
-server.listen(PORT, () => {
+app.listen(PORT, () => {
     console.log(`Server listening on PORT ${PORT}`);
 });

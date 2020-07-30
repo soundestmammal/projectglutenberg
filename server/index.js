@@ -15,7 +15,7 @@ app.use(cors({
 // Connect to the database
 require('./config/db');
 
-app.set('trust proxy', true);
+app.set('trust proxy', '127.0.0.1');
 
 const userRouter = require('./router');
 const adminRouter = require('./admin/admin');

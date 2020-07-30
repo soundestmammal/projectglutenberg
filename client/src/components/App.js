@@ -73,27 +73,28 @@ class App extends Component {
   }
 
   // Why: I use ip-api.com because the window.geolocation was not reliable
-  getLocation = async () => {
-    const response = await axios.get("http://ip-api.com/json");
-    this.setState({ clientLat: response.data.lat, 
-                    clientLong: response.data.lon, 
-                    mapLat: response.data.lat,
-                    mapLong: response.data.lon,
+  getLocationV3 = async () => {
+    const response = await axios.get("https://ipapi.co/json");
+    console.log(response);
+    this.setState({ clientLat: response.data.latitude, 
+                    clientLong: response.data.longitude, 
+                    mapLat: response.data.latitude,
+                    mapLong: response.data.longitude,
                     loading: false 
                   });
   }
 
-  getLocationV2 = async () => {
-    const response = await axios.get(`${API_ROOT}/getClientLocation`);
-    console.log("THIS IS THE RESPONSE!", response);
-    this.setState({ 
-      clientLat: response.data.lat, 
-      clientLong: response.data.lon, 
-      mapLat: response.data.lat,
-      mapLong: response.data.lon,
-      loading: false 
-    });
-  }
+  // getLocationV2 = async () => {
+  //   const response = await axios.get(`${API_ROOT}/getClientLocation`);
+  //   console.log("THIS IS THE RESPONSE!", response);
+  //   this.setState({ 
+  //     clientLat: response.data.lat, 
+  //     clientLong: response.data.lon, 
+  //     mapLat: response.data.lat,
+  //     mapLong: response.data.lon,
+  //     loading: false 
+  //   });
+  // }
 
   // handleChange & handleSubmit are used in the searchbar feature of NavBar component
   handleChange = (e) => {
@@ -152,7 +153,7 @@ class App extends Component {
   componentDidMount() {
     // Check the authentication status. If the user is authenticated I want to fetchUser information
     // I did this because I can only run the getYelp data once I get the lat and long
-    this.getLocationV2().then(this.getYelpData);
+    this.getLocationV3().then(this.getYelpData);
     if(this.props.auth.authenticated) {
       this.props.fetchUser(this.props.auth.authenticated);
     }

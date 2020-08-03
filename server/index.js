@@ -1,5 +1,5 @@
 const express = require('express');
-const http = require('http');
+// const http = require('http');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
@@ -15,17 +15,21 @@ app.use(cors({
 // Connect to the database
 require('./config/db');
 
-const router = require('./router');
+app.set('trust proxy', '127.0.0.1');
+
+const userRouter = require('./router');
+const adminRouter = require('./admin/admin');
 
 // App Setup
 app.use(morgan('combined')); // Middleware to log out requests
 app.use(bodyParser.json()); // Middleware to ???
-router(app);
+app.use(userRouter);
+app.use(adminRouter);
 
 // Server Setup
-const PORT = process.env.PORT;
-const server = http.createServer(app); // library for working with http requests.
+const PORT = 5001;
+// const server = http.createServer(app); // library for working with http requests.
 
-server.listen(PORT, () => {
+app.listen(PORT, () => {
     console.log(`Server listening on PORT ${PORT}`);
 });

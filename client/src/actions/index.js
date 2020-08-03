@@ -1,11 +1,13 @@
 import axios from 'axios';
 import { AUTH_USER, AUTH_ERROR, AUTH_UUID, FETCH_USER, SIGN_OUT, DELETE_USER } from './types';
+import { API_ROOT } from '../api-config';
 
 export const signup = (email, password, callback) => async dispatch => {
     try {
-        const response = await axios.post('http://localhost:3090/users', {
+        const response = await axios.post(`${API_ROOT}/users`, {
             'email': email,
-            'password': password
+            'password': password,
+            admin: false
         });
         dispatch({ type: AUTH_USER, payload: response.data.token });
         dispatch({ type: AUTH_UUID, payload: response.data.user._id });
@@ -18,7 +20,7 @@ export const signup = (email, password, callback) => async dispatch => {
 
 export const signout = (token) => async dispatch => {
     try {
-        await axios.post('http://localhost:3090/users/logout', {}, {
+        await axios.post(`${API_ROOT}/users/logout`, {}, {
             headers: {
                 "Authorization": `Bearer ${token}`
             }
@@ -32,7 +34,7 @@ export const signout = (token) => async dispatch => {
 
 export const signin = (email, password, callback) => async dispatch => {
     try {
-        const response = await axios.post('http://localhost:3090/users/login', {
+        const response = await axios.post(`${API_ROOT}/users/login`, {
             'email': email,
             'password': password
         });
@@ -48,7 +50,7 @@ export const signin = (email, password, callback) => async dispatch => {
 export const fetchUser = (token) => async dispatch => {
     try {
         // I need to make a call to the server here to fetch the user information
-        const response = await axios.post('http://localhost:3090/fetchUser', {}, {
+        const response = await axios.post(`${API_ROOT}/fetchUser`, {}, {
             headers: { 
                 "Authorization": `Bearer ${token}`
             }
@@ -70,7 +72,7 @@ export const fetchUser = (token) => async dispatch => {
 
 export const deleteUser = (token) => async dispatch => {
     try {
-        await axios.delete('http://localhost:3090/users/me', {
+        await axios.delete(`${API_ROOT}/users/me`, {
             headers: {
                 "Authorization": `Bearer ${token}`
             }

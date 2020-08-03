@@ -37,7 +37,7 @@ describe('async action creators', () => {
     it('should create an action to signup', () => {
         const userData = {
             token: 'it would return a token',
-            user: {_id: 'it would return a uuid'}
+            user: {_id: 'it would return a uuid'},
         };
 
         mock.onPost("http://localhost:3090/users").reply(200, userData);

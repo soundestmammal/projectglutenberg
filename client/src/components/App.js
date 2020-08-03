@@ -14,6 +14,12 @@ import Auth from './Auth';
 import Profile from './Profile';
 import Signout from './Signout';
 import Signin from './Signin';
+
+import { API_ROOT } from '../api-config';
+
+// Removed for 3.0 production
+// import AdminAuth from '../admin/components/AdminAuth';
+// import AdminDashboard from '../admin/components/AdminDashboard';
 import "../styles/app.css";
 library.add(fas);
 
@@ -46,8 +52,8 @@ class App extends Component {
   */
   getYelpData = async () => {
     if(!this.state.loading) {
-      const response = await axios.get(`http://localhost:3090/yelp/?latitude=${this.state.mapLat}&longitude=${this.state.mapLong}&searchbox=${this.state.searchbox}`);
-      // console.log("This is the response from the GET /yelp api call ", response);
+      const response = await axios.get(`${API_ROOT}/yelp/?latitude=${this.state.mapLat}&longitude=${this.state.mapLong}&searchbox=${this.state.searchbox}`);
+      console.log("This is the response from the GET /yelp api call ", response);
       this.setState({ restaurants: response.data });
     }
   }
@@ -67,15 +73,28 @@ class App extends Component {
   }
 
   // Why: I use ip-api.com because the window.geolocation was not reliable
-  getLocation = async () => {
-    const response = await axios.get("http://ip-api.com/json");
-    this.setState({ clientLat: response.data.lat, 
-                    clientLong: response.data.lon, 
-                    mapLat: response.data.lat,
-                    mapLong: response.data.lon,
+  getLocationV4 = async () => {
+    const response = await axios.get(`${API_ROOT}/getClientLocation`);
+    console.log(response);
+    this.setState({ clientLat: response.data.latitude, 
+                    clientLong: response.data.longitude, 
+                    mapLat: response.data.latitude,
+                    mapLong: response.data.longitude,
                     loading: false 
                   });
   }
+
+  // getLocationV2 = async () => {
+  //   const response = await axios.get(`${API_ROOT}/getClientLocation`);
+  //   console.log("THIS IS THE RESPONSE!", response);
+  //   this.setState({ 
+  //     clientLat: response.data.lat, 
+  //     clientLong: response.data.lon, 
+  //     mapLat: response.data.lat,
+  //     mapLong: response.data.lon,
+  //     loading: false 
+  //   });
+  // }
 
   // handleChange & handleSubmit are used in the searchbar feature of NavBar component
   handleChange = (e) => {
@@ -88,7 +107,7 @@ class App extends Component {
 
   forwardGeocode = async () => {
     const { clientLat, clientLong, searchLocation } = this.state;
-    const response = await axios.get(`http://localhost:3090/forwardgeocode/?lat=${clientLat}&lng=${clientLong}&location=${searchLocation}`);
+    const response = await axios.get(`${API_ROOT}/forwardgeocode/?lat=${clientLat}&lng=${clientLong}&location=${searchLocation}`);
     this.setState({ mapLat: response.data.lat, mapLong: response.data.lng });
   }
 
@@ -106,7 +125,7 @@ class App extends Component {
     this.setState({ currentRestaurantData: null});
 
     // Request to my express server for the specific business information
-    const response = await axios.get(`http://localhost:3090/yelp/business/${this.state.currentRestaurant}`);
+    const response = await axios.get(`${API_ROOT}/yelp/business/${this.state.currentRestaurant}`);
     this.setState({ currentRestaurantData: response.data});
   }
 
@@ -134,7 +153,7 @@ class App extends Component {
   componentDidMount() {
     // Check the authentication status. If the user is authenticated I want to fetchUser information
     // I did this because I can only run the getYelp data once I get the lat and long
-    this.getLocation().then(this.getYelpData);
+    this.getLocationV4().then(this.getYelpData);
     if(this.props.auth.authenticated) {
       this.props.fetchUser(this.props.auth.authenticated);
     }
@@ -229,6 +248,23 @@ class App extends Component {
             />
             <Signout />
           </Route>
+          {/* <Route path="/admin">
+            <NavBar 
+              value={this.state.searchbox}
+              submit={this.handleSubmit}
+              change={this.handleChange}
+            />
+            <AdminAuth />
+          </Route>
+
+          <Route path="/admin/dashboard">
+            <NavBar 
+              value={this.state.searchbox}
+              submit={this.handleSubmit}
+              change={this.handleChange}
+            />
+            <AdminDashboard />
+          </Route> */}
 
       </Switch>
     </Router>

@@ -2,11 +2,11 @@ import React from 'react';
 import "../styles/logo.css";
 
 const Logo = () => {
-    return(
+    return (
         <div className="logo">
-            <span>Project Glutenberg</span>
+            <span>OASIS</span>
         </div>
-    )
+    );
 }
 
 export default Logo;

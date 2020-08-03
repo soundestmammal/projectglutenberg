@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { jwtSecret } = require('../config/keys');
+const { jwtSecret, adminSecret } = require('../config/keys');
 const Schema = mongoose.Schema;
 
 // Define the User Model
@@ -32,6 +32,10 @@ const userSchema = new Schema(
                 }
             }
         },
+        admin: {
+            type: Boolean,
+            required: true,
+        },
         /* I am going to want to have tokens here. probably stored as an array */
         tokens: [
             {
@@ -50,18 +54,23 @@ const userSchema = new Schema(
 );
 
 // I need to generate an auth token and save it in the user model!
-userSchema.methods.generateAuthToken = async function() {
+userSchema.methods.generateAuthToken = async function(type) {
     const user = this;
+    let token;
 
-    // get a token
-    const token = jwt.sign({_id: user.id.toString() }, jwtSecret);
-
+    if(type === 'admin') {
+        // get an admin token
+        token = jwt.sign({_id: user.id.toString() }, adminSecret);
+    } else {
+        // get a user token
+        token = jwt.sign({_id: user.id.toString() }, jwtSecret);
+    }
+    
     // add that token to the user model
     user.tokens = user.tokens.concat({ token });
 
     // save the user model
     await user.save();
-
     // return the token
     return token;
 }

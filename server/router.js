@@ -2,13 +2,27 @@ const express = require('express');
 const axios = require('axios');
 const multer = require('multer');
 const sharp = require('sharp');
-const { openCage } = require('./config/keys');
+const { openCage, yelp, ipgeolocation } = require('./config/keys');
 const User = require('./models/User');
 const auth = require('./middleware/auth');
 const algorithm = require('./admin/algorithm');
 const getGFBiz = require('./admin/getGFBiz');
 
     const router = new express.Router();
+
+    router.get('/', (req, res) => {
+        res.send("This is the root response!");
+    });
+
+    router.get('/getClientLocation', async (req, res) => {
+        const ipaddress = req.ip;
+        try {
+            const response = await axios.get(`https://api.ipgeolocation.io/ipgeo?apiKey=${ipgeolocation}&ip=${ipaddress}`);
+            res.send({ latitude: response.latitude, longitude: response.longitude });
+        } catch(e) {
+            res.status(500).send(e);
+        }
+    })
 
     router.delete('/users/me', auth, async (req, res) => {
         try {
@@ -30,7 +44,7 @@ const getGFBiz = require('./admin/getGFBiz');
         }
     });
 
-    const YELP_API_KEY = "Bearer " + process.env.YELP_API_KEY;
+    const YELP_API_KEY = yelp;
 
     router.get('/yelp', async(req, res) => {
         let lat = req.query.latitude;
@@ -60,6 +74,7 @@ const getGFBiz = require('./admin/getGFBiz');
             latitude: lat,
             longitude: lng
         }
+        console.log(data);
         data = await algorithm(data, coords);
         res.send(data);
     });

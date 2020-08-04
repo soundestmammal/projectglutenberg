@@ -41,6 +41,7 @@
     font-weight: bold;
     font-size: 1.5em;
     align-self: flex-start;
+    color: black;
 }
 
 .score-wrapper {

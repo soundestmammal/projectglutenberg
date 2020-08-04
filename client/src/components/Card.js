@@ -37,8 +37,6 @@ const Card = (props) => {
                     <Score 
                         score={props.rest.score}
                     />
-                    <span className="score-grade">95</span>
-                    <span>Dedicated GF Menu</span>
                 </div>
                 <span className="restaurant-title">{props.index}</span>
             </div>

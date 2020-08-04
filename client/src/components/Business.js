@@ -73,7 +73,6 @@ const ReturnComponent = (props) => {
             5: "Sat",
             6: "Sun"
         }
-        console.log(props.rest);
         return(
         // Loop through array
         props.rest.hours[0].open.map((day) => {
@@ -112,7 +111,6 @@ const ReturnComponent = (props) => {
         })
         );
     }
-    // console.log(props.rest);
     return(
         <div>
         <div className="business-photos">

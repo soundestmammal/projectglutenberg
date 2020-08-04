@@ -88,3 +88,9 @@
   width: 25%;
   transform: scale(2);
 }
+
+@media (max-width: 900px) {    
+  .map-container {
+    display: none;
+  }
+}

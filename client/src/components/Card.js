@@ -24,7 +24,7 @@ const Card = (props) => {
         <Link className="container" to={`/biz/${props.id}`} onMouseEnter={() => props.hover(props.id)} onMouseLeave={() => props.hover("") } onClick={() => props.navigate()}>
             <div className="card-wrapper">
                 <div className="image">
-                    <img style={{height: '200px', width: '200px'}} src={image} alt="food from restuarant" />
+                    <img src={image} alt="food from restuarant" />
                 </div>
                 <div className="info">
                     <span className="restaurant-title">{name}</span>

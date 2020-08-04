@@ -53,7 +53,6 @@ class App extends Component {
   getYelpData = async () => {
     if(!this.state.loading) {
       const response = await axios.get(`${API_ROOT}/yelp/?latitude=${this.state.mapLat}&longitude=${this.state.mapLong}&searchbox=${this.state.searchbox}`);
-      console.log("This is the response from the GET /yelp api call ", response);
       this.setState({ restaurants: response.data });
     }
   }
@@ -75,7 +74,6 @@ class App extends Component {
   // Why: I use ip-api.com because the window.geolocation was not reliable
   getLocationV4 = async () => {
     const response = await axios.get(`${API_ROOT}/getClientLocation`);
-    console.log(response);
     this.setState({ clientLat: response.data.latitude, 
                     clientLong: response.data.longitude, 
                     mapLat: response.data.latitude,
@@ -83,18 +81,6 @@ class App extends Component {
                     loading: false 
                   });
   }
-
-  // getLocationV2 = async () => {
-  //   const response = await axios.get(`${API_ROOT}/getClientLocation`);
-  //   console.log("THIS IS THE RESPONSE!", response);
-  //   this.setState({ 
-  //     clientLat: response.data.lat, 
-  //     clientLong: response.data.lon, 
-  //     mapLat: response.data.lat,
-  //     mapLong: response.data.lon,
-  //     loading: false 
-  //   });
-  // }
 
   // handleChange & handleSubmit are used in the searchbar feature of NavBar component
   handleChange = (e) => {

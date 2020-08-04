@@ -1,53 +1,90 @@
 import React from 'react';
-import { Doughnut } from 'react-chartjs-2';
+import "../styles/score.css";
 
 const Score = (props) => {
 
-    function allocateSpace() {
+    function injectStyle() {
         if(props.score > 2){
-            return [0, 5, 95]
+            return { backgroundColor: "green" }
         } else if(props.score === 2) {
-            return [10, 20, 70]
+            return { backgroundColor: "yellow" }
         } else if(props.score === 1) {
-            return [33, 33, 33]
+            return { backgroundColor: "orange" }
         } else {
-            return [70, 20, 10]
+            return { backgroundColor: "red" }
         }
     }
+    function renderGreen() {
+        let style = {};
+        if(props.score > 2) {
+            style = {border: '4px solid black',}
+        }
+        return(
+            <div className="box-low" style={style}></div>
+        );
+    }
 
-    const data = {
-        datasets: [
-            {
-                data: allocateSpace(),
-                backgroundColor: [
-                    "red",
-                    "yellow",
-                    "green",
-                ],
-                borderColor: `rgba(0, 0, 0, .5)`,
-                borderWidth: 1
-            }
-        ],
-        labels: [
-            'Danger',
-            'Uncertain',
-            'Safe'
-        ]
-    };
+    function renderYellow() {
+        let style = {};
+        if(props.score === 2) {
+            style = {border: '4px solid black',}
+        }
+        return(
+            <div className="box-medium" style={style}></div>
+        );
+    }
+
+    function renderOrange() {
+        let style = {};
+        if(props.score === 1) {
+            style = {border: '4px solid black',}
+        }
+        return(
+            <div className="box-high" style={style}></div>
+        );
+    }
+
+    function renderRed() {
+        let style = {};
+        if(props.score === 0) {
+            style = {border: '4px solid black'}
+        }
+        return(
+            <div className="box-critical" style={style}></div>
+        );
+    }
+
+    function returnRating() {
+        let thisRating;
+        if(props.score > 2){
+            thisRating = "Verified";
+        } else if(props.score === 2) {
+            thisRating = "Gluten Free Options"
+        } else if(props.score === 1) {
+            thisRating = "Has limited options"
+        } else {
+            thisRating = "Not accomodating"
+        }
+        return <div className="rating">{thisRating}</div>;
+    }
+    
+
+
+    function renderScoreContainer() {
+        return (
+            <div className="score-container">
+                {renderGreen()}
+                {renderYellow()}
+                {renderOrange()}
+                {renderRed()}
+            </div>
+        );
+    }
 
     return(
-        <div>
-            <Doughnut
-                data={data}
-                width={150}
-                height={150}
-                options={{
-                    circumference: Math.PI,
-                    rotation: -Math.PI,
-                    maintainAspectRatio: false,
-                    legend: {display: false}
-                }}
-            />
+        <div className="box-container">
+            {renderScoreContainer()}
+            {returnRating()}
         </div>
     );
 }

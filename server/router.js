@@ -15,10 +15,14 @@ const getGFBiz = require('./admin/getGFBiz');
     });
 
     router.get('/getClientLocation', async (req, res) => {
-        const ipaddress = req.ip;
+        let ipaddress = req.ip;
+        if(ipaddress === "::1") {
+            // Random IP for development
+            ipaddress = "64.94.159.111";
+        }
         try {
             const response = await axios.get(`https://api.ipgeolocation.io/ipgeo?apiKey=${ipgeolocation}&ip=${ipaddress}`);
-            res.send({ latitude: response.latitude, longitude: response.longitude });
+            res.send({ latitude: response.data.latitude, longitude: response.data.longitude });
         } catch(e) {
             res.status(500).send(e);
         }

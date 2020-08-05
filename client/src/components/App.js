@@ -5,6 +5,8 @@ import axios from 'axios';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { BrowserRouter as Router } from 'react-router-dom';
+import ReactGA from 'react-ga';
+
 import * as actions from '../actions';
 import List from './List';
 import NewMap from './NewMap';
@@ -23,6 +25,9 @@ import { API_ROOT } from '../api-config';
 import "../styles/app.css";
 library.add(fas);
 
+const MIMI = '';
+ReactGA.initialize(MIMI);
+
 class App extends Component {
 
   constructor(props) {
@@ -38,7 +43,8 @@ class App extends Component {
       searchLocation: '',
       currentRestaurant: '',
       currentRestaurantData: null, 
-      searchCheckbox: false
+      searchCheckbox: false,
+      mimi: ""
     }
   }
 
@@ -143,6 +149,7 @@ class App extends Component {
     if(this.props.auth.authenticated) {
       this.props.fetchUser(this.props.auth.authenticated);
     }
+    ReactGA.pageview(window.location.pathname);
   }
 
   render() {

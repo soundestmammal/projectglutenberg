@@ -14,17 +14,8 @@
     justify-content: space-evenly;
     height: 100%;
     background-color: #17252a;
-    /* background-color: #3AAFA9; */
     align-items: center;
     width: 100%;
-}
-
-.navigation li {
-    color: pink;
-}
-
-.navigation li:active {
-    color: orange;
 }
 
 .search-container {
@@ -84,4 +75,82 @@
     height: 65px;
     width: 65px;
     border-radius: 50%;
+}
+
+@media (max-width: 900px) {    
+    .navigation {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        height: 100%;
+        background-color: #17252a;
+        align-items: center;
+        width: 100%;
+    }
+    
+    .search-container {
+        display: flex;
+        flex-direction: row;
+        height: 50px;
+        width: 100vw;
+        justify-content: center;
+    }
+    
+    .nav-search-button {
+        border: 0;
+        padding: 0;
+        margin: 0;
+        height: 50px;
+        width: 50px;
+        border-radius: 0px 4px 4px 0px;
+        background-color: #3AAFA9;
+        color: white;
+        cursor: pointer;
+    }
+
+    .nav-auth-button-container {
+        display: none;
+    }
+}
+
+@media (max-width: 600px) {
+    .navigation {
+        /* list-style-type: none; */
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        height: 100%;
+        background-color: #17252a;
+        /* background-color: #3AAFA9; */
+        align-items: center;
+        width: 100%;
+    }
+    
+    .search-container {
+        display: flex;
+        flex-direction: row;
+        height: 30px;
+        width: 100vw;
+        justify-content: center;
+    }
+    
+    .nav-search-button {
+        border: 0;
+        padding: 0;
+        margin: 0;
+        height: 30px;
+        width: 30px;
+        border-radius: 0px 4px 4px 0px;
+        background-color: #3AAFA9;
+        color: white;
+        cursor: pointer;
+    }
+    
+    .nav-auth-button-container {
+        display: none;
+    }
 }

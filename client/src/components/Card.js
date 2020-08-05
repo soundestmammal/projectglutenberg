@@ -20,21 +20,11 @@ const Card = (props) => {
         phone,
     } = props.rest;
 
-    function renderSafetyStyling() {
-        if(props.rest.score === 0) {
-            return "card-wrapper-danger"
-        } else if (props.rest.score === 1) {
-            return "card-wrapper-caution";
-        } else {
-            return "card-wrapper-safe"
-        }
-    }
-    
     return(
         <Link className="container" to={`/biz/${props.id}`} onMouseEnter={() => props.hover(props.id)} onMouseLeave={() => props.hover("") } onClick={() => props.navigate()}>
-            <div className={renderSafetyStyling()}>
+            <div className="card-wrapper">
                 <div className="image">
-                    <img style={{height: '200px', width: '200px'}} src={image} alt="food from restuarant" />
+                    <img src={image} alt="food from restuarant" />
                 </div>
                 <div className="info">
                     <span className="restaurant-title">{name}</span>
@@ -47,8 +37,6 @@ const Card = (props) => {
                     <Score 
                         score={props.rest.score}
                     />
-                    <span className="score-grade">95</span>
-                    <span>Dedicated GF Menu</span>
                 </div>
                 <span className="restaurant-title">{props.index}</span>
             </div>

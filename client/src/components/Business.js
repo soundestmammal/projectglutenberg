@@ -6,19 +6,6 @@ import "../styles/map.css";
 
 const ReturnComponent = (props) => {
 
-    function renderRightSide() {
-        return(
-            <div className="rightSideContainer">
-                <div>
-                    <span className="rightSideData">{props.rest.phone}</span>
-                </div>
-                <div>
-                    <span className="rightSideData">Get Directions</span>
-                </div>
-            </div>
-        );
-    }
-
     function renderAddress() {
         return (
             <div className="business-address">
@@ -73,7 +60,6 @@ const ReturnComponent = (props) => {
             5: "Sat",
             6: "Sun"
         }
-        console.log(props.rest);
         return(
         // Loop through array
         props.rest.hours[0].open.map((day) => {
@@ -112,7 +98,28 @@ const ReturnComponent = (props) => {
         })
         );
     }
-    // console.log(props.rest);
+
+    function renderReviews() {
+        return (
+            <div>
+                <div className="business-review-card">
+                    <img className="business-review-image" src="https://images.unsplash.com/photo-1516641396056-0ce60a85d49f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2550&q=80" alt="review experience" />
+                    <p>	
+                        “From pour overs to nitro cold brew to kombucha to even masala chai they seem to have nailed just about anything your caffeine craving heart could desire"</p>
+                </div>
+                <div className="business-review-card">
+                    <img className="business-review-image" src="https://images.unsplash.com/photo-1516641396056-0ce60a85d49f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2550&q=80" alt="review experience" />
+                    <p>	
+                        “From pour overs to nitro cold brew to kombucha to even masala chai they seem to have nailed just about anything your caffeine craving heart could desire"</p>
+                </div>
+                <div className="business-review-card">
+                    <img className="business-review-image" src="https://images.unsplash.com/photo-1516641396056-0ce60a85d49f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2550&q=80" alt="review experience" />
+                    <p>	
+                        “From pour overs to nitro cold brew to kombucha to even masala chai they seem to have nailed just about anything your caffeine craving heart could desire"</p>
+                </div>
+            </div>
+        );
+    }
     return(
         <div>
         <div className="business-photos">
@@ -120,60 +127,41 @@ const ReturnComponent = (props) => {
             <img src={props.rest.photos[0]} alt="restaurant" className="individual-photo" ></img>
         </div>
         <div className="business-content">
-            <div className="business-left">
-                <div className="business-title">{props.rest.name}</div>
-                <div>
-                    <span className="business-price">{props.rest.price}</span>
-                    <span className="middle">-</span>
-                    <span className="business-categories">{renderCategories()}</span>
-                </div>
-                <div className="business-interaction">
-                    <div className="business-button" style={{background: 'red', color: 'white'}}>Write a Review</div>
-                    <div className="business-button">Add Photo</div>
-                    <div className="business-button">Share</div>
-                    <div className="business-button">Save</div>
-                </div>
-                <div className="covid-update">
-                    <h2>COVID-19 Update: Business operations may be affected</h2>
-                    <p>Due to ongoing precautionary measures, please contact the business directly for updated hours and availability</p>
-                </div>
+            <div className="business-title">{props.rest.name}</div>
+            <div>
+                <span className="business-price">{props.rest.price}</span>
+                <span className="middle">-</span>
+                <span className="business-categories">{renderCategories()}</span>
+            </div>
+            <div className="business-interaction" onClick={() => alert("This feature is still under development")}>
+                <div className="business-button" style={{background: 'red', color: 'white'}}>Write a Review</div>
+                <div className="business-button">Add Photo</div>
+                <div className="business-button">Share</div>
+                <div className="business-button">Save</div>
+                <div className="business-button">{props.rest.phone}</div>
+            </div>
+            <div className="covid-update">
+                <h2>COVID-19 Update: Business operations may be affected</h2>
+                <p>Due to ongoing precautionary measures, please contact the business directly for updated hours and availability</p>
+            </div>
 
-                <div className="business-review">
-                    <h2>Review Highlights</h2>
-                    <div className="business-review-card">
-                        <img className="business-review-image" src="https://images.unsplash.com/photo-1516641396056-0ce60a85d49f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2550&q=80" alt="review experience" />
-                        <p>	
-                            “From pour overs to nitro cold brew to kombucha to even masala chai they seem to have nailed just about anything your caffeine craving heart could desire"</p>
-                    </div>
-                    <div className="business-review-card">
-                        <img className="business-review-image" src="https://images.unsplash.com/photo-1516641396056-0ce60a85d49f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2550&q=80" alt="review experience" />
-                        <p>	
-                            “From pour overs to nitro cold brew to kombucha to even masala chai they seem to have nailed just about anything your caffeine craving heart could desire"</p>
-                    </div>
-                    <div className="business-review-card">
-                        <img className="business-review-image" src="https://images.unsplash.com/photo-1516641396056-0ce60a85d49f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2550&q=80" alt="review experience" />
-                        <p>	
-                            “From pour overs to nitro cold brew to kombucha to even masala chai they seem to have nailed just about anything your caffeine craving heart could desire"</p>
-                    </div>
-                </div>
+            <div className="business-review">
+                <h2>Verified Reviews</h2>
+                <p>No reviews at this time</p>
+            </div>
 
-                <div className="business-location">
-                    <h2>Location & Hours</h2>
-                    <div className="business-location-information">
-                        <div className="business-minimap">
-                            <MiniMap center={returnCenter()} />
-                            {renderAddress()}
-                        </div>
-                        <div className="business-hours-container">
-                            {renderHours()}
-                        </div>
+            <div className="business-location">
+                <h2>Location & Hours</h2>
+                <div className="business-location-information">
+                    <div className="business-minimap">
+                        <MiniMap center={returnCenter()} />
+                        {renderAddress()}
+                    </div>
+                    <div className="business-hours-container">
+                        {renderHours()}
                     </div>
                 </div>
             </div>
-            <div className="business-right">
-                {renderRightSide()}
-            </div>
-
         </div>
         </div>
     );

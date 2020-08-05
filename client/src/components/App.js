@@ -74,10 +74,12 @@ class App extends Component {
   // Why: I use ip-api.com because the window.geolocation was not reliable
   getLocationV4 = async () => {
     const response = await axios.get(`${API_ROOT}/getClientLocation`);
-    this.setState({ clientLat: response.data.latitude, 
-                    clientLong: response.data.longitude, 
-                    mapLat: response.data.latitude,
-                    mapLong: response.data.longitude,
+    let latitude = parseFloat(response.data.latitude);
+    let longitude = parseFloat(response.data.longitude);
+    this.setState({ clientLat: latitude, 
+                    clientLong: longitude, 
+                    mapLat: latitude,
+                    mapLong: longitude,
                     loading: false 
                   });
   }

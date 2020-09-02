@@ -16,10 +16,11 @@ import Auth from './Auth';
 import Profile from './Profile';
 import Signout from './Signout';
 import Signin from './Signin';
+import Landing from './Landing';
 
 import { API_ROOT } from '../api-config';
 
-// Removed for 3.0 production
+// Removed from 0.3 production
 // import AdminAuth from '../admin/components/AdminAuth';
 // import AdminDashboard from '../admin/components/AdminDashboard';
 import "../styles/app.css";
@@ -159,7 +160,10 @@ class App extends Component {
       <div>
         <Router>
         <Switch>
-          <Route exact path="/">
+          <Route path="/">
+            <Landing />
+          </Route>
+          <Route exact path="/app">
             <div style={{margin: 0, padding: 0}}>
               <NavBar 
                 value={this.state.searchbox}
@@ -260,7 +264,6 @@ class App extends Component {
             />
             <AdminDashboard />
           </Route> */}
-
       </Switch>
     </Router>
     </div>

@@ -1,0 +1,110 @@
+.nav {
+    height: 10vh;
+    background-color: midnightblue;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo {
+    color: white;
+    letter-spacing: 0.1em;
+    font-weight: 500;
+    font-size: 4em;
+    font-family: serif;
+}
+
+.hero-container {
+    height: 55vh;
+    background-color: rgba(0,0,0,1);
+    z-index: 10;
+}
+
+.hero-image {
+    height: 100%;
+    background-image: linear-gradient(0.125turn, rgba(31, 46, 34, 0.8), rgba(7, 27, 53, 0.8)), url("https://www.smartertravel.com/uploads/2018/03/twenty20_c5f5e3e3-62b3-4cfa-8eb8-b7ac83be32d3-1400x500.jpg");
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-content {
+    color: white;
+    font-weight: 200;
+    font-family: NationalWeb, Helvetica;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hero-title {
+    font-size: 68px;
+}
+
+.hero-subtitle {
+    margin-top: 20px;
+    font-size: 32px;
+}
+
+.hero-beta {
+    line-height: 1.5;
+    margin-top: 60px;
+    font-weight: bold;
+    padding: 11px 20px 12px;
+    border: 1px solid white;
+    text-align: center;
+    text-transform: uppercase;
+    color: white;
+    border-radius: 8px;
+    font-size: 18px;
+    font-family: NationalWeb, Helvetica;
+    cursor: pointer;
+    letter-spacing: 1px;
+}
+
+.hero-beta:hover {
+    color: midnightblue;
+    background-color: white;
+}
+
+.press {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.outlets {
+    display: flex;
+    flex-direction: row;
+    width: 600px;
+    justify-content: space-between;
+}
+
+.the-sprueliac-times {
+    color: red;
+}
+
+.the-gluten-free-journal {
+    text-transform: uppercase;
+}
+
+.silly-act-magazine {
+    color: green;
+}
+
+.motivations {
+    height: 70vh;
+    background-color: green;
+}
+
+.features {
+    height: 70vh;
+    background-color: orange;
+}
+
+.comparison {
+    height: 70vh;
+    background-color: yellow;
+}

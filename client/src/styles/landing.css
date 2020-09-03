@@ -1,10 +1,13 @@
 .nav {
     height: 10vh;
-    background-color: midnightblue;
+    background-color: rgb(2, 23, 44);
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    width: 100%;
+    position: fixed;
+    top: 0;
 }
 
 .logo {
@@ -12,11 +15,27 @@
     letter-spacing: 0.1em;
     font-weight: 500;
     font-size: 4em;
-    font-family: serif;
+    font-family: georgia;
+    flex-grow: 1;
+    text-align: center;
+}
+
+.left {
+    width: 500px;
+}
+
+.right {
+    width: 500px;
+    border: 1px solid white;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
 }
 
 .hero-container {
-    height: 55vh;
+    margin-top: 10vh;
+    height: 60vh;
     background-color: rgba(0,0,0,1);
     z-index: 10;
 }
@@ -62,6 +81,7 @@
     font-family: NationalWeb, Helvetica;
     cursor: pointer;
     letter-spacing: 1px;
+    text-decoration: none;
 }
 
 .hero-beta:hover {
@@ -73,6 +93,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
+    border-bottom: 1px solid rgba(100, 100, 100, 0.2);
 }
 
 .outlets {
@@ -80,6 +102,7 @@
     flex-direction: row;
     width: 600px;
     justify-content: space-between;
+    margin-bottom: 20px;
 }
 
 .the-sprueliac-times {
@@ -94,9 +117,57 @@
     color: green;
 }
 
+.rest-image {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 1000px;
+}
+
+.value-props {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: 300px;
+}
+
+.value-props-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 3em 0 1em;
+    width: 800px;
+}
+
+.value-props-title {
+    font-size: 3.5em;
+    font-family: Georgia;
+    font-weight: lighter;
+    margin: 25px 0 15px 0;
+}
+
+.value-props-subtitle {
+    line-height: 1.75em;
+    font-size: 1.5em;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: 200;
+    text-align: center;
+}
+
 .motivations {
     height: 70vh;
-    background-color: green;
+}
+
+.motivations-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.motivation-card {
+    border: 1px solid red;
+    width: 500px;
 }
 
 .features {

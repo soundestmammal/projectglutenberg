@@ -160,7 +160,7 @@ class App extends Component {
       <div>
         <Router>
         <Switch>
-          <Route path="/">
+          <Route exact path="/">
             <Landing />
           </Route>
           <Route exact path="/app">

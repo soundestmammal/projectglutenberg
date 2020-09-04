@@ -43,12 +43,11 @@ class Signin extends Component {
                     <span className="auth-title">Sign in</span>
                     <input type="text" placeholder="Email Address" value={this.state.email} onChange={this.handleChangeEmail} />
                     <input type="password" placeholder="Password" value={this.state.password} onChange={this.handleChangePassword} />
-                    {/* <button className="auth-button" text="SIGN IN" onClick={() => this.props.trythis(this.state.email, this.state.password).then( this.setState({toDashboard: true}))}>Submit!!!</button> */}
                     <div>{this.props.errorMessage}</div>
-                    <button className="auth-button" text="SIGN IN" onClick={() => this.attemptSignin()} >Submit!!!</button>
+                    <button className="auth-button" text="SIGN IN" onClick={() => this.attemptSignin()} >Sign in</button>
                     <div className="auth-troubleshoot">
-                        <Link style={{textDecoration: 'none'}}>Forgot Password</Link>
-                        <Link style={{textDecoration: 'none'}}>Don't have an account? Sign Up</Link>
+                        <Link style={{textDecoration: 'none', color: 'black'}}>Forgot Password</Link>
+                        <Link to="/auth" style={{textDecoration: 'none', color: 'black'}}>Don't have an account? Sign Up</Link>
                     </div>
                 </div>
             </div>

@@ -21,7 +21,7 @@ const Card = (props) => {
     } = props.rest;
 
     return(
-        <Link className="container" to={`/biz/${props.id}`} onMouseEnter={() => props.hover(props.id)} onMouseLeave={() => props.hover("") } onClick={() => props.navigate()}>
+        <Link className="container" to={`/app/biz/${props.id}`} onMouseEnter={() => props.hover(props.id)} onMouseLeave={() => props.hover("") } onClick={() => props.navigate()}>
             <div className="card-wrapper">
                 <div className="image">
                     <img src={image} alt="food from restuarant" />

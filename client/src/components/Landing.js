@@ -11,8 +11,8 @@ const Landing = () => {
                 <div className="left"></div>
                 <div className="logo">Oasis</div>
                 <div className="right">
-                    <span className="login">Log in</span>
-                    <span className="get-started">Get Started</span>
+                    <Link to="/signin" className="login">Log in</Link>
+                    <Link to="/auth" className="get-started">Get Started</Link>
                 </div>
             </div>
             <div className="hero-container">

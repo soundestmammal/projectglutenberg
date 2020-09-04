@@ -194,7 +194,7 @@ class App extends Component {
             </div>
           </Route>
           
-        <Route path={`/biz/${this.state.currentRestaurant}`}>
+        <Route path={`/app/biz/${this.state.currentRestaurant}`}>
           <div style={{margin: 0, padding: 0}}>
             <NavBar 
               value={this.state.searchbox}

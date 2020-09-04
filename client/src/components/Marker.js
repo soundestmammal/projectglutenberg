@@ -23,7 +23,7 @@ class Marker extends Component {
     render() {
         if(this.state.active){
             return(
-                <Link to={`/biz/${this.props.data.id}`}>
+                <Link to={`/app/biz/${this.props.data.id}`}>
                 <div className="marker-wrapper">
                     <MiniCard data={this.props.data} />
                     <div className="pin-highlighted" onMouseEnter={ () => this.toggleActive(true) } onMouseLeave={ () => this.toggleActive(false) } onClick={ () => this.props.navigate() } >

@@ -1,6 +1,17 @@
-.logo {
-    font-size: 2em;
-    color: white;
-    font-family: sans-serif;
-    font-weight: bold;
+.logo-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.logo-text {
+  font-size: 1.75em;
+  color: white;
+  font-family: sans-serif;
+  letter-spacing: 2px;
+}
+
+.logo-palm {
+  height: 1.5em;
+  margin-right: 7px;
 }

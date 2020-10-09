@@ -1,14 +1,20 @@
 .list-container {
-    overflow-y: auto;
-    flex-grow: 1;
-    height: calc(100vh - 100px);
-    width: 100%;
-    padding: 0px 40px;
-    background: #DEF2F1;
+  overflow-y: auto;
+  flex-grow: 1;
+  height: calc(100vh - 100px);
+  width: 100%;
+  padding: 0px 40px;
+  background: #def2f1;
 }
 
 .listStyling {
-    list-style-type: none;
-    margin: 0;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+@media (max-width: 600px) {
+  .list-container {
     padding: 0;
+  }
 }

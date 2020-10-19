@@ -1,12 +1,14 @@
-import React from 'react';
+import React from "react";
+import { ReactComponent as OasisLogo } from "../icons/palm.svg";
 import "../styles/logo.css";
 
 const Logo = () => {
-    return (
-        <div className="logo">
-            <span>OASIS</span>
-        </div>
-    );
-}
+  return (
+    <div className="logo-container">
+      <OasisLogo className="logo-palm" />
+      <span className="logo-text">Oasis</span>
+    </div>
+  );
+};
 
 export default Logo;

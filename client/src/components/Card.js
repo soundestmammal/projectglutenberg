@@ -1,6 +1,6 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import Score from './Score';
+import React from "react";
+import { Link } from "react-router-dom";
+import Score from "./Score";
 import "../styles/card.css";
 
 /* 
@@ -13,35 +13,37 @@ import "../styles/card.css";
 */
 
 const Card = (props) => {
-    const {
-        image,
-        name,
-        price,
-        phone,
-    } = props.rest;
+  const { image, name, price, phone } = props.rest;
 
-    return(
-        <Link className="container" to={`/app/biz/${props.id}`} onMouseEnter={() => props.hover(props.id)} onMouseLeave={() => props.hover("") } onClick={() => props.navigate()}>
-            <div className="card-wrapper">
-                <div className="image">
-                    <img src={image} alt="food from restuarant" />
-                </div>
-                <div className="info">
-                    <span className="restaurant-title">{name}</span>
-                    <span className="card-price">{price}</span>
-                    <span className="card-address">{props.address[0]}</span>
-                    <span className="card-address">{props.address[1]}</span>
-                    <span className="card-phone">{phone}</span>
-                </div>
-                <div className="score-wrapper">
-                    <Score 
-                        score={props.rest.score}
-                    />
-                </div>
-                <span className="restaurant-title">{props.index}</span>
-            </div>
-        </Link>
-    );
-}
+  return (
+    <Link
+      className="container"
+      to={`/app/biz/${props.id}`}
+      onMouseEnter={() => props.hover(props.id)}
+      onMouseLeave={() => props.hover("")}
+      onClick={() => props.navigate()}
+    >
+      <div className="card-wrapper">
+        <div className="image">
+          <img src={image} alt="food from restuarant" />
+        </div>
+        <div className="info">
+          <span className="restaurant-title">{name}</span>
+          <span className="card-price">{price}</span>
+          <div>
+            <span className="card-address">{props.address[0]}</span>
+            <br />
+            <span className="card-address">{props.address[1]}</span>
+          </div>
+          <span className="card-phone">{phone}</span>
+        </div>
+        <div className="score-wrapper">
+          <Score score={props.rest.score} />
+        </div>
+        <span className="restaurant-title">{props.index}</span>
+      </div>
+    </Link>
+  );
+};
 
 export default Card;

@@ -1,160 +1,171 @@
 .business-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .business-photos {
-    max-height: 300px;
-    display: flex;
+  max-height: 300px;
+  display: flex;
 }
 
 .individual-photo {
-    box-sizing: border-box;
-    width: 25%;
-    border-right: 2px solid white;
+  box-sizing: border-box;
+  width: 25%;
+  border-right: 2px solid white;
 }
 
 .individual-photo:last-child {
-    border: 0;
+  border: 0;
 }
 
 .business-content {
-    display: flex;
-    flex-direction: column;
-    max-width: 1200px;
-    padding: 0px 40px;
-    margin: 24px auto 48px;
+  display: flex;
+  flex-direction: column;
+  max-width: 1200px;
+  padding: 0px 40px;
+  margin: 24px auto 48px;
 }
 
 .business-title {
-    font-size: 3em;
-    font-weight: bold;
-    font-family: sans-serif;
-    letter-spacing: 1px;
-    margin-bottom: 5px;
+  font-size: 3em;
+  font-weight: bold;
+  font-family: sans-serif;
+  letter-spacing: 1px;
+  margin-bottom: 5px;
 }
 
 .business-price {
-    font-size: 1.25em;
+  font-size: 1.25em;
 }
 
-.middle{ 
-    margin: 0px 10px 0px;
+.middle {
+  margin: 0px 10px 0px;
 }
 
 .business-categories {
-    font-size: 1.25em;
+  font-size: 1.25em;
 }
 
 .covid-update {
-    background-color: rgba(10,179,201,.1);
-    max-width: 650px;
-    border-left: 8px solid #0ab3c9;
-    padding: 8px 16px 8px 32px;
+  background-color: rgba(10, 179, 201, 0.1);
+  max-width: 650px;
+  border-left: 8px solid #0ab3c9;
+  padding: 8px 16px 8px 32px;
 }
 
 .business-button {
-    color: #2b273c;
-    border: 1px solid#2b273c;
-    padding: 8px 16px;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    background-color: #fff;
-    border-radius: 4px;
-    font-size: larger;
-    text-decoration: none;
+  color: #2b273c;
+  border: 1px solid#2b273c;
+  padding: 8px 16px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  background-color: #fff;
+  border-radius: 4px;
+  font-size: larger;
+  text-decoration: none;
 }
 
 .business-interaction {
-    display: flex;
-    flex-direction: row;
-    margin: 24px 0px;
+  display: flex;
+  flex-direction: row;
+  margin: 24px 0px;
 }
-
-/* .business-review {
-    border: 1px solid red;
-} */
-
-.business-review-card {
-    display: flex;
-    flex-direction: row;
-    width: 650px;
-    /* border: 2px solid greenyellow; */
-    height: 60px;
-    margin-bottom: 12px;
-}
-
-.business-review-image {
-    height: 60px;
-    width: 60px;
-}
-
-/* .business-location {
-    border: 1px solid red;
-} */
 
 .business-location-information {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .business-minimap {
-    height: 300px;
-    width: 300px;
-    border: 1px solid gray;
-    border-radius: 4px;
+  height: 300px;
+  width: 300px;
+  border: 1px solid gray;
+  border-radius: 4px;
 }
 
 .business-hours-container {
-    display: flex;
-    flex-direction: column;
-    margin-left: 2em;
+  display: flex;
+  flex-direction: column;
+  margin-left: 2em;
 }
 
 .hours-day {
-    font-family: sans-serif;
-    font-weight: 700;
-    margin-right: 10px;
+  font-family: sans-serif;
+  font-weight: 700;
+  margin-right: 10px;
 }
 
 .hours-time {
-    font-family: sans-serif;
+  font-family: sans-serif;
 }
 
 .open-now {
-    margin-left: 20px;
-    color: green;
-    font-weight: 900;
-    font-family: sans-serif;
+  margin-left: 20px;
+  color: green;
+  font-weight: 900;
+  font-family: sans-serif;
 }
 
 .business-address {
-    height: 100px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5em;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5em;
 }
 
 .business-right {
-    width: 100%;
+  width: 100%;
 }
 
 .rightSideContainer {
-    border: 1px solid black;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-top: 50px;
-    padding: 20px;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+  padding: 20px;
 }
 
 .rightSideContainer span {
-    border: 1px solid red;
-    display: block;
-    padding: 20px;
-    margin: 10px;
+  border: 1px solid red;
+  display: block;
+  padding: 20px;
+  margin: 10px;
+}
+
+@media (max-width: 600px) {
+  .business-content {
+    width: 90%;
+    padding: 0;
+    margin: 0 auto;
+  }
+
+  .business-title {
+    margin-top: 24px;
+  }
+
+  .business-button {
+    text-align: center;
+  }
+
+  .business-interaction {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .business-location {
+    margin-bottom: 24px;
+  }
+
+  .business-location-information {
+    flex-direction: column-reverse;
+  }
+
+  .business-hours-container {
+    margin: 0px 0px 24px 0px;
+  }
 }

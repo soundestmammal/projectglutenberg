@@ -13,7 +13,7 @@ describe("Location related endpoints", () => {
 
   it("Should return the nearest city", async () => {
     const res = await request(app).get(
-      "/location/forward_geocode?location=sacramento&lat=33.74&lng="
+      "/location/forward_geocode?location=sacramento&lat=33.74&lng=84.52"
     );
 
     expect(res.statusCode).toEqual(200);

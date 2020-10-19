@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import singleSource from "../image-assets/server.png";
 import restaurant from "../image-assets/restaurant.jpg";
 import Logo from "./Logo";
 import "../styles/landing.css";

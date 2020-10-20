@@ -21,7 +21,8 @@ deploy:
 deploy:
     provider: elasticbeanstalk
     region: us-east-2
-    app: Oasis-env
+    app: oasis
+    env: Oasis-env
     bucket_name: elasticbeanstalk-us-east-2-670541471230
     bucket_path: oasis
     on:

@@ -11,9 +11,8 @@ script:
     - docker run -e CI=true soundestmammal/oasis npm test
 
 # If tests pass && branch=master : deploy to dockerhub
-after_success:
-    deploy:
-        provider: script
-        script: deploy.sh
-        on:
-            branch: containerize
+deploy:
+    provider: script
+    script: deploy.sh
+    on:
+        branch: containerize

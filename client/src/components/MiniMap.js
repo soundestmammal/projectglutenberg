@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 import MiniMarker from './MiniMarker';
-import { googleMapsApiKey } from '../test';
+import { googleMapsApiKey } from '../secure';
 import '../styles/map.css';
 import '../styles/minimap.css';
 

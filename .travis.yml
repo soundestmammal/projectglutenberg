@@ -1,0 +1,19 @@
+sudo: required
+services:
+    - docker
+
+before_install:
+    - docker build -t soundestmammal/oasis -f ./client/Dockerfile.dev ./client
+
+script:
+    - docker run -e CI=true soundestmammal/oasis npm test
+
+after_success:
+    - docker build -t soundestmammal/oasis-client ./client
+    - docker build -t soundestmammal/oasis-nginx ./nginx
+    - docker build -t soundestmammal/oasis-server ./server
+    # Log in to the docker CLI
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password=stdin
+    - docker push soundestmammal/oasis-client
+    - docker push soundestmammal/oasis-nginx
+    - docker push soundestmammal/oasis-server

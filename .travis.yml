@@ -11,12 +11,14 @@ script:
     - docker run -e CI=true soundestmammal/oasis npm test
 
 # If tests pass && branch=containerize -> push images to DH
-deploy:
-    provider: script
-    script: bash ./deploy.sh
-    on:
-        branch: containerize
-
+after_success:
+    - docker build -t soundestmammal/oasis-client ./client
+    - docker build -t soundestmammal/oasis-nginx ./nginx
+    - docker build -t soundestmammal/oasis-server ./server
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+    - docker push soundestmammal/oasis-client
+    - docker push soundestmammal/oasis-nginx
+    - docker push soundestmammal/oasis-server
 # if branch=containerize -> deploy to EB
 deploy:
     provider: elasticbeanstalk

@@ -13,6 +13,6 @@ script:
 # If tests pass && branch=master : deploy to dockerhub
 deploy:
     provider: script
-    script: deploy.sh
+    script: bash ./deploy.sh
     on:
         branch: containerize

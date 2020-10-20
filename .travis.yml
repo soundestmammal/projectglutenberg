@@ -10,9 +10,21 @@ before_install:
 script:
     - docker run -e CI=true soundestmammal/oasis npm test
 
-# If tests pass && branch=master : deploy to dockerhub
+# If tests pass && branch=containerize -> push images to DH
 deploy:
     provider: script
     script: bash ./deploy.sh
     on:
         branch: containerize
+
+# if branch=containerize -> deploy to EB
+deploy:
+    provider: elasticbeanstalk
+    region: us-east-2
+    app: Oasis-env
+    bucket_name: elasticbeanstalk-us-east-2-670541471230
+    bucket_path: oasis
+    on:
+        branch: containerize
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY

@@ -16,4 +16,4 @@ after_success:
         provider: script
         script: deploy.sh
         on:
-            branch: master
+            branch: containerize

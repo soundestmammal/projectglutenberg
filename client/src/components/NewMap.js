@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 import MapCheckbox from './MapCheckbox';
 import Marker from './Marker';
-import { googleMapsApiKey } from '../test.js';
+import { googleMapsApiKey } from '../test';
 import '../styles/map.css';
 
 /*

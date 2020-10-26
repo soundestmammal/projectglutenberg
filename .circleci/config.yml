@@ -42,7 +42,8 @@ workflows:
           - test_client
       - deploy:
         requires:
-          - build
+          - test_client
+          - upload_images
         filters:
           branches:
             only: containerize

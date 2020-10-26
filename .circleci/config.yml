@@ -30,8 +30,10 @@ jobs:
       - checkout
       - run: 
         command: apt-get install less
+
       -run:
         command: bash ./.circleci/ci_script.sh
+        
 workflows:
   version: 2
   Oasis_Workflow:

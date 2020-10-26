@@ -29,4 +29,5 @@ workflows:
     jobs:
       - test_client
       - upload_images:
-          requires: -test_client
+          requires:
+            - test_client

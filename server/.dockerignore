@@ -1,0 +1,19 @@
+# Docker Ignore file for the API Service
+
+.git
+
+.gitignore
+
+node_modules
+
+admin
+
+config
+
+build
+
+*.env
+
+*.md
+
+*.txt

@@ -1,10 +1,10 @@
 let backendHost;
 const hostname = window && window.location && window.location.hostname;
 
-if (hostname === 'oasisglutenfree.com') {
-    backendHost = 'https://api.oasisglutenfree.com';
+if (hostname === 'http://localhost:3050') {
+    backendHost = 'http://localhost:3050/api';
 } else {
-    backendHost = 'http://localhost:3050/api/';
+    backendHost = '/api';
 }
 
 export const API_ROOT = `${backendHost}`;

@@ -27,19 +27,9 @@ zip -r app_v_$CIRCLE_BUILD_NUM.zip Dockerrun.aws.json
 aws s3 cp ./app_v_$CIRCLE_BUILD_NUM.zip s3://$S3_BUCKET/
 
 # creating a new Beanstalk version from the configuration we uploaded to s3
-aws elasticbeanstalk create-application-version \
---application-name oasis\ 
---version-label v$CIRCLE_BUILD_NUM \ ### => this can be anything you like, but it must be unique
---description="New Version number $CIRCLE_BUILD_NUM" \ ### => this can also be anything you like
---source-bundle S3Bucket=$S3_BUCKET,S3Key="app_v_$CIRCLE_BUILD_NUM.zip" \ ### => this specifies the location of the ZIP file we previously uploaded
---auto-create-application \
---region="us-east-2"
+aws elasticbeanstalk create-application-version --application-name "oasis" --version-label v$CIRCLE_BUILD_NUM --description="New Version number $CIRCLE_BUILD_NUM" --source-bundle S3Bucket=$S3_BUCKET,S3Key="app_v_$CIRCLE_BUILD_NUM.zip" --auto-create-application --region="us-east-2"
 
 # deploying the new version to the given environment
-aws elasticbeanstalk update-environment \
---application-name oasis \
---environment-name Oasis-env \
---version-label v$CIRCLE_BUILD_NUM \
---region="us-east-2"
+aws elasticbeanstalk update-environment --application-name "oasis" --environment-name "Oasis-env" --version-label v$CIRCLE_BUILD_NUM --region="us-east-2"
 
 exit 0

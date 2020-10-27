@@ -14,17 +14,17 @@ app.use(
 );
 
 // Connect to the database
-// require('./db');
+require('./db');
 
 // app.set('trust proxy', '127.0.0.1');
 
-// const userRouter = require('./router');
+const userRouter = require('./router');
 // const adminRouter = require("./admin/admin");
 
 // App Setup
 app.use(morgan('combined')); // Middleware to log out requests
 app.use(bodyParser.json()); // Middleware to ???
-// app.use(userRouter);
+app.use(userRouter);
 // app.use(adminRouter);
 
 module.exports = app;

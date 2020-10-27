@@ -2,7 +2,7 @@ const express = require('express');
 const axios = require('axios');
 const multer = require('multer');
 const sharp = require('sharp');
-const { openCage, yelp, ipgeolocation } = require('./env-keys');
+const { openCage, yelp, ipGeolocation } = require('./env-keys');
 const User = require('./models/User');
 const auth = require('./middleware/auth');
 const algorithm = require('./algorithm');
@@ -22,7 +22,7 @@ router.get('/getClientLocation', async (req, res) => {
   }
   try {
     const response = await axios.get(
-      `https://api.ipgeolocation.io/ipgeo?apiKey=${ipgeolocation}&ip=${ipaddress}`
+      `https://api.ipgeolocation.io/ipgeo?apiKey=${ipGeolocation}&ip=${ipaddress}`
     );
     res.send({
       latitude: response.data.latitude,

@@ -15,6 +15,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/getClientLocation', async (req, res) => {
+  console.log("LOG THE IP ADDRESS HERE!!!   ", req.ip);
   let ipaddress = req.ip;
   if (ipaddress === '::1' || ipaddress.includes('192.168.32')) {
     // Random IP for development

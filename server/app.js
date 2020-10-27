@@ -16,7 +16,7 @@ app.use(
 // Connect to the database
 require('./db');
 
-// app.set('trust proxy', '127.0.0.1');
+app.set('trust proxy', true);
 
 const userRouter = require('./router');
 // const adminRouter = require("./admin/admin");

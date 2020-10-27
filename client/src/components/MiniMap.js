@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 import MiniMarker from './MiniMarker';
-import { googleMapsApiKey } from '../secure';
 import '../styles/map.css';
 import '../styles/minimap.css';
 
@@ -13,7 +12,7 @@ class MiniMap extends Component {
     renderMap = () => {
         return (
             <GoogleMapReact
-                bootstrapURLKeys={{ key: googleMapsApiKey }}
+                bootstrapURLKeys={{ key: this.props.googleMapsApiKey }}
                 center={this.props.center}
                 zoom={this.props.zoom}
             >

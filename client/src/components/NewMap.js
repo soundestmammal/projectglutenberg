@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 import MapCheckbox from './MapCheckbox';
 import Marker from './Marker';
-import { googleMapsApiKey } from '../secure';
 import '../styles/map.css';
 
 /*
@@ -41,7 +40,7 @@ class NewMap extends Component {
         if (this.props.loading) return null;
         return (
             <GoogleMapReact
-                bootstrapURLKeys={{ key: googleMapsApiKey }}
+                bootstrapURLKeys={{ key: this.props.googleMapsKey }}
                 center={this.props.center}
                 zoom={this.props.zoom}
                 onChange={this.onChange}

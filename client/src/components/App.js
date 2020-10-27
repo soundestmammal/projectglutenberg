@@ -46,6 +46,7 @@ class App extends Component {
             currentRestaurantData: null,
             searchCheckbox: false,
             mimi: '',
+            googleMapsKey: ''
         };
     }
 
@@ -155,6 +156,12 @@ class App extends Component {
         }
     };
 
+    fetchMapsApiKey = async () => {
+        const response = await axios.get('/api/googleMapsKey');
+
+        this.setState({ googleMapsKey: response.data });
+    }
+
     componentDidMount() {
         // Check the authentication status. If the user is authenticated I want to fetchUser information
         // I did this because I can only run the getYelp data once I get the lat and long
@@ -162,6 +169,8 @@ class App extends Component {
         if (this.props.auth.authenticated) {
             this.props.fetchUser(this.props.auth.authenticated);
         }
+
+        this.fetchMapsApiKey()
         // ReactGA.pageview(window.location.pathname);
     }
 
@@ -202,6 +211,7 @@ class App extends Component {
                                     checked={this.state.searchCheckbox}
                                     hover={this.setCurrentRestaurant}
                                     navigate={this.handleRestaurantSelection}
+                                    googleMapsKey={this.state.googleMapsKey}
                                 />
                             </div>
                         </Route>
@@ -216,7 +226,7 @@ class App extends Component {
                                     change={this.handleChange}
                                 />
                             </div>
-                            <Business rest={this.state.currentRestaurantData} />
+                            <Business rest={this.state.currentRestaurantData} googleMapsKey={this.state.googleMapsKey} />
                         </Route>
 
                         <Route path='/auth'>

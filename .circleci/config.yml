@@ -39,10 +39,13 @@ workflows:
       - upload_images:
           requires:
             - test_client
+          filters:
+            branches:
+              only: master
       - deploy:
           requires:
             - test_client
             - upload_images
           filters:
             branches:
-              only: containerize
+              only: master

@@ -24,7 +24,7 @@ echo -e "aws_secret_access_key=$SECRET_KEY" >> $AWS_CRED_FILE
 zip -r app_v_$CIRCLE_BUILD_NUM.zip Dockerrun.aws.json
 
 # upload the ZIP file to the beanstalk bucket
-aws s3 cp ./app_v_$CIRCLE_BUILD_NUM.zip s3://$S3_BUCKET/oasis
+aws s3 cp ./app_v_$CIRCLE_BUILD_NUM.zip s3://$S3_BUCKET/oasis/
 
 # creating a new Beanstalk version from the configuration we uploaded to s3
 aws elasticbeanstalk create-application-version --application-name "oasis" --version-label v$CIRCLE_BUILD_NUM --description="New Version number $CIRCLE_BUILD_NUM" --source-bundle S3Bucket="$S3_BUCKET/oasis/",S3Key="app_v_$CIRCLE_BUILD_NUM.zip" --auto-create-application --region="us-east-2"

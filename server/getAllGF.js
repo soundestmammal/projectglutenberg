@@ -1,4 +1,4 @@
-const Business = require('./Business');
+const Business = require('./models/Business');
 
 module.exports = async function getAllGF() {
     const response = await Business.find({}).lean();

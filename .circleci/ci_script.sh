@@ -4,8 +4,8 @@
 # inflates it
 # and sets location to the path
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-unzip awscliv2.zip
-sudo ./aws/install
+unzip awscliv2.zip &> /dev/null
+sudo ./aws/install &> /dev/null
 
 ## for AWS CLI v2 you need to install "less"
 sudo apt-get update && sudo apt-get -y install less
@@ -21,12 +21,7 @@ echo -e "aws_secret_access_key=$SECRET_KEY" >> $AWS_CRED_FILE
 # the $CIRCLE_BUILD_NUM variable is provided by CircleCI via the ENV's
 # the idea here is to get a incremental version number
 # the zip's name can be anything you like
-zip -r app_v_$CIRCLE_BUILD_NUM.zip .ebextensions/ Dockerrun.aws.json
-
-# the $CIRCLE_BUILD_NUM variable is provided by CircleCI via the ENV's
-# the idea here is to get a incremental version number
-# the zip's name can be anything you like
-zip -r app_v_$CIRCLE_BUILD_NUM.zip .ebextensions/ Dockerrun.aws.json
+zip -r app_v_$CIRCLE_BUILD_NUM.zip Dockerrun.aws.json
 
 # upload the ZIP file to the beanstalk bucket
 aws s3 cp ./app_v_$CIRCLE_BUILD_NUM.zip s3://$S3_BUCKET/

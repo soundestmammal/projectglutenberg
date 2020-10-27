@@ -7,6 +7,9 @@ curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip
 unzip awscliv2.zip
 sudo ./aws/install
 
+## for AWS CLI v2 you need to install "less"
+sudo apt-get update && sudo apt-get -y install less
+
 # set the credentials to the default AWS CLI configuration file
 mkdir ~/.aws # just in case the CLI did not create the file yet
 AWS_CRED_FILE=~/.aws/credentials # just in case the CLI did not create the file yet
@@ -35,11 +38,13 @@ aws elasticbeanstalk create-application-version \
 --description="New Version number $CIRCLE_BUILD_NUM" \ ### => this can also be anything you like
 --source-bundle S3Bucket=$S3_BUCKET,S3Key="app_v_$CIRCLE_BUILD_NUM.zip" \ ### => this specifies the location of the ZIP file we previously uploaded
 --auto-create-application \
---region=REGION
+--region="us-east-2"
 
 # deploying the new version to the given environment
 aws elasticbeanstalk update-environment \
 --application-name oasis \
 --environment-name Oasis-env \
 --version-label v$CIRCLE_BUILD_NUM \
---region=REGION
+--region="us-east-2"
+
+exit 0

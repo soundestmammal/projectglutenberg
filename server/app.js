@@ -1,30 +1,30 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const morgan = require("morgan");
-const mongoose = require("mongoose");
-const cors = require("cors");
-const auth = require("./middleware/auth");
+const express = require('express');
+const bodyParser = require('body-parser');
+const morgan = require('morgan');
+// const mongoose = require('mongoose');
+const cors = require('cors');
+// const auth = require('./middleware/auth');
 
 const app = express();
 
 app.use(
   cors({
-    origin: "*",
+    origin: '*',
   })
 );
 
 // Connect to the database
-require("./config/db");
+require('./db');
 
-app.set("trust proxy", "127.0.0.1");
+// app.set('trust proxy', '127.0.0.1');
 
-const userRouter = require("./router");
-const adminRouter = require("./admin/admin");
+const userRouter = require('./router');
+// const adminRouter = require("./admin/admin");
 
 // App Setup
-app.use(morgan("combined")); // Middleware to log out requests
+app.use(morgan('combined')); // Middleware to log out requests
 app.use(bodyParser.json()); // Middleware to ???
 app.use(userRouter);
-app.use(adminRouter);
+// app.use(adminRouter);
 
 module.exports = app;

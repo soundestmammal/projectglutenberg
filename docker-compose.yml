@@ -1,6 +1,8 @@
-version: "3"
+version: '3'
 services:
   api:
+    env_file:
+      - ./server/dev.env
     build:
       dockerfile: Dockerfile.dev
       context: ./server
@@ -21,4 +23,4 @@ services:
       dockerfile: Dockerfile.dev
       context: ./nginx
     ports:
-      - "3050:80"
+      - '3050:80'

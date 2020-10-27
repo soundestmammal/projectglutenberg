@@ -2,7 +2,7 @@ const express = require('express');
 const axios = require('axios');
 const multer = require('multer');
 const sharp = require('sharp');
-const { openCage, yelp, ipGeolocation } = require('./env-keys');
+const { openCage, yelp, ipGeolocation, googleMapsKey } = require('./env-keys');
 const User = require('./models/User');
 const auth = require('./middleware/auth');
 const algorithm = require('./algorithm');
@@ -13,6 +13,10 @@ const router = new express.Router();
 router.get('/', (req, res) => {
   res.send('This is the root response!');
 });
+
+router.get('/googleMapsKey', (req, res) => {
+  res.send(googleMapsKey);
+})
 
 router.get('/getClientLocation', async (req, res) => {
   console.log("LOG THE IP ADDRESS HERE!!!   ", req.ip);

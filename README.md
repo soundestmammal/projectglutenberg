@@ -1,16 +1,17 @@
+[![soundestmammal](https://circleci.com/gh/soundestmammal/oasis.svg?style=shield)](https://circleci.com/gh/soundestmammal/oasis)
+
+
 # Oasis
 
 Oasis is a data driven service to identify restaurants that provide safe gluten-free options.
 
-# Tech
-
-Oasis uses a number of technologies to run properly:
+# Tech Stack
 
 * React
 * Redux
 * Express
-* node.js
+* Node
 * MongoDB
 * Nginx
-* Linux
-* Digital Ocean droplet
+* Docker
+* AWS

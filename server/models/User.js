@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { jwtSecret, adminSecret } = require('../config/keys');
+const { jwtSecret, adminSecret } = require('../env-keys');
 const Schema = mongoose.Schema;
 
 // Define the User Model

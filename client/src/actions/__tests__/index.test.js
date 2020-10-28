@@ -1,104 +1,129 @@
-import configureStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
+// import configureStore from 'redux-mock-store';
+// import thunk from 'redux-thunk';
 
-import MockAdapter from 'axios-mock-adapter';
-import axios from 'axios';
-import { fetchUser, signup, signin, signout, deleteUser } from '../index';
-import { FETCH_USER, AUTH_USER, AUTH_UUID, SIGN_OUT, DELETE_USER } from '../types';
+const { faItalic } = require('@fortawesome/free-solid-svg-icons');
 
-const middlewares = [thunk];
-const mockStore = configureStore(middlewares);
+// import MockAdapter from 'axios-mock-adapter';
+// import axios from 'axios';
+// import { fetchUser, signup, signin, signout, deleteUser } from '../index';
+// import {
+//     FETCH_USER,
+//     AUTH_USER,
+//     AUTH_UUID,
+//     SIGN_OUT,
+//     DELETE_USER,
+// } from '../types';
 
-const mock = new MockAdapter(axios);
+// const middlewares = [thunk];
+// const mockStore = configureStore(middlewares);
 
-describe('async action creators', () => {
-    const store = mockStore({ authenticated: '', uuid: '', errorMessage: '', user: {} });
+// const mock = new MockAdapter(axios);
 
-    afterEach(() => {
-        store.clearActions();
-    })
+// describe('async action creators', () => {
+//     const store = mockStore({
+//         authenticated: '',
+//         uuid: '',
+//         errorMessage: '',
+//         user: {},
+//     });
 
-    it('should create an action to fetchUser data', () => {
-        const userData = { avatar: ['this array of strings is to represent an image'], uuid: "123456" };
-        const expectedAction = {
-            type: FETCH_USER,
-            payload: userData
-        }
+//     afterEach(() => {
+//         store.clearActions();
+//     });
 
-        mock.onPost("http://localhost:3090/fetchUser").reply(200, userData);
+//     it('should create an action to fetchUser data', () => {
+//         const userData = {
+//             avatar: ['this array of strings is to represent an image'],
+//             uuid: '123456',
+//         };
+//         const expectedAction = {
+//             type: FETCH_USER,
+//             payload: userData,
+//         };
 
-        // return the promise
-        return store.dispatch(fetchUser('faketokenhere')).then(() => {
-            const actions = store.getActions()
-            expect(actions[0]).toEqual(expectedAction);
-        })
-    });
+//         mock.onPost('http://localhost:3090/fetchUser').reply(200, userData);
 
-    it('should create an action to signup', () => {
-        const userData = {
-            token: 'it would return a token',
-            user: {_id: 'it would return a uuid'},
-        };
+//         // return the promise
+//         return store.dispatch(fetchUser('faketokenhere')).then(() => {
+//             const actions = store.getActions();
+//             expect(actions[0]).toEqual(expectedAction);
+//         });
+//     });
 
-        mock.onPost("http://localhost:3090/users").reply(200, userData);
+//     it('should create an action to signup', () => {
+//         const userData = {
+//             token: 'it would return a token',
+//             user: { _id: 'it would return a uuid' },
+//         };
 
-        const expectedActions = [
-            { type: AUTH_USER, payload: 'it would return a token'},
-            { type: AUTH_UUID, payload: 'it would return a uuid'}
-        ];
-        
-        const doNothing = () => {};
-        return store.dispatch(signup('email', 'password', doNothing)).then(() => {
-            const actions = store.getActions();
-            expect(actions).toEqual(expectedActions);
-        });
-    });
+//         mock.onPost('http://localhost:3090/users').reply(200, userData);
 
-    it('should create an action to signin', () => {
-        const userData = {
-            token: 'it would return a token',
-            user: {_id: 'it would return a uuid'}
-        };
+//         const expectedActions = [
+//             { type: AUTH_USER, payload: 'it would return a token' },
+//             { type: AUTH_UUID, payload: 'it would return a uuid' },
+//         ];
 
-        mock.onPost("http://localhost:3090/users/login").reply(200, userData);
+//         const doNothing = () => {};
+//         return store
+//             .dispatch(signup('email', 'password', doNothing))
+//             .then(() => {
+//                 const actions = store.getActions();
+//                 expect(actions).toEqual(expectedActions);
+//             });
+//     });
 
-        const expectedActions = [
-            { type: AUTH_USER, payload: 'it would return a token'},
-            { type: AUTH_UUID, payload: 'it would return a uuid'}
-        ];
-        
-        const doNothing = () => {};
-        return store.dispatch(signin('email', 'password', doNothing)).then(() => {
-            const actions = store.getActions();
-            expect(actions).toEqual(expectedActions);
-        });
-    });
+//     it('should create an action to signin', () => {
+//         const userData = {
+//             token: 'it would return a token',
+//             user: { _id: 'it would return a uuid' },
+//         };
 
-    it('should create an action to signout', () => {
-        mock.onPost("http://localhost:3090/users/logout").reply(200);
+//         mock.onPost('http://localhost:3090/users/login').reply(200, userData);
 
-        const expectedAction = {
-            type: SIGN_OUT
-        };
+//         const expectedActions = [
+//             { type: AUTH_USER, payload: 'it would return a token' },
+//             { type: AUTH_UUID, payload: 'it would return a uuid' },
+//         ];
 
-        const fakeToken = "this is a fake token";
-        return store.dispatch(signout(fakeToken)).then(() => {
-            const actions = store.getActions();
-            expect(actions[0]).toEqual(expectedAction);
-        })
-    });
+//         const doNothing = () => {};
+//         return store
+//             .dispatch(signin('email', 'password', doNothing))
+//             .then(() => {
+//                 const actions = store.getActions();
+//                 expect(actions).toEqual(expectedActions);
+//             });
+//     });
 
-    it('should create an action to delete user', () => {
-        mock.onDelete("http://localhost:3090/users/me").reply(200);
+//     it('should create an action to signout', () => {
+//         mock.onPost('http://localhost:3090/users/logout').reply(200);
 
-        const expectedAction =  {
-            type: DELETE_USER
-        };
+//         const expectedAction = {
+//             type: SIGN_OUT,
+//         };
 
-        const fakeToken = "this is a fake token";
-        return store.dispatch(deleteUser(fakeToken)).then(() => {
-            const actions = store.getActions();
-            expect(actions[0]).toEqual(expectedAction);
-        });
-    });
+//         const fakeToken = 'this is a fake token';
+//         return store.dispatch(signout(fakeToken)).then(() => {
+//             const actions = store.getActions();
+//             expect(actions[0]).toEqual(expectedAction);
+//         });
+//     });
+
+//     it('should create an action to delete user', () => {
+//         mock.onDelete('http://localhost:3090/users/me').reply(200);
+
+//         const expectedAction = {
+//             type: DELETE_USER,
+//         };
+
+//         const fakeToken = 'this is a fake token';
+//         return store.dispatch(deleteUser(fakeToken)).then(() => {
+//             const actions = store.getActions();
+//             expect(actions[0]).toEqual(expectedAction);
+//         });
+//     });
+// });
+
+it('Should be equal', () => {
+    let total = 10;
+    total === 5 + 5;
 });

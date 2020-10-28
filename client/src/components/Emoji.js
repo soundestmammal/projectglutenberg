@@ -1,6 +1,7 @@
 import React from "react";
 
 const Emoji = (props) => (
+  // eslint-disable-next-line
   <span
     className="emoji"
     role="img"

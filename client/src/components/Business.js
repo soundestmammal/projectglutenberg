@@ -154,7 +154,7 @@ const ReturnComponent = (props) => {
           <h2>Location & Hours</h2>
           <div className="business-location-information">
             <div className="business-minimap">
-              <MiniMap center={returnCenter()} />
+              <MiniMap center={returnCenter()} googleMapsKey={props.googleMapsKey} />
               {renderAddress()}
             </div>
             <div className="business-hours-container">{renderHours()}</div>

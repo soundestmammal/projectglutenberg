@@ -10,6 +10,10 @@ const getGFBiz = require('./getGFBiz');
 
 const router = new express.Router();
 
+// My Services
+const LocationService = require('./services/LocationService');
+const LocationServiceInstance = new LocationService();
+
 router.get('/', (req, res) => {
   res.send('This is the root response!');
 });
@@ -19,21 +23,11 @@ router.get('/googleMapsKey', (req, res) => {
 })
 
 router.get('/getClientLocation', async (req, res) => {
-  console.log("LOG THE IP ADDRESS HERE!!!   ", req.ip);
-  let ipaddress = req.ip;
-  if (ipaddress === '::1' || ipaddress.includes('192.168.32')) {
-    // Random IP for development
-    ipaddress = '64.94.159.111';
-  }
   try {
-    const response = await axios.get(
-      `https://api.ipgeolocation.io/ipgeo?apiKey=${ipGeolocation}&ip=${ipaddress}`
-    );
-    res.send({
-      latitude: response.data.latitude,
-      longitude: response.data.longitude,
-    });
-  } catch (e) {
+    const result = await LocationServiceInstance.client(req.ip);
+    return res.send({ latitude: result.body.data.latitude, longitude: result.body.data.longitude });
+  }
+  catch(e) {
     res.status(500).send(e);
   }
 });

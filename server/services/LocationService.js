@@ -1,5 +1,5 @@
 const axios = require('axios');
-const { ipGeolocation } = require('../env-keys');
+const { ipGeolocation, openCage } = require('../env-keys');
 
 class LocationService {
     /**
@@ -25,6 +25,23 @@ class LocationService {
                 success: false,
                 body: e
             });
+        }
+    }
+
+    async forwardGeocode(location, lat, lng) {
+        try {
+            const response = await axios.get(
+            `https://api.opencagedata.com/geocode/v1/json?q=${location}&proximity=${lat},${lng}&key=${openCage}`
+            );
+            return ({
+                success: true,
+                body: response
+            })
+        } catch (e) {
+            return ({
+                success: false,
+                body: e
+            })
         }
     }
 }

@@ -1,6 +1,3 @@
-const axios = require('axios');
-const { openCage } = require('../env-keys');
-
 // My Services
 const LocationService = require('../services/LocationService');
 const LocationServiceInstance = new LocationService();
@@ -17,13 +14,10 @@ class LocationController {
     }
 
     async forwardGeocode (req, res) {
-        console.log('This runs here line 10!');
         const { location, lat, lng } = req.query;
         try {
-            const response = await axios.get(
-            `https://api.opencagedata.com/geocode/v1/json?q=${location}&proximity=${lat},${lng}&key=${openCage}`
-            );
-            res.send(response.data.results[0].geometry);
+            const result = await LocationServiceInstance.forwardGeocode(location, lat, lng);
+            res.send(result.body.data.results[0].geometry);
         } catch (e) {
             res.status(500).send();
         }

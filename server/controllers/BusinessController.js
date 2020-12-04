@@ -1,7 +1,6 @@
-const axios = require('axios');
-const algorithm = require('../algorithm');
-const getGFBiz = require('../getGFBiz');
-const { yelp } = require('../env-keys');
+// Services
+const BusinessService = require('../services/BusinessService');
+const BusinessServiceInstance = new BusinessService();
 
 class BusinessController {
     /**
@@ -11,56 +10,18 @@ class BusinessController {
      */
 
     async query (req, res) {
-        const YELP_API_KEY = yelp;
         let lat = req.query.latitude;
         let lng = req.query.longitude;
         let searchbox = req.query.searchbox;
 
-        const options = {
-            headers: { Authorization: `Bearer ${YELP_API_KEY}` },
-        };
-        const response = await axios.get(
-            `https://api.yelp.com/v3/businesses/search?term=${searchbox}&latitude=${lat}&longitude=${lng}`,
-            options
-        );
-        let data = response.data.businesses;
-        for (let i = 0; i < data.length; i++) {
-            let newObject = {
-            name: data[i].name,
-            coordinates: data[i].coordinates,
-            location: data[i].location.display_address,
-            image: data[i].image_url,
-            price: data[i].price,
-            phone: data[i].phone,
-            categories: data[i].categories,
-            id: data[i].id,
-            };
-            data[i] = { ...newObject };
-        }
-        let coords = {
-            latitude: lat,
-            longitude: lng,
-        };
-        console.log(data);
-        data = await algorithm(data, coords);
-        res.send(data);
+        const result = await BusinessServiceInstance.query(lat, lng, searchbox);
+        console.log(result);
+        res.send(result.body);
     }
 
     async getBusinessByID(req, res) {
-        const YELP_API_KEY = yelp;
-        const options = {
-            headers: { Authorization: `Bearer ${YELP_API_KEY}` },
-        };
-        const inGFDB = await getGFBiz(req.params.id);
-        if (inGFDB.length) {
-            res.send(inGFDB[0]);
-        } else {
-            const response = await axios.get(
-            `https://api.yelp.com/v3/businesses/${req.params.id}`,
-            options
-            );
-            res.send(response.data);
-        }
+        const result = await BusinessServiceInstance.getBusinessByID(req.params.id);
+        res.send(result.body);
     }
 }
 

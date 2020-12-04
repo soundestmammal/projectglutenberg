@@ -1,20 +1,18 @@
 const express = require('express');
-const axios = require('axios');
 const multer = require('multer');
-const { openCage, ipGeolocation, googleMapsKey } = require('./env-keys');
+const { googleMapsKey } = require('./env-keys');
 const auth = require('./middleware/auth');
 
 const router = new express.Router();
-
-// My Services
-const LocationService = require('./services/LocationService');
-const LocationServiceInstance = new LocationService();
 
 const UserController = require('./controllers/UserController');
 const UserControllerInstance = new UserController();
 
 const BusinessController = require('./controllers/BusinessController');
 const BusinessControllerInstance = new BusinessController();
+
+const LocationController = require('./controllers/LocationController');
+const LocationControllerInstance = new LocationController();
 
 router.get('/', (req, res) => {
   res.send('This is the root response!');
@@ -24,33 +22,24 @@ router.get('/googleMapsKey', (req, res) => {
   res.send(googleMapsKey);
 })
 
-router.get('/getClientLocation', async (req, res) => {
-  try {
-    const result = await LocationServiceInstance.client(req.ip);
-    return res.send({ latitude: result.body.data.latitude, longitude: result.body.data.longitude });
-  }
-  catch(e) {
-    res.status(500).send(e);
-  }
-});
 
-router.get('/forwardgeocode', async (req, res) => {
-  console.log('This runs here line 10!');
-  const { location, lat, lng } = req.query;
-  try {
-    const response = await axios.get(
-      `https://api.opencagedata.com/geocode/v1/json?q=${location}&proximity=${lat},${lng}&key=${openCage}`
-    );
-    res.send(response.data.results[0].geometry);
-  } catch (e) {
-    res.status(500).send();
-  }
-});
+/* Location API Endpoints */
+
+// Get's the client location
+router.get('/getClientLocation', LocationControllerInstance.getClientLocation);
+
+// Performs Forward Geocode
+router.get('/forwardgeocode', LocationControllerInstance.forwardGeocode);
 
 
+/* Business API Endpoints */
+
+// Query a list of restaurants
 router.get('/yelp', BusinessControllerInstance.query);
 
+// Fetch a business by id
 router.get('/yelp/business/:id', BusinessControllerInstance.getBusinessByID);
+
 
 /* User API Endpoints */
 

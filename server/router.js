@@ -1,9 +1,7 @@
 const express = require('express');
 const axios = require('axios');
 const multer = require('multer');
-const sharp = require('sharp');
 const { openCage, yelp, ipGeolocation, googleMapsKey } = require('./env-keys');
-const User = require('./models/User');
 const auth = require('./middleware/auth');
 const algorithm = require('./algorithm');
 const getGFBiz = require('./getGFBiz');
@@ -13,6 +11,12 @@ const router = new express.Router();
 // My Services
 const LocationService = require('./services/LocationService');
 const LocationServiceInstance = new LocationService();
+
+const UserService = require('./services/UserService');
+const UserServiceInstance = new UserService();
+
+const UserController = require('./controllers/UserController');
+const UserControllerInstance = new UserController();
 
 router.get('/', (req, res) => {
   res.send('This is the root response!');
@@ -29,15 +33,6 @@ router.get('/getClientLocation', async (req, res) => {
   }
   catch(e) {
     res.status(500).send(e);
-  }
-});
-
-router.delete('/users/me', auth, async (req, res) => {
-  try {
-    await req.user.remove();
-    res.send(req.user);
-  } catch (e) {
-    res.status(500).send();
   }
 });
 
@@ -106,62 +101,19 @@ router.get('/yelp/business/:id', async (req, res) => {
   }
 });
 
-/* Routes for user requests */
+/* User API Endpoints */
 
 // Create a new user - signup
-router.post('/users', async (req, res) => {
-  console.log('This is the /users post route');
-  const user = new User(req.body);
-
-  try {
-    await user.save();
-    const token = await user.generateAuthToken();
-    res.status(201).send({ user, token });
-  } catch (e) {
-    res.status(400).send(e);
-  }
-});
+router.post('/users', UserControllerInstance.createUser);
 
 // Authenticate an existing user - login
-router.post('/users/login', async (req, res) => {
-  try {
-    // find the user
-    const user = await User.findByCredentials(
-      req.body.email,
-      req.body.password
-    );
-    // check if they are admin
-    console.log(user);
-    if (user.admin) {
-      throw new Error('The user is an admin!!!');
-    }
-    const token = await user.generateAuthToken();
-    res.status(201).send({ user, token });
-  } catch (e) {
-    res.status(400).send(e);
-  }
-});
+router.post('/users/login', UserControllerInstance.loginUser);
 
 // Log a single user out on one device
-router.post('/users/logout', auth, async (req, res) => {
-  try {
-    req.user.tokens = req.user.tokens.filter((token) => {
-      return token.token !== req.token;
-    });
-    await req.user.save();
-    res.status(201).send({ text: 'Success' });
-  } catch (e) {
-    res.status(500).send();
-  }
-});
+router.post('/users/logout', auth, UserControllerInstance.logoutUser);
 
 // Fetch uuid and avatar for auth user
-router.post('/fetchUser', auth, (req, res) => {
-  const returnMe = {};
-  returnMe['uuid'] = req.user._id;
-  returnMe['avatar'] = req.user.avatar;
-  res.send(returnMe);
-});
+router.post('/fetchUser', auth, UserControllerInstance.fetchUser);
 
 const upload = multer({
   limits: {
@@ -175,41 +127,12 @@ const upload = multer({
   },
 });
 
-router.post(
-  '/users/me/avatar',
-  auth,
-  upload.single('avatar'),
-  async (req, res) => {
-    const buffer = await sharp(req.file.buffer)
-      .resize({ width: 250, height: 250 })
-      .png()
-      .toBuffer();
-    req.user.avatar = buffer;
-    await req.user.save();
-    res.send({ status: 'It was a huge success' });
-  },
-  (error) => {
-    res.status(400).send({ error: error.message });
-  }
-);
+router.post('/users/me/avatar', auth, upload.single('avatar'), UserControllerInstance.uploadAvatar);
 
-router.delete('/users/me/avatar', auth, async (req, res) => {
-  req.user.avatar = undefined;
-  await req.user.save();
-  res.send({ status: 'successful delete!' });
-});
+router.delete('/users/me/avatar', auth, UserControllerInstance.deleteAvatar);
 
-router.get('/users/:id/avatar', async (req, res) => {
-  try {
-    const user = await User.findById(req.params.id);
-    if (!user || !user.avatar) {
-      throw new Error();
-    }
-    res.set('Content-Type', 'image/png');
-    res.send(user.avatar);
-  } catch (e) {
-    res.status(404).send();
-  }
-});
+router.get('/users/:id/avatar', UserControllerInstance.getAvatar);
+
+router.delete('/users/me', auth, UserControllerInstance.deleteAccount);
 
 module.exports = router;

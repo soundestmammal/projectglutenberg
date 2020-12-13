@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "env-cmd ./config/dev.env nodemon index.js",
-    "test": "jest --watch",
+    "test": "jest --watchAll",
     "start": "node index.js"
   },
   "author": "",
@@ -34,6 +34,7 @@
     "axios-mock-adapter": "^1.18.1",
     "env-cmd": "^8.0.2",
     "jest": "^26.5.2",
+    "nock": "^13.0.5",
     "supertest": "^5.0.0"
   },
   "jest": {

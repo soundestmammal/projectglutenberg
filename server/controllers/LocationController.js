@@ -1,12 +1,13 @@
-// My Services
 const LocationService = require('../services/LocationService');
 const LocationServiceInstance = new LocationService();
 
 class LocationController {
     async getClientLocation (req, res) {
         try {
-            const result = await LocationServiceInstance.client(req.ip);
-            return res.send({ latitude: result.body.data.latitude, longitude: result.body.data.longitude });
+            // Output: Result == { latitude, longitude}
+            const result = await LocationServiceInstance.getClientLocation(req.ip);
+            const { latitude, longitude } = result;
+            return res.send({ latitude: latitude, longitude: longitude });
         }
         catch(e) {
             res.status(500).send(e);
@@ -17,9 +18,10 @@ class LocationController {
         const { location, lat, lng } = req.query;
         try {
             const result = await LocationServiceInstance.forwardGeocode(location, lat, lng);
-            res.send(result.body.data.results[0].geometry);
+            const { latitude, longitude } = result;
+            return res.send({ latitude: latitude, longitude: longitude });
         } catch (e) {
-            res.status(500).send();
+            res.status(500).send(e);
         }
     }
 }

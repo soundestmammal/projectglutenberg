@@ -7,7 +7,7 @@ class LocationService {
      * @param {String} ipAddress String that contains the IP Address from Request Header
      * @returns {Promise<{success: boolean, error: *}|{success: boolean, body: *}>}
      */
-    async client(ipAddress) {
+    async getClientLocation(ipAddress) {
         if (ipAddress === '::1' || ipAddress.includes('192.168.32')) {
             // Random IP for development
             ipAddress = '64.94.159.111';
@@ -16,31 +16,34 @@ class LocationService {
             const response = await axios.get(
                 `https://api.ipgeolocation.io/ipgeo?apiKey=${ipGeolocation}&ip=${ipAddress}`
             );
+            const { latitude, longitude } = response.data;
             return ({
-                success: true,
-                body: response,
+                latitude,
+                longitude
             });
         } catch (e) {
-            return ({
-                success: false,
-                body: e
-            });
+            return { error: e };
         }
     }
 
-    async forwardGeocode(location, lat, lng) {
+    /**
+     * @description Fetch a GPS approximation for client's location query
+     * @param {String} query A geographical place submitted by the client ex. Sacramento
+     * @returns {Promise<{latitude: String, longitude: String}|{error: String}>}
+     */
+    async forwardGeocode(query, lat, lng) {
         try {
             const response = await axios.get(
-            `https://api.opencagedata.com/geocode/v1/json?q=${location}&proximity=${lat},${lng}&key=${openCage}`
+            `https://api.opencagedata.com/geocode/v1/json?q=${query}&proximity=${lat},${lng}&key=${openCage}`
             );
+            const { location } = response.data.results[0].geometry;
             return ({
-                success: true,
-                body: response
+                latitude: location.lat,
+                longitude: location.lng
             })
         } catch (e) {
             return ({
-                success: false,
-                body: e
+                error: e
             })
         }
     }

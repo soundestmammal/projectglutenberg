@@ -8,7 +8,7 @@ class LocationService {
      * @returns {Promise<{success: boolean, error: *}|{success: boolean, body: *}>}
      */
     async getClientLocation(ipAddress) {
-        if (ipAddress === '::1' || ipAddress.includes('192.168.32')) {
+        if (ipAddress === '::1' || ipAddress.includes('192.168.32') || ipAddress.includes('172.17.0.1') || ipAddress.includes('127.0.0.1')) {
             // Random IP for development
             ipAddress = '64.94.159.111';
         }
@@ -32,20 +32,14 @@ class LocationService {
      * @returns {Promise<{latitude: String, longitude: String}|{error: String}>}
      */
     async forwardGeocode(query, lat, lng) {
-        try {
-            const response = await axios.get(
-            `https://api.opencagedata.com/geocode/v1/json?q=${query}&proximity=${lat},${lng}&key=${openCage}`
-            );
-            const { location } = response.data.results[0].geometry;
-            return ({
-                latitude: location.lat,
-                longitude: location.lng
-            })
-        } catch (e) {
-            return ({
-                error: e
-            })
-        }
+        const response = await axios.get(
+        `https://api.opencagedata.com/geocode/v1/json?q=${query}&proximity=${lat},${lng}&key=${openCage}`
+        );
+        const location = response.data.results[0].geometry;
+        return ({
+            latitude: location.lat,
+            longitude: location.lng
+        })
     }
 }
 

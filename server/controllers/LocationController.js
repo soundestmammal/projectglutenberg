@@ -6,6 +6,7 @@ class LocationController {
         try {
             // Output: Result == { latitude, longitude}
             const result = await LocationServiceInstance.getClientLocation(req.ip);
+            console.log(result);
             const { latitude, longitude } = result;
             return res.send({ latitude: latitude, longitude: longitude });
         }
@@ -14,11 +15,12 @@ class LocationController {
         }
     }
 
-    async forwardGeocode (req, res) {
+    async forwardGeocode(req, res) {
         const { location, lat, lng } = req.query;
         try {
             const result = await LocationServiceInstance.forwardGeocode(location, lat, lng);
             const { latitude, longitude } = result;
+            console.log("result", result);
             return res.send({ latitude: latitude, longitude: longitude });
         } catch (e) {
             res.status(500).send(e);

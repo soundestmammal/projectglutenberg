@@ -55,26 +55,23 @@ class BusinessService {
         const options = {
             headers: { Authorization: `Bearer ${YELP_API_KEY}` },
         };
-        console.log('THIS SHOULD BE THE SEEN SECOND')
-        try {
+
         console.log('THIS SHOULD BE THE SEEN THIRD')
-            const inGFDB = await getGFBiz(businessId);
+            // const inGFDB = await getGFBiz(businessId);
+            const inGFDB = []
             if (inGFDB.length) {
-                return (inGFDB[0]);
+                return ({ data: inGFDB[0] });
             }
-        } catch (e) {
-            console.log(e);
-        }
-        try {
             const response = await axios.get(
                 `https://api.yelp.com/v3/businesses/${businessId}`,
                 options
             );
+
+        // console.log('This would be sixth', Object.keys(response.data));
+            // console.log('this would be seventh', response.data);
             const { data } = response;
+            // console.log('This is the response down here at 6th?', response);
             return { data }
-        } catch (e) {
-            return { error: e }
-        }
     }
 }
 

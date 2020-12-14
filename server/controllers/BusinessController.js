@@ -15,13 +15,12 @@ class BusinessController {
         let searchbox = req.query.searchbox;
 
         const result = await BusinessServiceInstance.query(lat, lng, searchbox);
-        console.log(result);
-        res.send(result.body);
+        res.send(result);
     }
 
     async getBusinessByID(req, res) {
         const result = await BusinessServiceInstance.getBusinessByID(req.params.id);
-        res.send(result.body);
+        res.send(result);
     }
 }
 

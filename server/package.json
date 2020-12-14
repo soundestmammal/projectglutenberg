@@ -7,6 +7,7 @@
   "scripts": {
     "dev": "env-cmd ./config/dev.env nodemon index.js",
     "test": "jest --watchAll",
+    "integration-test": "jest -t Integration Tests",
     "start": "node index.js"
   },
   "author": "",

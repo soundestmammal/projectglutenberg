@@ -34,6 +34,7 @@
     "axios-mock-adapter": "^1.18.1",
     "env-cmd": "^8.0.2",
     "jest": "^26.5.2",
+    "mockingoose": "^2.13.2",
     "nock": "^13.0.5",
     "supertest": "^5.0.0"
   },

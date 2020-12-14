@@ -5,5 +5,5 @@ mongoose.connect(mongoDBConnection, { useNewUrlParser: true, useUnifiedTopology:
     console.log("MongoDB Connected!");
 })
 .catch((err) => {
-    console.log(err);
+    console.log('THIS IS THE ERROR INSIDE OF DB.JS', err);
 });

@@ -33,7 +33,7 @@ describe("Integration Tests", () => {
     it('Should respond with an array of 20 businesses', async () => {
       const res = await request(app).get('/yelp?searchbox=tacos&latitude=37.38&longitude=-122.08');
       expect(res.statusCode).toEqual(200);
-      expect(res.body.data.length).toEqual(20);
+      expect(res.body.length).toEqual(10);
     });
 
     // Business Detail
@@ -50,11 +50,17 @@ describe("Integration Tests", () => {
 
     let token = ''
 
+    afterAll(async () => {
+      const res = await request(app)
+        .delete('/users/me')
+        .set('Authorization', 'Bearer ' + token);
+    })
+
     // Create a user
     it('should response with the correct status code', async () => {
       const res = await request(app)
         .post('/users')
-        .send({ email: 'new2123456789@this.com', password: 'notarealpw', admin: false });
+        .send({ email: 'create314@this.com', password: 'notarealpw', admin: false });
       
       token = res.body.token;
       expect(res.statusCode).toEqual(201);
@@ -66,7 +72,7 @@ describe("Integration Tests", () => {
     it('should not allow a duplicate user', async () => {
       const res = await request(app)
         .post('/users')
-        .send({ email: 'new2123456789@this.com', password: 'notarealpw', admin: false });
+        .send({ email: 'create314@this.com', password: 'notarealpw', admin: false });
       
       expect(res.statusCode).toEqual(400);
     })
@@ -81,6 +87,19 @@ describe("Integration Tests", () => {
       expect(res.statusCode).toEqual(201);
       expect(res.body.text).toEqual('Success');
     })
+
+    it('should login a user', async () => {
+    const res = await request(app)
+        .post('/users/login')
+        .send({ email: 'create314@this.com', password: 'notarealpw' });
+      
+      expect(res.statusCode).toEqual(201);
+      expect(res.body).toHaveProperty('uuid');
+      expect(res.body).toHaveProperty('token');
+      token = res.body.token;
+  });
+
+
   })
 
   describe('These are authenticated routes and I need to have an authentication token prior to running each test', () => {

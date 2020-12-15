@@ -43,7 +43,7 @@ class BusinessService {
             // console.log(data);
 
             // Combine data from yelp and Oasis DB to serve client request
-            // data = await algorithm(data, coords);
+            data = await algorithm(data, coords);
             return ({ data });
         } catch (e) {
             console.log(e);
@@ -56,9 +56,7 @@ class BusinessService {
             headers: { Authorization: `Bearer ${YELP_API_KEY}` },
         };
 
-        console.log('THIS SHOULD BE THE SEEN THIRD')
-            // const inGFDB = await getGFBiz(businessId);
-            const inGFDB = []
+            const inGFDB = await getGFBiz(businessId);
             if (inGFDB.length) {
                 return ({ data: inGFDB[0] });
             }
@@ -67,11 +65,7 @@ class BusinessService {
                 options
             );
 
-        // console.log('This would be sixth', Object.keys(response.data));
-            // console.log('this would be seventh', response.data);
-            const { data } = response;
-            // console.log('This is the response down here at 6th?', response);
-            return { data }
+        return response.data;
     }
 }
 

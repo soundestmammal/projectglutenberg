@@ -6,16 +6,20 @@ class BusinessController {
     /**
      * @description Each method is a route handler for an API Endpoint
      * @param {req, res}
-     * @return res status and optional body
+     * @return response for client
      */
 
     async query (req, res) {
         let lat = req.query.latitude;
         let lng = req.query.longitude;
         let searchbox = req.query.searchbox;
-
-        const result = await BusinessServiceInstance.query(lat, lng, searchbox);
-        res.send(result);
+        console.log('THIS IS THE QUERY', req.query);
+        try {
+            const result = await BusinessServiceInstance.query(lat, lng, searchbox);
+            res.send(result.data);
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     async getBusinessByID(req, res) {

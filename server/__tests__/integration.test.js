@@ -1,8 +1,3 @@
-/**
- * Integration Tests
- * @group integration
- */
-
 const request = require("supertest");
 const app = require("../app");
 
@@ -53,24 +48,114 @@ describe("Integration Tests", () => {
 
   describe('User related endpoints', () => {
 
+    let token = ''
+
     // Create a user
     it('should response with the correct status code', async () => {
       const res = await request(app)
         .post('/users')
-        .send({ email: 'this0@this.com', password: 'notarealpw', admin: false });
+        .send({ email: 'new2123456789@this.com', password: 'notarealpw', admin: false });
       
-        expect(res.statusCode).toEqual(201);
-    })
-
-    it('should create a user', async () => {
-      const res = await request(app)
-        .post('/users')
-        .send({ email: 'this1@this.com', password: 'notarealpw', admin: false });
-      
-      expect(res.body).toHaveProperty('user');
+      token = res.body.token;
+      expect(res.statusCode).toEqual(201);
+      expect(res.body).toHaveProperty('uuid');
       expect(res.body).toHaveProperty('token');
       expect(res.body.token.length).toBe(149);
     })
+
+    it('should not allow a duplicate user', async () => {
+      const res = await request(app)
+        .post('/users')
+        .send({ email: 'new2123456789@this.com', password: 'notarealpw', admin: false });
+      
+      expect(res.statusCode).toEqual(400);
+    })
+
+        // Log out a user
+    it('should log out a user', async () => {
+      // console.log('this is the first attempt to use token', token);
+      const res = await request(app)
+        .post('/users/logout')
+        .set('Authorization', `Bearer ${token}`)
+      
+      expect(res.statusCode).toEqual(201);
+      expect(res.body.text).toEqual('Success');
+    })
   })
 
+  describe('These are authenticated routes and I need to have an authentication token prior to running each test', () => {
+
+    let token = '';
+    let uuid = '';
+
+    beforeAll( async () => {
+      // I need to get an auth token...
+      // Create the first user
+      const res = await request(app)
+        .post('/users')
+        .send({ email: 'eric.reis123@oauth.com', password: 'continuous_innovation', admin: false })
+      
+      token = res.body.token;
+      console.log("The token should be set here 1", token);
+      uuid = res.body.uuid;
+    });
+
+  // Login a user
+  it('should login a user', async () => {
+    const res = await request(app)
+      .post('/users/login')
+      .send({ email: 'eric.reis123@oauth.com', password: 'continuous_innovation' });
+    
+    expect(res.statusCode).toEqual(201);
+    expect(res.body).toHaveProperty('uuid');
+    expect(res.body).toHaveProperty('token');
+  });
+
+  it('should not login a user with invalid credentials', async () => {
+    const res = await request(app)
+      .post('/users/login')
+      .send({ email: 'eric.reis123@oauth.com', password: 'waterfall_method' });
+    
+    expect(res.statusCode).toEqual(400);
+    expect(res.body).toHaveProperty('error');
+    expect(res.body.error).toEqual('Invalid Credentials');
+  });
+
+  // fetch a user
+    it('should fetch a uuid and avatar', async () => {
+      const res = await request(app)
+        .post('/fetchUser')
+        .set('Authorization', `Bearer ${token}`)
+      
+      expect(res.statusCode).toEqual(200);
+      expect(res.body).toHaveProperty('uuid');
+    })
+
+  // upload an avatar
+    // it('should upload an avatar', async () => {
+    //   const res = await request(app)
+    //     .post('/users/me/avatar')
+    // })
+
+  // delete avatar
+    
+
+  // get avatar
+    // it('should get an avatar', async () => {
+    //   const res = await request(app)
+    //     .get(`/users/${uuid}/avatar`);
+      
+    //   expect(res.statusCode).toBe(200);
+    // })
+
+  // delete account
+    it('should delete the user account', async () => {
+      const res = await request(app)
+        .delete('/users/me')
+        .set('Authorization', `Bearer ${token}`);
+      
+      expect(res.statusCode).toBe(200);
+    })
+
+  })
 });

@@ -9,7 +9,7 @@ class UserController {
     /**
      * @description Each method is a route handler for an API Endpoint
      * @param {req, res}
-     * @return res status and optional body
+     * @return response for client
      */
     
      // Create a new user - signup
@@ -18,7 +18,8 @@ class UserController {
         try {
             const result = await UserServiceInstance.createUser(body);
             const { user, token } = result;
-            return res.status(201).send({ user, token });
+            const _id = user._id;
+            return res.status(201).send({ uuid: _id, token });
         } catch (e) {
             res.status(400).send(e);
         }
@@ -29,10 +30,10 @@ class UserController {
         const { email, password } = req.body;
         try {
             const result = await UserServiceInstance.loginUser(email, password);
-            const { user, token } = result;
-            res.status(201).send({ user, token });
+            const { uuid, token } = result;
+            res.status(201).send({ uuid, token });
         } catch (e) {
-            res.status(400).send(e);
+            res.status(400).send({error: "Invalid Credentials"});
         }
     }
 
@@ -51,8 +52,8 @@ class UserController {
     fetchUser(req, res) {
         const { _id, avatar } = req.user;
         try {
-            const user = UserServiceInstance.fetchUser(_id, avatar);
-            res.status(200).send(user.data);
+            const { data } = UserServiceInstance.fetchUser(_id, avatar);
+            res.status(200).send(data);
         } catch (e) {
             res.status(500).send();
         }

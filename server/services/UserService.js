@@ -22,20 +22,16 @@ class UserService {
 
     // Authenticate an existing user - login
     async loginUser(email, password) {
-        try {
-            const user = await User.findByCredentials(
-                email,
-                password
-            );
-            if (user.admin) {
-                throw new Error('The user is an admin!!!');
-            }
-            const token = await user.generateAuthToken();
-            return ({ success: true, user, token });
+        const user = await User.findByCredentials(
+            email,
+            password
+        );
+        if (user.admin) {
+            throw new Error('The user is an admin!!!');
         }
-        catch (e) {
-            return ({ success: false, error: e });
-        }
+        const token = await user.generateAuthToken();
+        const uuid = user._id;
+        return ({ uuid, token });
     }
 
     // Log a single user out on one device
@@ -56,17 +52,12 @@ class UserService {
 
     // Upload an avatar
     async uploadAvatar(file, user) {
-        try {
-            const buffer = await sharp(file)
-                .resize({ width: 250, height: 250 })
-                .png()
-                .toBuffer();
-            user.avatar = buffer;
-            await user.save();
-            return ({ success: true });
-        } catch (e) {
-            return ({ success: false, error: e });
-        }
+        const buffer = await sharp(file)
+            .resize({ width: 250, height: 250 })
+            .png()
+            .toBuffer();
+        user.avatar = buffer;
+        await user.save();
     }
 
     // Delete an avatar
@@ -86,7 +77,7 @@ class UserService {
             return ({ success: true, user });
         }
         catch (e) {
-            return ({ success: true, error: e });
+            return ({ success: false, error: e });
         }
     }
 

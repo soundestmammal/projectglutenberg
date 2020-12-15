@@ -9,6 +9,15 @@ jobs:
           command: |
             docker build -t soundestmammal/oasis-client-test -f ./client/Dockerfile.dev ./client
             docker run -e CI=true soundestmammal/oasis-client-test npm test
+  test_api:
+    machine:
+      image: ubuntu-2004:202010-01
+    steps:
+      - checkout
+      - run:
+          command: |
+            docker build -t soundestmammal/oasis-api-test -f ./server/Dockerfile.dev ./server
+            docker run -e CI=true YELP_API_KEY="$YELP" MONGO_DB_CONNECTION="$MONGO" OPEN_CAGE_API_KEY="$OPEN_CAGE" JWT_SECRET="$JWT_SECRET" IP_GEOLOCATION_API_KEY="$IP_GEOLOCATION" soundestmammal/oasis-api-test npm run integration-test
   upload_images:
     machine:
       image: ubuntu-2004:202010-01

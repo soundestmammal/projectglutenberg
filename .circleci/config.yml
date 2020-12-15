@@ -45,6 +45,7 @@ workflows:
   Oasis_Workflow:
     jobs:
       - test_client
+      - test_api
       - upload_images:
           requires:
             - test_client

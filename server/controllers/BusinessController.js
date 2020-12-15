@@ -13,7 +13,6 @@ class BusinessController {
         let lat = req.query.latitude;
         let lng = req.query.longitude;
         let searchbox = req.query.searchbox;
-        console.log('THIS IS THE QUERY', req.query);
         try {
             const result = await BusinessServiceInstance.query(lat, lng, searchbox);
             res.send(result.data);

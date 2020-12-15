@@ -89,9 +89,7 @@ module.exports = async function algorithm(businesses, userLocation) {
 
     // return the returnMe array
     const end = Date.now();
-    console.log("Number of gluten free restaurants...", counter);
     console.log("The algorithm takes", end-start);
     returnMe.splice(10, 20);
-    console.log(returnMe.length);
     return returnMe;
 }

@@ -115,7 +115,6 @@ describe("Integration Tests", () => {
         .send({ email: 'eric.reis123@oauth.com', password: 'continuous_innovation', admin: false })
       
       token = res.body.token;
-      console.log("The token should be set here 1", token);
       uuid = res.body.uuid;
     });
 

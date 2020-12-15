@@ -17,7 +17,7 @@ jobs:
       - run:
           command: |
             docker build -t soundestmammal/oasis-api-test -f ./server/Dockerfile.dev ./server
-            docker run -e CI=true --env YELP_API_KEY="$YELP" --env MONGO_DB_CONNECTION="$MONGO" --envOPEN_CAGE_API_KEY="$OPEN_CAGE" --envJWT_SECRET="$JWT_SECRET" --env IP_GEOLOCATION_API_KEY="$IP_GEOLOCATION" soundestmammal/oasis-api-test npm run integration-test
+            docker run -e CI=true --env YELP_API_KEY="$YELP" --env MONGO_DB_CONNECTION="$MONGO" --env OPEN_CAGE_API_KEY="$OPEN_CAGE" --env JWT_SECRET="$JWT_SECRET" --env IP_GEOLOCATION_API_KEY="$IP_GEOLOCATION" soundestmammal/oasis-api-test npm run integration-test
   upload_images:
     machine:
       image: ubuntu-2004:202010-01

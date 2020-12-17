@@ -89,7 +89,6 @@ module.exports = async function algorithm(businesses, userLocation) {
 
     // return the returnMe array
     const end = Date.now();
-    console.log("The algorithm takes", end-start);
     returnMe.splice(10, 20);
     return returnMe;
 }

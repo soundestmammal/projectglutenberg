@@ -109,9 +109,10 @@ class App extends Component {
         const response = await axios.get(
             `${API_ROOT}/location/forwardgeocode/?lat=${clientLat}&lng=${clientLong}&location=${searchLocation}`
         );
+        console.log(response.data);
         this.setState({
-            mapLat: response.data.lat,
-            mapLong: response.data.lng,
+            mapLat: response.data.latitude,
+            mapLong: response.data.longitude,
         });
     };
 
@@ -176,6 +177,7 @@ class App extends Component {
     }
 
     render() {
+        console.log('state', this.state);
         return (
             <div>
                 <Router>

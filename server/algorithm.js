@@ -29,7 +29,6 @@ module.exports = async function algorithm(businesses, userLocation) {
         let glutenFree = await getAllGF();
         for(let i = 0; i < glutenFree.length; i++) {
             let thisDistance = distance(glutenFree[i].coordinates, userLocation);
-            console.log("This is the distance!", thisDistance);
             glutenFree[i]["distance"] = thisDistance;
         }
         glutenFree = glutenFree.filter((biz) => biz.distance < 1);

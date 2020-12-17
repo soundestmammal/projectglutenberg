@@ -83,7 +83,7 @@ class App extends Component {
 
     // Why: I use ip-api.com because the window.geolocation was not reliable
     getLocationV4 = async () => {
-        const response = await axios.get(`${API_ROOT}/getClientLocation`);
+        const response = await axios.get(`${API_ROOT}/location/client`);
         let latitude = parseFloat(response.data.latitude);
         let longitude = parseFloat(response.data.longitude);
         this.setState({
@@ -107,7 +107,7 @@ class App extends Component {
     forwardGeocode = async () => {
         const { clientLat, clientLong, searchLocation } = this.state;
         const response = await axios.get(
-            `${API_ROOT}/forwardgeocode/?lat=${clientLat}&lng=${clientLong}&location=${searchLocation}`
+            `${API_ROOT}/location/forwardgeocode/?lat=${clientLat}&lng=${clientLong}&location=${searchLocation}`
         );
         this.setState({
             mapLat: response.data.lat,
@@ -157,7 +157,8 @@ class App extends Component {
     };
 
     fetchMapsApiKey = async () => {
-        const response = await axios.get('/api/googleMapsKey');
+        const response = await axios.get(`${API_ROOT}/googleMapsKey`);
+        // const response = await axios.get('/api/googleMapsKey');
 
         this.setState({ googleMapsKey: response.data });
     }

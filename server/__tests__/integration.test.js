@@ -66,8 +66,8 @@ describe("Integration Tests", () => {
       const res = await request(app).get('/yelp/business/paMB0QBZZYZiZJwqGf3pCg');
 
       expect(res.statusCode).toEqual(200);
-      expect(res.body.data).toHaveProperty('name');
-      expect(res.body.data).toHaveProperty('phone');
+      expect(res.body).toHaveProperty('name');
+      expect(res.body).toHaveProperty('phone');
     })
   });
 

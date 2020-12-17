@@ -58,7 +58,7 @@ class BusinessService {
 
             const inGFDB = await getGFBiz(businessId);
             if (inGFDB.length) {
-                return ({ data: inGFDB[0] });
+                return (inGFDB[0]);
             }
             const response = await axios.get(
                 `https://api.yelp.com/v3/businesses/${businessId}`,

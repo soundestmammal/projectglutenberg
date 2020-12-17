@@ -8,6 +8,6 @@ module.exports = async function getAllGF() {
         response[i]["location"] = response[i].location.display_address;
         response[i]["phone"] = response[i].display_phone;
     }
-    console.log(response[0]);
+    
     return response;
 }

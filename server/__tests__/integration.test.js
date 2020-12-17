@@ -6,24 +6,49 @@ describe("Integration Tests", () => {
   // Location
   describe("Location related endpoints", () => {
 
-    // getClientLocation
-    it("Should respond the user GPS coordinates", async () => {
-      const res = await request(app).get("/getClientLocation");
-      expect(res.statusCode).toEqual(200);
-      expect(res.body).toHaveProperty("latitude");
-      expect(res.body).toHaveProperty("longitude");
+    describe('GET /location/client', () => {
+      it('should respond with 200 status code', async () => {
+        const res = await request(app).get("/location/client");
+        expect(res.statusCode).toEqual(200);
+      });
+      
+      it('should respond with location data schema', async () => {
+        const res = await request(app).get('/location/client');
+        expect(res.body).toHaveProperty("latitude");
+        expect(res.body).toHaveProperty("longitude");
+      });
+
+      it('should return with correct location', async () => {
+        const res = await request(app).get('/location/client');
+        expect(res.body.latitude).toEqual('33.76160');
+        expect(res.body.longitude).toEqual('-84.39130');
+      });
     });
 
-    // forwardgeocode
-    it("Should return the nearest city", async () => {
-      const res = await request(app).get(
-        "/forwardgeocode?location=sacramento&lat=33.74&lng=-110.52"
-      );
-      // console.log("This is the forwardGeocode", res.body);
-      expect(res.statusCode).toEqual(200);
-      expect(res.body).toHaveProperty("latitude");
-      expect(res.body).toHaveProperty("longitude");
-    });
+
+    describe('GET /location/forwardgeocode', () => {
+      it('should respond with 200 status code', async () => {
+        const res = await request(app).get(
+          "/location/forwardgeocode?location=sacramento&lat=33.74&lng=-110.52"
+        );
+        expect(res.statusCode).toEqual(200);
+      });
+
+      it('should respond with location data schema', async () => {
+        const res = await request(app).get(
+          "/location/forwardgeocode?location=sacramento&lat=33.74&lng=-110.52"
+        );
+        expect(res.body).toHaveProperty("latitude");
+        expect(res.body).toHaveProperty("longitude");
+      });
+
+      it('should return with correct location', async () => {
+        const res = await request(app)
+          .get('/location/forwardgeocode?location=sacramento&lat=33.74&lng=-110.52');
+        expect(res.body.latitude).toEqual(38.5810606);
+        expect(res.body.longitude).toEqual(-121.4938951);
+      });
+    })
   });
 
   // business

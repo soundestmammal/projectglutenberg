@@ -26,10 +26,10 @@ router.get('/googleMapsKey', (req, res) => {
 /* Location API Endpoints */
 
 // Get's the client location
-router.get('/getClientLocation', LocationControllerInstance.getClientLocation);
+router.get('/location/client', LocationControllerInstance.getClientLocation);
 
 // Performs Forward Geocode
-router.get('/forwardgeocode', LocationControllerInstance.forwardGeocode);
+router.get('/location/forwardgeocode', LocationControllerInstance.forwardGeocode);
 
 
 /* Business API Endpoints */

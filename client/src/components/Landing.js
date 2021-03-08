@@ -1,5 +1,6 @@
 import React from "react";
 import Hero from "./Hero";
+import Questions from "./Questions";
 import restaurant from "../image-assets/restaurant.jpg";
 import "../styles/landing.css";
 
@@ -23,6 +24,7 @@ const Landing = () => {
       <div className="rest-image">
         <img src={restaurant} alt="restaurant" />
       </div>
+      <Questions />
     </div>
   );
 };

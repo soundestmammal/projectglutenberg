@@ -16,13 +16,15 @@ import Profile from './Profile';
 import Signout from './Signout';
 import Signin from './Signin';
 import Landing from './Landing';
-import Footer from './Footer';
+import SiteFooter from './SiteFooter';
 
 import { API_ROOT } from '../api-config';
 
 import '../styles/app.css';
 import 'antd/dist/antd.css';
+import SiteHeader from './SiteHeader';
 library.add(fas);
+
 
 class App extends Component {
     constructor(props) {
@@ -171,10 +173,11 @@ class App extends Component {
 
     render() {
         return (
-            <div>
+            <>
                 <Router>
                     <Switch>
                         <Route exact path='/'>
+                            <SiteHeader />
                             <Landing />
                         </Route>
                         <Route exact path='/app'>
@@ -264,6 +267,7 @@ class App extends Component {
                             />
                             <Signout />
                         </Route>
+
                         {/* <Route path="/admin">
             <NavBar 
               value={this.state.searchbox}
@@ -282,9 +286,9 @@ class App extends Component {
             <AdminDashboard />
           </Route> */}
                     </Switch>
-                </Router>
-                <Footer />
-            </div>
+                    <SiteFooter />
+                    </Router>
+            </>
         );
     }
 }

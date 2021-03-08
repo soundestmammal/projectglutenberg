@@ -19,7 +19,7 @@ function Footer() {
           <Statue className="statue" />
         </div>
         <div className="footer-media-container">
-          <span className="footer-copyright">© 2020 Oasis</span>
+          <span className="footer-copyright">© 2021 Oasis</span>
           <div className="social-media-container">
             <Instagram className="social-media-icon" />
             <Facebook className="social-media-icon" />

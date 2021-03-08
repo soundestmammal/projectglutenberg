@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Hero from "./Hero";
 import restaurant from "../image-assets/restaurant.jpg";
 import Logo from "./Logo";
 import "../styles/landing.css";
@@ -24,20 +25,7 @@ const Landing = () => {
         </div>
       </div>
       <div className="hero-container">
-        <div className="hero-image">
-          <div className="hero-content">
-            <div className="hero-title">
-              Your one-stop solution <br /> for gluten-free dining
-            </div>
-            <div className="hero-subtitle">
-              Finding safe gluten-free options can be stressful. Oasis makes it
-              easy for you to find restaurants who put your health first.
-            </div>
-            <Link className="hero-beta" to="/app">
-              <div>Try it now</div>
-            </Link>
-          </div>
-        </div>
+        <Hero/>
       </div>
       <div className="value-props">
         <div className="value-props-content">
@@ -46,6 +34,7 @@ const Landing = () => {
             Oasis makes eating out stress-free. Our platform promotes
             transparency so you know what to expect at the restaurant.
           </p>
+
         </div>
       </div>
       <div className="rest-image">

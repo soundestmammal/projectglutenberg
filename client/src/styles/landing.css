@@ -7,6 +7,7 @@
   background-color: rgb(2, 23, 44);
   width: 100%;
   position: fixed;
+  z-index: 10;
   top: 0;
 }
 
@@ -96,7 +97,7 @@
   margin-top: 20px;
   font-size: 16px;
   max-width: 600px;
-  line-height: 1.25em;
+  line-height: 1.4em;
   font-family: Montserrat;
 }
 
@@ -106,21 +107,24 @@
   font-weight: bold;
   padding: 20px 55px;
   text-align: center;
-  text-transform: uppercase;
   color: black;
   border-radius: 8px;
   font-size: 18px;
-  font-family: NationalWeb, Helvetica;
+  font-family: Montserrat;
   cursor: pointer;
   letter-spacing: 1px;
   text-decoration: none;
-  background-color: #499421;
-  transition: all 0.2s ease;
+  background-color: #f99746;
+  border: 2px solid#f99746;
+  transition: all 0.4s ease;
 }
 
 .hero-beta:hover {
   transform: scale(1.1);
-  background-color: #96c133;
+  background-color: #fff;
+  border: 2px solid #f99746;
+  border-radius: 8px;
+  color: black;
 }
 
 .press {

@@ -229,11 +229,7 @@ class App extends Component {
 
                         <Route path='/auth'>
                             <div style={{ margin: 0, padding: 0 }}>
-                                <NavBar
-                                    value={this.state.searchbox}
-                                    submit={this.handleSubmit}
-                                    change={this.handleChange}
-                                />
+                                <SiteHeader />
                                 <Auth />
                             </div>
                         </Route>
@@ -251,11 +247,7 @@ class App extends Component {
                         </Route>
 
                         <Route path='/signin'>
-                            <NavBar
-                                value={this.state.searchbox}
-                                submit={this.handleSubmit}
-                                change={this.handleChange}
-                            />
+                            <SiteHeader />
                             <Signin />
                         </Route>
 

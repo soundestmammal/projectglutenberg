@@ -16,7 +16,7 @@ const Hero = () => {
                     <div className="hero-subtitle">
                         We are creating a healthier future by building a platform that connects people across the gluten-free ecosystem for greater transparency and discovery.
                     </div>
-                    <div>
+                    <div style={{marginTop: '50px'}}>
                         <Link className="hero-beta" to="/app">Try it now</Link>
                     </div>
                 </Col>

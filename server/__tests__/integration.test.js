@@ -18,11 +18,6 @@ describe("Integration Tests", () => {
         expect(res.body).toHaveProperty("longitude");
       });
 
-      it('should return with correct location', async () => {
-        const res = await request(app).get('/location/client');
-        expect(res.body.latitude).toEqual('33.76160');
-        expect(res.body.longitude).toEqual('-84.39130');
-      });
     });
 
 
@@ -42,12 +37,6 @@ describe("Integration Tests", () => {
         expect(res.body).toHaveProperty("longitude");
       });
 
-      it('should return with correct location', async () => {
-        const res = await request(app)
-          .get('/location/forwardgeocode?location=sacramento&lat=33.74&lng=-110.52');
-        expect(res.body.latitude).toEqual(38.5810606);
-        expect(res.body.longitude).toEqual(-121.4938951);
-      });
     })
   });
 
@@ -173,23 +162,6 @@ describe("Integration Tests", () => {
       expect(res.statusCode).toEqual(200);
       expect(res.body).toHaveProperty('uuid');
     })
-
-  // upload an avatar
-    // it('should upload an avatar', async () => {
-    //   const res = await request(app)
-    //     .post('/users/me/avatar')
-    // })
-
-  // delete avatar
-    
-
-  // get avatar
-    // it('should get an avatar', async () => {
-    //   const res = await request(app)
-    //     .get(`/users/${uuid}/avatar`);
-      
-    //   expect(res.statusCode).toBe(200);
-    // })
 
   // delete account
     it('should delete the user account', async () => {

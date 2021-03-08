@@ -5,7 +5,6 @@ import axios from 'axios';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { BrowserRouter as Router } from 'react-router-dom';
-// import ReactGA from 'react-ga';
 
 import * as actions from '../actions';
 import List from './List';
@@ -21,14 +20,9 @@ import Footer from './Footer';
 
 import { API_ROOT } from '../api-config';
 
-// Removed from 0.3 production
-// import AdminAuth from '../admin/components/AdminAuth';
-// import AdminDashboard from '../admin/components/AdminDashboard';
 import '../styles/app.css';
+import 'antd/dist/antd.css';
 library.add(fas);
-
-// const MIMI = "";
-// ReactGA.initialize(MIMI);
 
 class App extends Component {
     constructor(props) {
@@ -277,9 +271,9 @@ class App extends Component {
               change={this.handleChange}
             />
             <AdminAuth />
-          </Route>
+          </Route> */}
 
-          <Route path="/admin/dashboard">
+          {/* <Route path="/admin/dashboard">
             <NavBar 
               value={this.state.searchbox}
               submit={this.handleSubmit}

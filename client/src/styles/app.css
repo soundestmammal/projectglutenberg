@@ -1,5 +1,6 @@
 /* These are the styles that are going to be used for the main page.
 They will later be refactored into the proper places. */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap');
 
 .map-list-wrapper {
   display: flex;

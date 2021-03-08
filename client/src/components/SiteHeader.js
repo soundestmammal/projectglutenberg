@@ -1,5 +1,4 @@
 import React from 'react';
-import { Menu } from 'antd';
 import { Link } from "react-router-dom";
 import Logo from "./Logo";
 import "../styles/landing.css";
@@ -13,11 +12,8 @@ const SiteHeader = () => {
           </div>
 
           <div className="right">
-            <Link to="/signin" className="login">
+            <Link to="/signin" className="login-header">
               Log in
-            </Link>
-            <Link to="/auth" className="get-started">
-              Get Started
             </Link>
           </div>
         </div>

@@ -8,8 +8,8 @@ const Hero = () => {
 
     return (
         <>
-            <Row style={{height: '100%'}}>
-                <Col span={8} offset={4}>
+            <Row>
+                <Col span={8} offset={4} order={1} md={8} xs={20}>
                     <div className="hero-title">
                         Creating a healthier future
                     </div>
@@ -20,7 +20,7 @@ const Hero = () => {
                         <Link className="hero-beta" to="/app">Try it now</Link>
                     </div>
                 </Col>
-                <Col span={8}>
+                <Col span={8} order={2} md={8} xs={20}>
                     <img src={order} alt="people ordering" />
                 </Col>
             </Row>

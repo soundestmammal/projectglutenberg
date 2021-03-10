@@ -13,7 +13,7 @@
   flex-direction: row;
   justify-content: space-evenly;
   height: 100%;
-  background-color: #17252a;
+  background-color: rgb(2, 23, 44);
   align-items: center;
   width: 100%;
 }
@@ -49,7 +49,7 @@
   height: 50px;
   width: 50px;
   border-radius: 0px 4px 4px 0px;
-  background-color: #3aafa9;
+  background-color: #f99746;
   color: white;
   cursor: pointer;
 }
@@ -61,8 +61,8 @@
 }
 
 .nav-auth-button-acc {
-  background-color: #3aafa9;
-  color: white;
+  background-color: #f99746;
+  color: black;
   font-family: sans-serif;
 }
 
@@ -85,7 +85,7 @@
     flex-direction: column;
     justify-content: space-evenly;
     height: 100%;
-    background-color: #17252a;
+    background-color: rgb(2, 23, 44);
     align-items: center;
     width: 100%;
   }
@@ -105,7 +105,7 @@
     height: 50px;
     width: 50px;
     border-radius: 0px 4px 4px 0px;
-    background-color: #3aafa9;
+    background-color: #f99746;
     color: white;
     cursor: pointer;
   }
@@ -128,7 +128,7 @@
     flex-direction: column;
     justify-content: space-evenly;
     height: 100%;
-    background-color: #17252a;
+    background-color: rgb(2, 23, 44);
     /* background-color: #3AAFA9; */
     align-items: center;
     width: 100%;
@@ -159,7 +159,7 @@
     height: 30px;
     width: 90%;
     border-radius: 0px 4px 4px 0px;
-    background-color: #3aafa9;
+    background-color: #f99746;
     color: white;
     cursor: pointer;
   }
